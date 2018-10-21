@@ -17,8 +17,9 @@ export class MessageView {
 
     render(model, messages, locale) {
         // представление создает dom элементы в первый раз
-        if (this.messages) {this.messages.textContent = '';};
-        if (!this.element) {
+        //if (this.messages) {this.messages.textContent = '';};
+        this.root.textContent = '';
+        /*if (!this.element) {
 
             this.element = document.createElement('div');
             this.element.id = 'conteinerMessages';
@@ -95,14 +96,52 @@ export class MessageView {
                 this.newNumber.setAttribute('y',(156 - 120 * Math.cos(i * Math.PI / 6) + 'px'));
                 this.svgClock.appendChild(this.newNumber);
 */
-            }
+            //}
+
+
 
             for ( let m = 0; m < messages.length; m++ ) {
                 let message = messages[m],
+                    liMessage = document.createElement('li'),
+                    spanMessage = document.createElement('span'),
+                    iMessage = document.createElement('i'),
+                    spanNameUser = document.createElement('span'),
+                    spanTextMessage = document.createElement('span'),
+                    spanAddColumn = document.createElement('span'),
+                    aAddColumn = document.createElement('a'),
+                    iAddColumn = document.createElement('i'),
                     author = document.createElement('b'),
                     comment = document.createElement('p');
 
-                author.textContent = message.name;
+                liMessage.className = 'mdl-list__item mdl-list__item--three-line';
+                this.root.appendChild(liMessage);
+
+                spanMessage.className = 'mdl-list__item-primary-content';
+                liMessage.appendChild(spanMessage);
+
+                iMessage.className = 'material-icons  mdl-list__item-avatar';
+                iMessage.textContent = 'person';
+                spanMessage.appendChild(iMessage);
+
+                spanNameUser.textContent = message.name;
+                spanMessage.appendChild(spanNameUser);
+
+                spanTextMessage.textContent = message.mess;
+                spanTextMessage.className = 'mdl-list__item-text-body';
+                spanMessage.appendChild(spanTextMessage);
+
+                spanAddColumn.className = 'mdl-list__item-secondary-content';
+                liMessage.appendChild(spanAddColumn);
+
+                aAddColumn.className = 'mdl-list__item-secondary-action';
+                aAddColumn.href = '#';
+                liMessage.appendChild(aAddColumn);
+
+                iAddColumn.className = 'material-icons';
+                iAddColumn.textContent = 'star';
+                aAddColumn.appendChild(iAddColumn);
+
+                /*author.textContent = message.name;
                 this.messages.appendChild(author);
                 //alert(11);
                 comment.textContent = message.mess;

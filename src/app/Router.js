@@ -88,7 +88,7 @@ new Router({
         }
     },
 
-}, /*document.body*/document.getElementsByClassName('test')[0]).navigateTo('#minsk');
+}, /*document.body*/document.querySelectorAll('ul')[2]/*getElementById('qq')*/).navigateTo('#minsk');
 
 /*constructor(map, rootElement) {
     this.map = map;
