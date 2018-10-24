@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
 @import "~material-design-lite/material.min.css"
+@import "./media.sass"
 
 html, body
 	font-family: 'Roboto', 'Helvetica', sans-serif
@@ -23,6 +24,10 @@ html, body
 
 .drawer .navigation
 	z-index: -2
+
+main .list-three li
+	padding-top: 0px 
+	padding-bottom: 0px 
 
 .drawer .mdl-menu .mdl-menu__item
 	display: flex
@@ -51,6 +56,7 @@ html, body
 	flex-direction: row
 	align-items: center
 	color: rgba(255, 255, 255, 0.56)
+	padding: 5px 40px
 	font-weight: 500
 
 .layout .navigation .mdl-navigation__link:hover
@@ -61,3 +67,7 @@ html, body
 	font-size: 24px
 	color: rgba(255, 255, 255, 0.56)
 	margin-right: 32px
+
+.message-list
+	height: 700px
+	overflow: auto
