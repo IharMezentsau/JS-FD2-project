@@ -38,6 +38,7 @@
 				<span class="mdl-layout-title">Dialog</span>
 				<div class="mdl-layout-spacer"></div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+					<a class="login-link" href="#">Вход</a>
 					<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
 						<i class="material-icons">search</i>
 					</label>
@@ -146,6 +147,57 @@
 			</div>
 		</main>
 	</div>
+	<section class="modal modal-login">
+
+		<h2>Введите логин и пароль для входа</h2>
+
+		<p>Введите пожалуйста свой логин и пароль.</p>
+		<form class="login-form" method="post">
+			<p>
+				<label for="user-login" hidden>Логин</label>
+				<input class="login-icon-user" id="user-login" type="text" name="login" placeholder="Логин" value="">
+			</p>
+			<p>
+				<label for="user-password" hidden>Пароль</label>
+				<input class="login-icon-password" id="user-password" type="password" name="password" placeholder="Пароль" value="">
+			</p>
+			<p class="login-help">
+				<label for="login-checkbox" class="login-checkbox">
+					<input type="checkbox" id="login-checkbox" name="remember" hidden>
+					<span class="checkbox-indicator"></span>
+					Запомните меня
+				</label>
+				<a class="restore" href="#">Регистрация</a>
+			</p>
+			<button class="button" id="signin" type="submit">Войти</button>
+		</form>
+
+		<button class="modal-close" type="button">закрыть</button>
+	</section>
+
+	<section class="modal checkin">
+
+		<h2>Регистрация</h2>
+
+		<p>Пройдите регистрацию.</p>
+		<form class="checkin-form" method="post">
+			<p>
+				<label for="user-login" hidden>Логин</label>
+				<input class="login-user" id="user-logincheckin" type="text" name="logincheckin" placeholder="Логин" value="">
+			</p>
+			<p>
+				<label for="user-password" hidden>Пароль</label>
+				<input class="login-password" id="user-passwordcheckin" type="password" name="passwordcheckin" placeholder="Пароль" value="">
+			</p>
+			<p>
+				<label for="user-password" hidden>Пароль</label>
+				<input class="login-passwordcheck" id="user-passwordcheckinget" type="password" name="passwordcheckincheck" placeholder="Проверка пароля" value="">
+			</p>
+			<button class="button" type="submit">Зарегестрироваться</button>
+		</form>
+
+		<button class="modal-closecheckin" type="button">Закрыть</button>
+	</section>
 	<script src="main.js"></script>
 </body>
 </html>
