@@ -1,0 +1,363 @@
+/* ВСПЛЫВАЮЩИЕ ОКНА*/
+.login-link
+  display: inline-block
+  padding: 5px 30px
+  margin-right: 16px
+  left: 30px
+  font: inherit
+  text-align: center
+  color: #ffffff
+  vertical-align: middle
+  text-transform: uppercase
+  cursor: pointer
+  background-color: #000000
+  border: none
+  border-radius: 5px
+
+
+.login-link:hover,
+.login-link:focus,
+.login-link:active
+  background-color: #663d15
+
+
+.close
+  display: inline-block
+  padding: 5px 30px
+  margin-right: 16px
+  margin-left: 20px
+  left: 30px
+  font: inherit
+  text-align: center
+  color: #ffffff
+  vertical-align: middle
+  text-transform: uppercase
+  cursor: pointer
+  background-color: #000000
+  border: none
+  border-radius: 5px
+
+
+.close:hover,
+.close:focus,
+.close:active
+  background-color: #663d15
+
+
+
+.button
+  display: inline-block
+  padding: 10px 30px
+  margin-right: 16px
+  font: inherit
+  text-align: center
+  color: #ffffff
+  vertical-align: middle
+  text-transform: uppercase
+  cursor: pointer
+  background-color: #000000
+  width: 100%
+  border: none
+
+
+.button:hover,
+.button:focus,
+.button:active
+  background-color: #663d15
+
+
+.modal
+  position: fixed
+  display: none
+  color: #000000
+  background-color: aliceblue
+  box-shadow: 0 20px 200px rgba(0,0,0,0.9)
+  z-index: 1000
+
+
+.modal-login
+  top: 120px
+  left: 50%
+  width: 300px
+  padding: 50px 80px
+  margin-left: -230px
+  display: none
+
+
+.modal-close
+  position: absolute
+  content: ""
+  left: 490px
+  top: 0px
+  width: 22px
+  height: 22px
+  font-size: 0
+  background: transparent
+  cursor: pointer
+  border: 0
+
+
+.modal-close::before,
+.modal-close::after
+  content: ""
+  position: absolute
+  left: 0px
+  width: 19px
+  height: 3px
+  background-color: #ffffff
+
+
+.modal-close::before
+  transform: rotate(45deg)
+
+
+.modal-close::after
+  transform: rotate(-45deg)
+
+
+.modal h2
+  font-size: 30px
+  line-height: 42px
+
+
+.login-form input[type="text"],
+.login-form input[type="password"]
+  box-sizing: border-box
+  width: 300px
+  padding: 10px 15px
+  padding-right: 40px
+  font: inherit
+  color: #000000
+  background-color: #f9f6f3
+  border: 2px solid #000000
+
+
+.login-form input:focus
+  border-color: #663d15
+
+
+.login-form .login-help
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  margin: 15px 0
+
+.login-checkbox
+  position: relative
+  padding-left: 30px
+  cursor: pointer
+
+
+.login-checkbox input[type="checkbox"] + .checkbox-indicator
+  position: absolute
+  top: 0
+  left: 0
+  width: 17px
+  height: 17px
+  border: 2px solid #000000
+
+
+.login-checkbox input[type="checkbox"]:checked + .checkbox-indicator::before,
+.login-checkbox input[type="checkbox"]:checked + .checkbox-indicator::after
+  content: ""
+  position: absolute
+  top: 8px
+  left: 1px
+  width: 15px
+  height: 2px
+  background-color: #000000
+
+
+.login-checkbox input[type="checkbox"]:checked + .checkbox-indicator::before
+  transform: rotate(45deg)
+
+
+.login-checkbox input[type="checkbox"]:checked + .checkbox-indicator::after
+  transform: rotate(-45deg)
+
+
+.login-form button
+  width: 100%
+
+
+.login-chechbox:hover,
+.login-chechbox:focus
+  color: #663d15
+
+
+.restore
+  color: #000000
+  text-decoration: underline
+
+
+.restore:hover,
+.restore:focus
+  text-decoration: none
+
+
+
+@keyframes bounce
+  0%
+    transform: translateX(-2000px)
+  70%
+    transform: translateX(30px)
+  90%
+    transform: translateX(-10px)
+  100%
+    transform: translateX(0)
+
+@keyframes bounceclose
+  0%
+    transform: translateX(0)
+
+  10%
+    transform: translateX(50px)
+
+  100%
+    transform: translateX(-2000px)
+
+@keyframes shake
+  0%,
+  100%
+    transform: translateX(0)
+  10%,
+  30%,
+  50%,
+  70%,
+  90%
+    transform: translateX(-10px)
+  20%,
+  40%,
+  60%,
+  80%
+    transform: translateX(10px)
+
+.modal-show
+  display: block
+  animation: bounce 1s
+
+
+
+
+.modal-back
+  animation: bounceclose 1s
+
+
+.modal-error
+  animation: shake 0.6s
+
+
+/* ВСПЛЫВАЮЩИЕ ОКНА*/
+
+/* ----------------------------------------------------регистрация------------------------------------------------------*/
+.checkin
+  top: 120px
+  left: 50%
+  width: 300px
+  padding: 50px 80px
+  margin-left: -230px
+  display: none
+
+
+.modal-showcheckin
+  display: block
+  animation: bouncecheckin 1s
+
+
+.modal-closecheckin
+  position: absolute
+  content: ""
+  left: 490px
+  top: 0px
+  width: 22px
+  height: 22px
+  font-size: 0
+  background: transparent
+  cursor: pointer
+  border: 0
+
+
+.modal-closecheckin::before,
+.modal-closecheckin::after
+  content: ""
+  position: absolute
+  left: 0px
+  width: 19px
+  height: 3px
+  background-color: #ffffff
+
+
+.modal-closecheckin::before
+  transform: rotate(45deg)
+
+
+.modal-closecheckin::after
+  transform: rotate(-45deg)
+
+
+.checkin-form input[type="text"],
+.checkin-form input[type="password"]
+  box-sizing: border-box
+  width: 300px
+  padding: 10px 15px
+  padding-right: 40px
+  font: inherit
+  color: #000000
+  background-color: #f9f6f3
+  border: 2px solid #000000
+
+
+.checkin-form input:focus
+  border-color: #663d15
+
+
+.checkin-form .login-help
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  margin: 15px 0
+
+
+@keyframes bouncecheckin
+  0%
+    transform: translateY(-2000px)
+  70%
+    transform: translateY(30px)
+  90%
+    transform: translateY(-10px)
+  100%
+    transform: translateY(0)
+
+
+
+@keyframes bounceclosecheckin
+  0%
+    transform: translateY(0)
+  10%
+    transform: translateY(50px)
+  100%
+    transform: translateY(-2000px)
+
+
+
+@keyframes shakecheckin
+  0%,
+  100%
+    transform: translateX(0)
+  10%,
+  30%,
+  50%,
+  70%,
+  90%
+    transform: translateX(-10px)
+  20%,
+  40%,
+  60%,
+  80%
+    transform: translateX(10px)
+
+.modal-backcheckin
+  animation: bounceclosecheckin 1s
+
+.modal-errorcheckin
+  animation: shakecheckin 0.6s
