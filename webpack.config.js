@@ -79,6 +79,10 @@ let conf = {
 		]
 	},
 	plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
 		new ExtractTextPlugin("style.css"),
 		new webpack.LoaderOptionsPlugin({
 			options: {

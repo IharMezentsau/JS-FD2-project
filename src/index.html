@@ -5,38 +5,144 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="img/android-desktop.png">
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Material Design Lite">
+	<link rel="apple-touch-icon-precomposed" href="img/ios-desktop.png">
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="img/touch/ms-touch-icon-144x144-precomposed.png">
+	<meta name="msapplication-TileColor" content="#3372DF">
+	<link rel="shortcut icon" href="img/favicon.png">
 	<link rel="stylesheet" href="style.css">
+	<style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+	</style>
 </head>
 <body>
 	<!-- Always shows a header, even in smaller screens. -->
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<header class="mdl-layout__header">
+	<div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+		<header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
 			<div class="mdl-layout__header-row">
-				<!-- Title -->
-				<span class="mdl-layout-title">Title</span>
-				<!-- Add spacer, to align navigation to the right -->
+				<span class="mdl-layout-title">Dialog</span>
 				<div class="mdl-layout-spacer"></div>
-				<!-- Navigation. We hide it in small screens. -->
-				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<a class="mdl-navigation__link" href="">Link</a>
-					<a class="mdl-navigation__link" href="">Link</a>
-					<a class="mdl-navigation__link" href="">Link</a>
-					<a class="mdl-navigation__link" href="">Link</a>
-				</nav>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+					<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+						<i class="material-icons">search</i>
+					</label>
+					<div class="mdl-textfield__expandable-holder">
+						<input class="mdl-textfield__input" type="text" id="search">
+						<label class="mdl-textfield__label" for="search">Enter your query...</label>
+					</div>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+					<i class="material-icons">more_vert</i>
+				</button>
+				<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+					<li class="mdl-menu__item">About</li>
+					<li class="mdl-menu__item">Contact</li>
+					<li class="mdl-menu__item">Legal information</li>
+				</ul>
 			</div>
 		</header>
-		<div class="mdl-layout__drawer">
-			<span class="mdl-layout-title">Title</span>
-			<nav class="mdl-navigation">
-				<a class="mdl-navigation__link" href="">Link</a>
-				<a class="mdl-navigation__link" href="">Link</a>
-				<a class="mdl-navigation__link" href="">Link</a>
-				<a class="mdl-navigation__link" href="">Link</a>
+		<div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+			<header class="drawer-header">
+				<img src="img/user.jpg" class="avatar">
+				<div class="avatar-dropdown">
+					<span>hello@example.com</span>
+					<div class="mdl-layout-spacer"></div>
+					<button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+						<i class="material-icons" role="presentation">arrow_drop_down</i>
+						<span class="visuallyhidden">Accounts</span>
+					</button>
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+						<li class="mdl-menu__item">hello@example.com</li>
+						<li class="mdl-menu__item">info@example.com</li>
+						<li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+					</ul>
+				</div>
+			</header>
+			<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+				<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Bryan Cranston</a>
+				<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Aaron Paul</a>
+				<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Bob Odenkirk</a>
+				<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Add</a>
+				<div class="mdl-layout-spacer"></div>
+				<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
 			</nav>
 		</div>
-		<main class="mdl-layout__content">
-			<div class="page-content"><!-- Your content goes here -->
-				<div class="test">Тестовый блок...</div>
+		<main class="mdl-layout__content mdl-color--grey-100">
+			<div class="mdl-grid content">
+				<div class="message-list graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+					<ul class="list-three mdl-list">
+						<li class="mdl-list__item mdl-list__item--three-line">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-avatar">person</i>
+								<span>Bryan Cranston</span>
+								<span class="mdl-list__item-text-body">
+									Bryan Cranston played the role of Walter in Breaking Bad. He is also known
+									for playing Hal in Malcom in the Middle.
+								</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+								<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+							</span>
+						</li>
+						<li class="mdl-list__item mdl-list__item--three-line">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons  mdl-list__item-avatar">person</i>
+								<span>Aaron Paul</span>
+								<span class="mdl-list__item-text-body">
+									Aaron Paul played the role of Jesse in Breaking Bad. He also featured in
+									the "Need For Speed" Movie.
+								</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+								<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+							</span>
+						</li>
+						<li class="mdl-list__item mdl-list__item--three-line">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons  mdl-list__item-avatar">person</i>
+								<span>Bob Odenkirk</span>
+								<span class="mdl-list__item-text-body">
+									Bob Odinkrik played the role of Saul in Breaking Bad. Due to public fondness for the
+									character, Bob stars in his own show now, called "Better Call Saul".
+								</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+								<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="graphs mdl-cell mdl-cell--10-col">
+					<form action="#">
+						<div class="mdl-textfield mdl-js-textfield" style="width: 100%">
+							<textarea class="mdl-textfield__input" type="text" rows= "1" id="sample5" ></textarea>
+							<label class="mdl-textfield__label" for="sample5">Text lines...</label>
+						</div>
+					</form>
+				</div>
+				<div class="mdl-cell mdl-cell--2-col">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+						<i class="material-icons">insert_emoticon</i>
+					</button>
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+						<i class="material-icons">message</i>
+					</button>
+				</div>
 			</div>
 		</main>
 	</div>
