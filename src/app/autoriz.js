@@ -37,13 +37,17 @@ formLog.addEventListener("submit", function (evt) {
         popupLogin.classList.remove("modal-show");
         popupLogin.classList.remove("modal-error");
         let span = document.createElement("span");
-        span.innerHTML = `Добро пожаловать ${loginName}`;
-        document.body.insertBefore(span, linkLog);
+        span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
+        let divwrapp = document.querySelector('.wrapp');
+        divwrapp.appendChild(span);
         let a = document.createElement('a');
-        document.body.replaceChild(a, linkLog);
-        a.innerHTML = `Выйти`;
+        divwrapp.appendChild(a);
+        a.innerHTML += `Выйти`;
         a.setAttribute('class', 'close');
         a.setAttribute('href', 'index.html');
+        divwrapp.removeChild(linkLog);
+        let navNav = document.querySelector('.mdl-navigation__link');
+        navNav.innerHTML = `${loginName} ОНЛАЙН`;
     }
 });
 
@@ -110,13 +114,17 @@ formCheckin.addEventListener("submit", function (evt) {
         popupCheckin.classList.remove("modal-showcheckin");
         popupCheckin.classList.remove("modal-errorcheckin");
         let span = document.createElement("span");
-        span.innerHTML = `Добро пожаловать ${loginName}`;
-        document.body.insertBefore(span, linkLog);
+        span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
+        let divwrapp = document.querySelector('.wrapp');
+        divwrapp.appendChild(span);
         let a = document.createElement('a');
-        document.body.replaceChild(a, linkLog);
-        a.innerHTML = `Выйти`;
+        divwrapp.appendChild(a);
+        a.innerHTML += `Выйти`;
         a.setAttribute('class', 'close');
         a.setAttribute('href', 'index.html');
+        divwrapp.removeChild(linkLog);
+        let navNav = document.querySelector('.mdl-navigation__link');
+        navNav.innerHTML = `${loginName} ОНЛАЙН`;
     }
 });
 
