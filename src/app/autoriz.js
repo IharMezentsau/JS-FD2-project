@@ -1,4 +1,4 @@
-class AuthorizationStorage {
+/*class AuthorizationStorage {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_DRINK_STORAGE';
@@ -256,3 +256,4 @@ window.addEventListener("keydown", function (evt) {
     }
 });
 // РЕГИСТРАЦИЯ------------------------------------------------------------
+*/

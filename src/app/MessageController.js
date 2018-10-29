@@ -1,12 +1,9 @@
 export class MessageController {
-    constructor(model, view, service, locale) {
+    constructor(model, view, service) {
         this.model = model;
         this.view = view;
         this.service = service;
-        this.locale = locale;
-        // контроллер при снятии флажка в представлении
-        // перестает слушать изменения модели,
-        // а при установке - продолжает
+
         this.view.setChangeHandler(
             checked => {
                 if (checked) {
@@ -24,17 +21,24 @@ export class MessageController {
         this.model.setChangeListener(
             () => this.handleModelChange());
         this.handleModelChange();
+
+        if (this.view.btnSendMessage !== undefined) {
+            this.view.btnSendMessage.addEventListener('click',
+                this.sendMessage.bind(this), false);
+        }
     }
 
     handleModelChange() {
         // при вызове функции обратного вызова
         // контроллер перерисовывает представление
-
-        this.model.getMessages(this.model.stringName, this.service.readReady, this.view);
-        //alert(messages);
-        //return(a);
-        //this.view.render(this.model, messages, this.locale);
+        this.model.getMessages(this.service.readReady, this.view);
     }
+
+    sendMessage() {
+        let message = this.service.escapeHTML(this.view.formSendMessage.value);
+        this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this));
+    }
+
     /*constructor(model, view, service, chanelName) {
         this.model = model;
         this.view = view;
