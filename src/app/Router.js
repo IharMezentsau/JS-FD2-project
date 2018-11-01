@@ -3,6 +3,10 @@ import {MessageModel} from "./MessageModel";
 import {MessageView} from "./MessageView";
 import {MessageService} from "./MessageService";
 
+import {AuthController} from "./AuthController";
+import {AuthModel} from "./AuthModel";
+import {AuthView} from "./AuthView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
@@ -69,6 +73,13 @@ new Router({
                 new MessageView(rootElement),
                 new MessageService(),
                 'dialog');
+
+            new AuthController(
+                new AuthModel(),
+                new AuthView(),
+                'dialog');
+
+
         }
     },
     '#tokyo': {
