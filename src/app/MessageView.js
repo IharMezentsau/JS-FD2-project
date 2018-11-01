@@ -17,7 +17,6 @@ export class MessageView {
                     <span class="mdl-layout-title">Dialog</span>
                     <div class="mdl-layout-spacer"></div>
                     <div class="wrapp">
-
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                         <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
