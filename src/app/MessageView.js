@@ -56,7 +56,9 @@ export class MessageView {
                     </div>
                 </header>
                 <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+
                     <div class="niga"></div>
+
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Add</a>
                     <div class="mdl-layout-spacer"></div>
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
