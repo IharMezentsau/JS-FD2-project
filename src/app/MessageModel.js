@@ -1,11 +1,12 @@
 export class MessageModel {
-    constructor(timezone) {
+    constructor(user) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
         this.stringName='LOKTEV_CHAT_MESSAGES';
 
-        this.timezone = timezone; // TODO: добавить зоны
+        this.user = user ? user : localStorage['user'];
+
         this.changeListener = null;
         // модель предоставляет поле date для чтения извне
         this.date = new Date();
@@ -24,16 +25,19 @@ export class MessageModel {
         this.changeListenerCallback = changeListener;
     }
 
-    getMessages(chanelName, readReady, view) {
+    getMessages(readReady, view) {
         let messages;
         $.ajax( {
                 url : this.actionUrl,
                 type : 'POST',
                 dataType: 'json',
                 async: false,
-                data : { f : 'READ', n : /*this.projectName +*/ chanelName },
+                data : { f : 'READ', n : /*this.projectName +*/ this.stringName },
                 cache : false,
                 success: (answer) => {
+
+                    //messages = answer;
+
                     messages = readReady(answer);
                     /*if (!this.messages) {
                         this.messages = messages;
@@ -42,13 +46,57 @@ export class MessageModel {
                         if (messages.length !== 0) this.messages.push(messages);
                         alert(this.messages + 'length this' + this.messages.length + ' length mess' + messages.length + '    ' + messages);
                     }*/
+
                     view.render(this, messages);
                 },
 
                 //error : //errorHandler;
             }
         );
-        //return messages;
+    }
+
+    sendMessage(formMessage, readReady, handleModelChange) {
+        this.updatePassword = Math.random();
+        this.message = {name: this.user, mess: formMessage};
+        $.ajax(
+            {
+                url : this.actionUrl,
+                type : 'POST', dataType:'json',
+                data : { f : 'LOCKGET', n : this.stringName,
+                    p : this.updatePassword },
+                cache : false,
+                success : (a) => this.lockGetReady(a, readReady, handleModelChange),
+                error : this.errorHandler,
+            }
+        );
+    }
+
+    lockGetReady(callresult, readReady, handleModelChange) {
+        if ( callresult.error != undefined )
+            alert(callresult.error);
+        else {
+            let messages = [];
+            if (typeof readReady === 'function') messages = readReady(callresult);
+
+            messages.push(this.message);
+            $.ajax( {
+                    url : this.actionUrl,
+                    type : 'POST', dataType:'json',
+                    data : { f : 'UPDATE', n : this.stringName,
+                        v : JSON.stringify(messages), p : this.updatePassword },
+                    cache : false,
+                    success : (a) => {
+                        this.message = {};
+                        handleModelChange();
+                    },
+                    error : this.errorHandler
+                }
+            );
+        }
+    }
+
+    errorHandler(jqXHR,statusStr,errorStr) {
+        alert(statusStr+' '+errorStr);
     }
 
 }

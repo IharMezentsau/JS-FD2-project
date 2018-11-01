@@ -3,6 +3,10 @@ import {MessageModel} from "./MessageModel";
 import {MessageView} from "./MessageView";
 import {MessageService} from "./MessageService";
 
+import {AuthController} from "./AuthController";
+import {AuthModel} from "./AuthModel";
+import {AuthView} from "./AuthView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
@@ -62,13 +66,17 @@ new Router({
                 'berlin');
         }
     },
-    '#minsk': {
+    '#dialog': {
         runController: rootElement => {
             new MessageController(
                 new MessageModel(),
                 new MessageView(rootElement),
                 new MessageService(),
-                'minsk');
+                'dialog');
+            new AuthController(
+                new AuthModel(),
+                new AuthView(),
+                'dialog');
         }
     },
     '#tokyo': {
@@ -88,7 +96,7 @@ new Router({
         }
     },
 
-}, /*document.body*/document.querySelectorAll('ul')[2]/*getElementById('qq')*/).navigateTo('#minsk');
+}, /*document.body*/document.getElementById('divMain')/*getElementById('qq')*/).navigateTo('#dialog');
 
 /*constructor(map, rootElement) {
     this.map = map;
