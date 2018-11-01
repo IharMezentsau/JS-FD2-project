@@ -73,13 +73,10 @@ new Router({
                 new MessageView(rootElement),
                 new MessageService(),
                 'dialog');
-
             new AuthController(
                 new AuthModel(),
                 new AuthView(),
                 'dialog');
-
-
         }
     },
     '#tokyo': {
