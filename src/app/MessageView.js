@@ -18,10 +18,6 @@ export class MessageView {
                     <div class="mdl-layout-spacer"></div>
                     <div class="wrapp">
 
-
-
-                        <a class="login-link" href="#">Вход</a>
-
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                         <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -62,8 +58,6 @@ export class MessageView {
                 <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
 
                     <div class="niga"></div>
-
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Bryan Cranston</a>
 
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Add</a>
                     <div class="mdl-layout-spacer"></div>
