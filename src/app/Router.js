@@ -58,12 +58,12 @@ new Router({
                 'london');
         }
     },
-    '#berlin': {
+    '#auth': {
         runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'berlin');
+            new AuthController(
+                new AuthModel(),
+                new AuthView(rootElement),
+                'auth');
         }
     },
     '#dialog': {
@@ -73,13 +73,6 @@ new Router({
                 new MessageView(rootElement),
                 new MessageService(),
                 'dialog');
-
-            new AuthController(
-                new AuthModel(),
-                new AuthView(),
-                'dialog');
-
-
         }
     },
     '#tokyo': {
@@ -99,7 +92,7 @@ new Router({
         }
     },
 
-}, /*document.body*/document.getElementById('divMain')/*getElementById('qq')*/).navigateTo('#dialog');
+}, /*document.body*/document.getElementById('divMain')/*getElementById('qq')*/).navigateTo('#auth');
 
 /*constructor(map, rootElement) {
     this.map = map;

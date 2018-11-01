@@ -1,11 +1,20 @@
 export class AuthView {
-    constructor() {
+    constructor(root) {
+        this.root = root;
+
         this.element = null;
+
+        this.divAuth = document.getElementById('authorisation');
     }
 
     render() {
         if(!this.element){
-            document.body.querySelector('.wrapp').innerHTML += `<a class="login-link" href="#">Вход</a>
+            this.root.innerHTML = `<header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Authorisation</span>
+				<div class="mdl-layout-spacer"></div>
+				<div id="authorisation">
+                        <a class="login-link" href="#">Вход</a>
                                                                             
                                         <section class="modal modal-login">
                                         
@@ -57,7 +66,29 @@ export class AuthView {
                                             </form>
                                         
                                             <button class="modal-closecheckin" type="button">Закрыть</button>
-                                        </section>`
+                                        </section>
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+					<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+						<i class="material-icons">search</i>
+					</label>
+					<div class="mdl-textfield__expandable-holder">
+						<input class="mdl-textfield__input" type="text" id="search">
+						<label class="mdl-textfield__label" for="search">Enter your query...</label>
+					</div>
+				</div>
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+					<i class="material-icons">more_vert</i>
+				</button>
+				<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+					<li class="mdl-menu__item">About</li>
+					<li class="mdl-menu__item">Contact</li>
+					<li class="mdl-menu__item">Legal information</li>
+				</ul>
+			</div>
+		</header>
+
+`;
         }
     }
 
@@ -166,14 +197,14 @@ export class AuthView {
                 popupCheckin.classList.remove("modal-errorcheckin");
                 let span = document.createElement("span");
                 span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
-                let divwrapp = document.querySelector('.wrapp');
-                divwrapp.appendChild(span);
+                //let divwrapp = document.querySelector('.wrapp');
+                this.divAuth.appendChild(span);
                 let a = document.createElement('a');
-                divwrapp.appendChild(a);
+                this.divAuth.appendChild(a);
                 a.innerHTML += `Выйти`;
                 a.setAttribute('class', 'close');
                 a.setAttribute('href', 'index.html');
-                divwrapp.removeChild(linkLog);
+                this.divAuth.removeChild(linkLog);
                 let navNav = document.querySelector('.niga');
                 navNav.innerHTML += `<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${name} Online</a>`;
                 // document.body.querySelector('.mdl-grid').style.display = 'none';
