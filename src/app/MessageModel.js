@@ -1,5 +1,5 @@
 export class MessageModel {
-    constructor(user) {
+    constructor(user, chanel) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
