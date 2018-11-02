@@ -1,3 +1,5 @@
+import {AuthView} from "./AuthView";
+
 export class AuthModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
@@ -5,20 +7,21 @@ export class AuthModel {
         this.messages = {};
     }
 
+
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------
-    getAuthorizationStorage(name, pass, popupLogin) {
+    getAuthorizationStorage(name, pass, popupLogin, view) {
         $.ajax({
                 url: this.ajaxHandlerScript,
                 type: 'POST', dataType: 'json',
                 data: {f: 'READ', n: this.stringName},
                 cache: false,
-                success: (callresult) => this.readReady(callresult, name, pass, popupLogin),
+                success: callresult => this.readReady(callresult, name, pass, popupLogin, view),
                 error: this.errorHandler
             }
         );
     }
 
-    readReady(callresult, name, pass, popupLogin) { // сообщения получены - показывает
+    readReady(callresult, name, pass, popupLogin, view) { // сообщения получены - показывает
         if (callresult.error !== undefined)
             alert(callresult.error);
         else {
@@ -28,42 +31,14 @@ export class AuthModel {
             }
             try {
                 if (this.messages[name].pass !== pass) {
-                    let errorvalue = document.getElementById('errorvalue');
-                    errorvalue.style.color = 'red';
-                    errorvalue.innerText = `Введите корректно логин и пароль`;
-                    popupLogin.classList.remove("modal-error");
-                    setTimeout(function () {
-                        popupLogin.classList.add("modal-error");
-                    }, 0);
+                    view.authError(popupLogin);
                 } else {
-                    popupLogin.classList.remove("modal-back");
-                    popupLogin.classList.remove("modal-show");
-                    popupLogin.classList.remove("modal-error");
-                    let span = document.createElement("span");
-                    span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${name}</span>`;
-                    let divwrapp = document.querySelector('.wrapp');
-                    divwrapp.appendChild(span);
-                    let a = document.createElement('a');
-                    divwrapp.appendChild(a);
-                    a.innerHTML += `Выйти`;
-                    a.setAttribute('class', 'close');
-                    a.setAttribute('href', 'index.html');
-                    let linkLog = document.querySelector(".login-link");
-                    divwrapp.removeChild(linkLog);
-                    let navNav = document.querySelector('.niga');
-                    navNav.innerHTML += `<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${name} Online</a>`;
-                    // document.body.querySelector('.mdl-grid').style.display = 'none';
+                    view.authSuccess(name, popupLogin);
                 }
             }
             catch {
                 if (this.messages[name] === undefined || !name || !pass) {
-                    let errorvalue = document.getElementById('errorvalue');
-                    errorvalue.style.color = 'red';
-                    errorvalue.innerText = `Введите корректно логин и пароль`;
-                    popupLogin.classList.remove("modal-error");
-                    setTimeout(function () {
-                        popupLogin.classList.add("modal-error");
-                    }, 0);
+                    view.authError(popupLogin);
                 }
             }
         }

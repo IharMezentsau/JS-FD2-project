@@ -1,27 +1,25 @@
 export class AuthView {
     constructor(root) {
         this.root = root;
-
         this.element = null;
-
-        this.divAuth = document.getElementById('authorisation');
+        this.divAuth = null;
     }
 
     render() {
         if(!this.element){
-            this.root.innerHTML = `<header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            this.root.innerHTML = `<header class="header <!--mdl-layout__header--> mdl-color--grey-100 mdl-color-text--grey-600" style="width: 100%;">
 			<div class="mdl-layout__header-row">
 				<span class="mdl-layout-title">Authorisation</span>
 				<div class="mdl-layout-spacer"></div>
 				<div id="authorisation">
-                        <a class="login-link" href="#">Вход</a>
+                        <a id="login-link" class="login-link" href="#">Вход</a>
                                                                             
-                                        <section class="modal modal-login">
+                                        <section id="modal-login" class="modal modal-login">
                                         
                                             <h2>Введите логин и пароль для входа</h2>
                                         
                                             <p id="errorvalue">Введите пожалуйста свой логин и пароль.</p>
-                                            <form class="login-form" method="post">
+                                            <form id="formlog" class="login-form" method="post">
                                                 <p>
                                                     <label for="user-login" hidden>Логин</label>
                                                     <input class="login-icon-user" id="user-login" type="text" name="login" placeholder="Логин" value="">
@@ -36,20 +34,20 @@ export class AuthView {
                                                         <span class="checkbox-indicator"></span>
                                                         Запомните меня
                                                     </label>
-                                                    <a class="restore" href="#">Регистрация</a>
+                                                    <a id="restore" class="restore" href="#">Регистрация</a>
                                                 </p>
                                                 <button class="button" id="signin" type="submit">Войти</button>
                                             </form>
                                         
-                                            <button class="modal-close" type="button">закрыть</button>
+                                            <button id="modal-close" class="modal-close" type="button">закрыть</button>
                                         </section>
                                         
-                                        <section class="modal checkin">
+                                        <section id="checkin" class="modal checkin">
                                         
                                             <h2>Регистрация</h2>
                                         
                                             <p id="errorvaluecheckin">Пройдите регистрацию.</p>
-                                            <form class="checkin-form" method="post">
+                                            <form id="form-checkin" class="checkin-form" method="post">
                                                 <p>
                                                     <label for="user-login" hidden>Логин</label>
                                                     <input class="login-user" id="user-logincheckin" type="text" name="logincheckin" placeholder="Логин" value="">
@@ -65,7 +63,7 @@ export class AuthView {
                                                 <button class="button" type="submit">Зарегестрироваться</button>
                                             </form>
                                         
-                                            <button class="modal-closecheckin" type="button">Закрыть</button>
+                                            <button id="modal-closecheckin" class="modal-closecheckin" type="button">Закрыть</button>
                                         </section>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -87,142 +85,165 @@ export class AuthView {
 				</ul>
 			</div>
 		</header>
-
-`;
+        `;
         }
     }
 
-    events(model) {
-        // ПЕРВОНАЧАЛЬНЫЙ ВХОД С ПРОВЕРКОЙ ЧЕРЕЗ AJAX----------------------------------------------------
-        let loginName;
-
-        let linkLog = document.querySelector(".login-link");
-        let popupLogin = document.querySelector(".modal-login");
-
-        let closeLog = document.querySelector(".modal-close");
-        let loginLog = popupLogin.querySelector("[name=login]");
-        let passwordLog = popupLogin.querySelector("[name=password]");
-        let formLog = popupLogin.querySelector("form");
-
-        linkLog.addEventListener("click", function (evt) {
-            evt.preventDefault();
-            popupLogin.classList.add("modal-show");
-            loginLog.focus();
-        });
-
-        closeLog.addEventListener("click", function (evt) {
-            evt.preventDefault();
-            popupLogin.classList.add("modal-back");
-            setTimeout(function () {
-                popupLogin.classList.remove("modal-back");
-                popupLogin.classList.remove("modal-show");
-                popupLogin.classList.remove("modal-error");
-            }, 900);
-        });
-
-        formLog.addEventListener("submit", function (evt) {
-            evt.preventDefault();
-            //получить чтонить
-            loginName = loginLog.value;
-            let startPass = passwordLog.value;
-            model.getAuthorizationStorage(loginName, startPass, popupLogin);
-        });
-
-        window.addEventListener("keydown", function (evt) {
-            if (evt.keyCode === 27) {
-                if (popupLogin.classList.contains("modal-show")) {
-                    popupLogin.classList.add("modal-back");
-                    setTimeout(function () {
-                        popupLogin.classList.remove("modal-back");
-                        popupLogin.classList.remove("modal-show");
-                        popupLogin.classList.remove("modal-error");
-                    }, 900);
-                }
-            }
-        });
-// ПЕРВОНАЧАЛЬНЫЙ ВХОД С ПРОВЕРКОЙ ЧЕРЕЗ AJAX-----------------------------
-// РЕГИСТРАЦИЯ------------------------------------------------------------
-
-        let restoreLog = popupLogin.querySelector(".restore");
-        let popupCheckin = document.querySelector(".checkin");
-
-        let closeCheckin = document.querySelector(".modal-closecheckin");
-        let loginCheckin = popupCheckin.querySelector("[name=logincheckin]");
-        let passwordCheckin = popupCheckin.querySelector("[name=passwordcheckin]");
-        let passwordCheckinCheck = popupCheckin.querySelector("[name=passwordcheckincheck]");
-        let formCheckin = popupCheckin.querySelector("form");
-
-
-        restoreLog.addEventListener('click', function (evt) {
-            popupLogin.classList.add("modal-back");
-            setTimeout(function () {
-                popupLogin.classList.remove("modal-back");
-                popupLogin.classList.remove("modal-show");
-                popupLogin.classList.remove("modal-error");
-            }, 900);
-            evt.preventDefault();
-            popupCheckin.classList.add("modal-showcheckin");
-            loginLog.focus();
-        });
-
-        closeCheckin.addEventListener("click", function (evt) {
-            evt.preventDefault();
-            popupCheckin.classList.add("modal-backcheckin");
-            setTimeout(function () {
-                popupCheckin.classList.remove("modal-backcheckin");
-                popupCheckin.classList.remove("modal-showcheckin");
-                popupCheckin.classList.remove("modal-errorcheckin");
-            }, 900);
-        });
-
-        formCheckin.addEventListener("submit", function (evt) {
-            if (!loginCheckin.value || !passwordCheckin.value || !passwordCheckinCheck.value || passwordCheckin.value !== passwordCheckinCheck.value) {
-                let errorvaluecheckin = document.getElementById('errorvaluecheckin');
-                errorvaluecheckin.style.color = 'red';
-                errorvaluecheckin.innerText = `Заполните корректно данные`;
-                evt.preventDefault();
-                popupCheckin.classList.remove("modal-errorcheckin");
-                setTimeout(function () {
-                    popupCheckin.classList.add("modal-errorcheckin");
-                }, 0);
-            } else {
-                loginName = loginCheckin.value;
-                let LoginPassword = passwordCheckin.value;
-                // запись на сервер-------------------------------
-                model.sendAuthorization(loginName, LoginPassword);
-                // конец записи на сервер-------------------------------------------------------------------
-                evt.preventDefault();
-                popupCheckin.classList.remove("modal-backcheckin");
-                popupCheckin.classList.remove("modal-showcheckin");
-                popupCheckin.classList.remove("modal-errorcheckin");
-                let span = document.createElement("span");
-                span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
-                //let divwrapp = document.querySelector('.wrapp');
-                this.divAuth.appendChild(span);
-                let a = document.createElement('a');
-                this.divAuth.appendChild(a);
-                a.innerHTML += `Выйти`;
-                a.setAttribute('class', 'close');
-                a.setAttribute('href', 'index.html');
-                this.divAuth.removeChild(linkLog);
-                let navNav = document.querySelector('.niga');
-                navNav.innerHTML += `<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${name} Online</a>`;
-                // document.body.querySelector('.mdl-grid').style.display = 'none';
-            }
-        });
-
-        window.addEventListener("keydown", function (evt) {
-            if (evt.keyCode === 27) {
-                if (popupCheckin.classList.contains("modal-showcheckin")) {
-                    popupCheckin.classList.add("modal-backcheckin");
-                    setTimeout(function () {
-                        popupCheckin.classList.remove("modal-backcheckin");
-                        popupCheckin.classList.remove("modal-showcheckin");
-                        popupCheckin.classList.remove("modal-errorcheckin");
-                    }, 900);
-                }
-            }
-        });
-// РЕГИСТРАЦИЯ------------------------------------------------------------
+// АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
+    authFormAscent(evt) {        //всплыте окна авторизации
+        let popupLogin = document.getElementById("modal-login"),
+            loginLog = document.getElementById("user-login");
+        evt.preventDefault();
+        popupLogin.classList.add("modal-show");
+        loginLog.focus();
     }
+
+    authFormSubmit(evt, model, view) {     //Проверка авторизации пользователя из базы имён сервера
+        let popupLogin = document.getElementById("modal-login"),
+            loginLog = document.getElementById("user-login"),
+            passwordLog = document.getElementById("user-password");
+        evt.preventDefault();
+        //получить чтонить
+        let loginName = loginLog.value;
+        let startPass = passwordLog.value;
+        model.getAuthorizationStorage(loginName, startPass, popupLogin, view);
+    }
+
+    authSuccess(name, popupLogin) {         //при успешной проверке формы дальнейшие действия
+        popupLogin.classList.remove("modal-back");
+        popupLogin.classList.remove("modal-show");
+        popupLogin.classList.remove("modal-error");
+        // let span = document.createElement("span");
+        // span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${name}</span>`;
+        // this.divAuth = document.getElementById('authorisation');
+        // this.divAuth.appendChild(span);
+        // let a = document.createElement('a');
+        // this.divAuth.appendChild(a);
+        // a.innerHTML += `Выйти`;
+        // a.setAttribute('class', 'close');
+        // a.setAttribute('href', 'index.html');
+        // let linkLog = document.getElementById("login-link");
+        // this.divAuth.removeChild(linkLog);
+        location.hash = `dialog`;
+    }
+
+    authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
+        let errorvalue = document.getElementById('errorvalue');
+        errorvalue.style.color = 'red';
+        errorvalue.innerText = `Введите корректно логин и пароль`;
+        popupLogin.classList.remove("modal-error");
+        setTimeout(function () {
+            popupLogin.classList.add("modal-error");
+        }, 0);
+    }
+
+    authWindowCloseClick(evt) {      // закрытие окна авторизации по клику
+        let popupLogin = document.getElementById("modal-login");
+        evt.preventDefault();
+        popupLogin.classList.add("modal-back");
+        this.authCloseRemoveClass(popupLogin);
+    }
+
+    authWindowCloseEscape(evt) {     //закрыте окна авторизации по нажатию клавишы esc
+        let popupLogin = document.getElementById("modal-login");
+        if (evt.keyCode === 27) {
+            if (popupLogin.classList.contains("modal-show")) {
+                popupLogin.classList.add("modal-back");
+                this.authCloseRemoveClass(popupLogin);
+            }
+        }
+    }
+
+    authCloseRemoveClass(popupLogin) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
+        setTimeout(function () {
+            popupLogin.classList.remove("modal-back");
+            popupLogin.classList.remove("modal-show");
+            popupLogin.classList.remove("modal-error");
+        }, 900);
+    }
+// АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
+// РЕГИСТРАЦИЯ------------------------------------------------------------
+    checkinFormAscent(evt) {        //всплыте окна регистрации
+        let popupLogin = document.getElementById("modal-login"),
+            popupCheckin = document.getElementById("checkin"),
+            loginCheckin = document.getElementById("user-logincheckin");
+        popupLogin.classList.add("modal-back");
+        this.authCloseRemoveClass(popupLogin);
+        evt.preventDefault();
+        popupCheckin.classList.add("modal-showcheckin");
+        loginCheckin.focus();
+    }
+
+    checkinFormSubmit(evt, model) {     //Проверка формы до отправки на сервер, отправка данных на сервер
+        let popupCheckin = document.getElementById("checkin"),
+            linkLog = document.getElementById("login-link"),
+            loginCheckin = document.getElementById("user-logincheckin"),
+            passwordCheckin = document.getElementById("user-passwordcheckin"),
+            passwordCheckinCheck = document.getElementById("user-passwordcheckinget");
+        if (!loginCheckin.value || !passwordCheckin.value || !passwordCheckinCheck.value || passwordCheckin.value !== passwordCheckinCheck.value) {
+            this.checkinError(evt, popupCheckin);
+        } else {
+            let loginName = loginCheckin.value;
+            let LoginPassword = passwordCheckin.value;
+            // запись на сервер-------------------------------
+            model.sendAuthorization(loginName, LoginPassword);
+            // конец записи на сервер-------------------------------------------------------------------
+            this.checkinSuccess(evt, popupCheckin, loginName, linkLog);
+        }
+    }
+
+    checkinSuccess(evt, popupCheckin, loginName, linkLog) {     //при успешной проверке формы дальнейшие действия
+        evt.preventDefault();
+        popupCheckin.classList.remove("modal-backcheckin");
+        popupCheckin.classList.remove("modal-showcheckin");
+        popupCheckin.classList.remove("modal-errorcheckin");
+        // let span = document.createElement("span");
+        // span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
+        // this.divAuth = document.getElementById('authorisation');
+        // this.divAuth.appendChild(span);
+        // let a = document.createElement('a');
+        // this.divAuth.appendChild(a);
+        // a.innerHTML += `Выйти`;
+        // a.setAttribute('class', 'close');
+        // a.setAttribute('href', 'index.html');
+        // this.divAuth.removeChild(linkLog);
+        location.hash = `dialog`;
+    }
+
+    checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
+        let errorvaluecheckin = document.getElementById('errorvaluecheckin');
+        errorvaluecheckin.style.color = 'red';
+        errorvaluecheckin.innerText = `Заполните корректно данные`;
+        evt.preventDefault();
+        popupCheckin.classList.remove("modal-errorcheckin");
+        setTimeout(function () {
+            popupCheckin.classList.add("modal-errorcheckin");
+        }, 0);
+    }
+
+    checkinWindowCloseClick(evt) {      // закрытие окна регистрации по клику
+        let popupCheckin = document.getElementById("checkin");
+        evt.preventDefault();
+        popupCheckin.classList.add("modal-backcheckin");
+        this.checkinCloseRemoveClass(popupCheckin);
+    }
+
+    checkinWindowCloseEscape(evt) {     //закрыте окна регистрации по нажатию клавишы esc
+        let popupCheckin = document.getElementById("checkin");
+        if (evt.keyCode === 27) {
+            if (popupCheckin.classList.contains("modal-showcheckin")) {
+                popupCheckin.classList.add("modal-backcheckin");
+                this.checkinCloseRemoveClass(popupCheckin);
+            }
+        }
+    }
+
+    checkinCloseRemoveClass(popupCheckin) {     //удаление блока ненужных классов после закрытия модального окна РЕГИСТРАЦИИ
+        setTimeout(function () {
+            popupCheckin.classList.remove("modal-backcheckin");
+            popupCheckin.classList.remove("modal-showcheckin");
+            popupCheckin.classList.remove("modal-errorcheckin");
+        }, 900);
+    }
+// РЕГИСТРАЦИЯ------------------------------------------------------------
 }
