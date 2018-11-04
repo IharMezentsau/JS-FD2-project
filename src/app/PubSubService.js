@@ -1,6 +1,11 @@
 export class PubSubService {
     constructor() {
-        this.listeners = {};
+        if (!PubSubService.instance) {
+            PubSubService.instance = this;
+            this.listeners = {};
+        }
+        // Initialize object
+        return PubSubService.instance;
     }
 
     pub(topic, data) {

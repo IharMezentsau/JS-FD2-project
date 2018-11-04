@@ -11,10 +11,19 @@ import {AuthController} from "./AuthController";
 import {AuthModel} from "./AuthModel";
 import {AuthView} from "./AuthView";
 
+import {PubSubService} from "./PubSubService";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
         this.rootElement = rootElement;
+        this.data = '';
+        new PubSubService().sub('onAuthUser', data => {
+            console.log(data);
+            this.data = data;
+            location.hash = `dialog`;
+        });
+
         // Подписаться на событие hashchange
         window.addEventListener('hashchange', this.onhashchange.bind(this));
     }
@@ -32,11 +41,11 @@ export class Router {
             // запустить контроллер страницы,
             // которая соответствует адресу,
             // на который нужно перейти
-            settings.runController(this.rootElement);
+            settings.runController(this.rootElement, this.data);
         }
     }
 
-    navigateTo(route) {
+    navigateTo(route, data) {
         // Выполнить начальную навигацию на адрес по умолчанию
         if (document.location.hash === route && this.loaded) return;
         this._route(route);
@@ -55,9 +64,9 @@ new Router({
         }
     },
     '#dialog': {
-        runController: rootElement => {
+        runController: (rootElement, data) => {
             new MessageController(
-                new MessageModel(),
+                new MessageModel(data),
                 new MessageView(rootElement),
                 new MessageService(),
             );
