@@ -214,9 +214,10 @@ export class AuthView {
         // a.setAttribute('href', 'index.html');
         // this.divAuth.removeChild(linkLog);
         // -- запись в локалсторедж именя
-        localStorage['authName'] = loginName;
+        new PubSubService().pub('onAuthUser', name);
+        //localStorage['authName'] = loginName;
         // -- запись в локалсторедж именя
-        location.hash = `dialog`;
+        //location.hash = `dialog`;
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
