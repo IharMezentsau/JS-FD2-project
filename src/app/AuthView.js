@@ -108,6 +108,7 @@ export class AuthView {
         //получить чтонить
         let loginName = loginLog.value;
         let startPass = passwordLog.value;
+        model.getNameAuth(loginName);
         model.getAuthorizationStorage(loginName, startPass, popupLogin, view);
     }
 
@@ -186,6 +187,7 @@ export class AuthView {
             loginCheckin = document.getElementById("user-logincheckin"),
             passwordCheckin = document.getElementById("user-passwordcheckin"),
             passwordCheckinCheck = document.getElementById("user-passwordcheckinget");
+        model.getNameAuth(loginCheckin.value);
         if (!loginCheckin.value || !passwordCheckin.value || !passwordCheckinCheck.value || passwordCheckin.value !== passwordCheckinCheck.value) {
             this.checkinError(evt, popupCheckin);
         } else {
