@@ -2,10 +2,9 @@ export class MessageView {
     constructor(root) {
         this.root = root;
         this.element = null;
-        this.checkbox = null;
     }
 
-    render(model, messages, user) {
+    render(messages, user) {
         // представление создает dom элементы в первый раз
 
         if (this.btnSendMessage === undefined) {
@@ -90,8 +89,8 @@ export class MessageView {
             this.btnSendMessage = document.getElementById('btnSendMessage');
             this.formSendMessage = document.getElementById('formSendMessage');
             this.listMessages = document.getElementById('listMessages');
+            this.listMessages.parentNode.addEventListener('scroll', (a) => this.scrollMessages(this.listMessages));
         }
-        ;
 
         for (let m = 0; m < messages.length; m++) {
 
@@ -103,9 +102,7 @@ export class MessageView {
                 spanTextMessage = document.createElement('span'),
                 spanAddColumn = document.createElement('span'),
                 aAddColumn = document.createElement('a'),
-                iAddColumn = document.createElement('i'),
-                author = document.createElement('b'),
-                comment = document.createElement('p');
+                iAddColumn = document.createElement('i');
 
             liMessage.className = 'mdl-list__item mdl-list__item--three-line';
             this.listMessages.appendChild(liMessage);
@@ -113,15 +110,22 @@ export class MessageView {
             spanMessage.className = 'mdl-list__item-primary-content';
             liMessage.appendChild(spanMessage);
 
-            iMessage.className = 'material-icons  mdl-list__item-avatar';
-            iMessage.textContent = 'person';
             spanMessage.appendChild(iMessage);
 
             spanNameUser.textContent = message.name;
             spanMessage.appendChild(spanNameUser);
 
-            if (message.name !== user) {
-                this.stopPlayNewMessage();
+            if (message.name !== user) this.stopPlayNewMessage();
+
+            if (message.name === 'system') {
+                spanNameUser.style.color = 'red';
+                spanTextMessage.style.color = 'red';
+                iMessage.style.color = 'red';
+                iMessage.className = 'material-icons';
+                iMessage.textContent = 'announcement';
+            } else {
+                iMessage.textContent = 'person';
+                iMessage.className = 'material-icons  mdl-list__item-avatar';
             }
 
             spanTextMessage.textContent = message.mess;
@@ -141,14 +145,21 @@ export class MessageView {
 
         }
     }
-        stopPlayNewMessage() {
-            let a =  new Audio('./audio/newMessage.mp3');
-            a.onended = () => {
-                a.pause();
-                a.currentTime = 0;
-            };
-            a.play();
-        }
+
+    stopPlayNewMessage() {
+        window.navigator.vibrate(500);
+        let a =  new Audio('./audio/newMessage.mp3');
+        a.onended = () => {
+            a.pause();
+            a.currentTime = 0;
+        };
+        a.play();
+    }
+
+    scrollMessages(a) {
+        console.log(a.getBoundingClientRect());
+    }
+
 }
 
 
