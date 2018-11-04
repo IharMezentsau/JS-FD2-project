@@ -210,6 +210,9 @@ export class AuthView {
         // a.setAttribute('class', 'close');
         // a.setAttribute('href', 'index.html');
         // this.divAuth.removeChild(linkLog);
+        // -- запись в локалсторедж именя
+        localStorage['authName'] = loginName;
+        // -- запись в локалсторедж именя
         location.hash = `dialog`;
     }
 
