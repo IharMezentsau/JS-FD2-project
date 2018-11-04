@@ -1,10 +1,9 @@
-import {PubSubService} from './PubSubService.js';
-
 export class NameModel {
-    constructor() {
+    constructor(name, chanel) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_CHAT';
-        this.changes = new PubSubService();
+        this.name = name;
+        this.chanel = chanel;
     }
 
 
