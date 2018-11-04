@@ -15,9 +15,9 @@ export class MessageService {
             return text;
     }
 
-    readReady(callresult, view) { // сообщения получены - показывает
+    readReady(callresult) { // сообщения получены - показывает
         if ( callresult.error != undefined )
-            view.render([{name: 'system', mess: callresult.error}]);
+            alert(callresult.error);
         else {
             let messages = {};
             if ( callresult.result != "" ) { // либо строка пустая - сообщений нет
