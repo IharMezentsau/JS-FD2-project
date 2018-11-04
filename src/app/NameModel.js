@@ -1,7 +1,10 @@
+import {PubSubService} from './PubSubService.js';
+
 export class NameModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_SITE_STORAGE';
+        this.changes = new PubSubService();
     }
 
 
@@ -20,7 +23,7 @@ export class NameModel {
 
     readReady(callresult, view) { // сообщения получены - показывает
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений

@@ -4,20 +4,20 @@ export class MessageService {
     }
 
     escapeHTML(text) {
-            if ( !text )
-                return text;
-            text = text.toString()
-                .split("&").join("&amp;")
-                .split("<").join("&lt;")
-                .split(">").join("&gt;")
-                .split('"').join("&quot;")
-                .split("'").join("&#039;");
+        if ( !text )
             return text;
+        text = text.toString()
+            .split("&").join("&amp;")
+            .split("<").join("&lt;")
+            .split(">").join("&gt;")
+            .split('"').join("&quot;")
+            .split("'").join("&#039;");
+        return text;
     }
 
-    readReady(callresult) { // сообщения получены - показывает
+    readReady(callresult, view) { // сообщения получены - показывает
         if ( callresult.error != undefined )
-            alert(callresult.error);
+            view.render([{name: 'system', mess: callresult.error}]);
         else {
             let messages = {};
             if ( callresult.result != "" ) { // либо строка пустая - сообщений нет

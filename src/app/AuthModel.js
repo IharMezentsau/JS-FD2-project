@@ -1,10 +1,11 @@
-import {AuthView} from "./AuthView";
+import {PubSubService} from './PubSubService.js';
 
 export class AuthModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_SITE_STORAGE';
         this.messages = {};
+        this.changes = new PubSubService();
     }
 
 
@@ -23,7 +24,7 @@ export class AuthModel {
 
     readReady(callresult, name, pass, popupLogin, view) { // сообщения получены - показывает
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений
@@ -68,7 +69,7 @@ export class AuthModel {
 
     lockGetReady(callresult, func, name, pass) {
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") {
                 this.messages = JSON.parse(callresult.result);
@@ -91,7 +92,7 @@ export class AuthModel {
 
     updateReady(callresult) {
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
     }
 
     // ЗАПИСЬ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------------
