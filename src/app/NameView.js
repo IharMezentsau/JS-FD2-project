@@ -20,8 +20,10 @@ export class NameView {
 
     siteBarNameList(arrName) {
         this.namelist = document.getElementById("namelist");
+        let counter = 0;
         for(let key in arrName) {
-            this.namelist.innerHTML += `<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${key}</a>`;
+            this.namelist.innerHTML += `<a class="mdl-navigation__link" id="${counter+1}" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${key}</a>`;
+            counter++;
         }
     }
 
