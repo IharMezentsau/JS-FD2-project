@@ -23,7 +23,7 @@ export class NameModel {
 
     readReady(callresult, view) { // сообщения получены - показывает
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений

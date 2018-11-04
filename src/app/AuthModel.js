@@ -23,7 +23,7 @@ export class AuthModel {
 
     readReady(callresult, name, pass, popupLogin, view) { // сообщения получены - показывает
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений
@@ -68,7 +68,7 @@ export class AuthModel {
 
     lockGetReady(callresult, func, name, pass) {
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
         else {
             if (callresult.result !== "") {
                 this.messages = JSON.parse(callresult.result);
@@ -91,7 +91,7 @@ export class AuthModel {
 
     updateReady(callresult) {
         if (callresult.error !== undefined)
-            alert(callresult.error);
+            console.log(callresult.error);
     }
 
     // ЗАПИСЬ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------------
