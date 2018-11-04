@@ -3,21 +3,21 @@ export class MessageModel {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
-        this.stringName='LOKTEV_CHAT_MESSAGES';
+        this.stringName = chanel ? chanel : 'MESENTSEV_CHAT_MESSAGES';
 
-        this.user = user ? user : localStorage['user'];
+        this.user = user ? user : /*localStorage['user']*/ /*'test'*/localStorage['authName'];
 
-        this.changeListener = null;
+        this.dialog = 'general';
+
         // модель предоставляет поле date для чтения извне
         this.date = new Date();
         // модель обновляет себя
         setInterval(() => {
             this.date = new Date();
-            if (typeof (this.changeListenerCallback) === 'function') {
-                // и нотифицирует слушателя путем вызова
-                // его функции обратного вызова
-                this.changeListenerCallback();
-            }
+            // нотифицирует слушателя путем вызова
+            // его функции обратного вызова
+            this.changeListenerCallback();
+
         }, 3000);
     }
 
@@ -32,22 +32,22 @@ export class MessageModel {
                 type : 'POST',
                 dataType: 'json',
                 async: false,
-                data : { f : 'READ', n : /*this.projectName +*/ this.stringName },
+                data : { f : 'READ', n : this.projectName + this.stringName },
                 cache : false,
                 success: (answer) => {
-
-                    //messages = answer;
-
                     messages = readReady(answer);
-                    /*if (!this.messages) {
-                        this.messages = messages;
+                    if (!this.messages) {
+                        this.messages = messages[this.dialog];
+                        view.render(this, messages[this.dialog], this.user);
                     } else {
-                        messages.splice(0, this.messages.length);
-                        if (messages.length !== 0) this.messages.push(messages);
-                        alert(this.messages + 'length this' + this.messages.length + ' length mess' + messages.length + '    ' + messages);
-                    }*/
-
-                    view.render(this, messages);
+                        if (messages[this.dialog].length > this.messages.length) {
+                            messages[this.dialog].splice(0, this.messages.length);
+                            if (messages[this.dialog].length !== 0) {
+                                this.messages.push(messages[this.dialog]);
+                                view.render(this, messages[this.dialog], this.user);
+                            }
+                        }
+                    }
                 },
 
                 //error : //errorHandler;
@@ -62,7 +62,7 @@ export class MessageModel {
             {
                 url : this.actionUrl,
                 type : 'POST', dataType:'json',
-                data : { f : 'LOCKGET', n : this.stringName,
+                data : { f : 'LOCKGET', n : this.projectName + this.stringName,
                     p : this.updatePassword },
                 cache : false,
                 success : (a) => this.lockGetReady(a, readReady, handleModelChange),
@@ -72,24 +72,28 @@ export class MessageModel {
     }
 
     lockGetReady(callresult, readReady, handleModelChange) {
-        if ( callresult.error != undefined )
+
+        if (callresult.error != undefined)
             alert(callresult.error);
         else {
-            let messages = [];
+            let messages = {};
             if (typeof readReady === 'function') messages = readReady(callresult);
+            if (messages[this.dialog] === undefined) messages[this.dialog] = [];
 
-            messages.push(this.message);
-            $.ajax( {
-                    url : this.actionUrl,
-                    type : 'POST', dataType:'json',
-                    data : { f : 'UPDATE', n : this.stringName,
-                        v : JSON.stringify(messages), p : this.updatePassword },
-                    cache : false,
-                    success : (a) => {
+            messages[this.dialog].push(this.message);
+            $.ajax({
+                    url: this.actionUrl,
+                    type: 'POST', dataType: 'json',
+                    data: {
+                        f: 'UPDATE', n: this.projectName + this.stringName,
+                        v: JSON.stringify(messages), p: this.updatePassword
+                    },
+                    cache: false,
+                    success: () => {
                         this.message = {};
                         handleModelChange();
                     },
-                    error : this.errorHandler
+                    error: this.errorHandler
                 }
             );
         }

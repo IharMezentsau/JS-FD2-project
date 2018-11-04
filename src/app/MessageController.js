@@ -4,16 +4,6 @@ export class MessageController {
         this.view = view;
         this.service = service;
 
-        this.view.setChangeHandler(
-            checked => {
-                if (checked) {
-                    this.registerModelHandler();
-                } else {
-                    this.model.setChangeListener(null);
-                }
-            }
-        );
-
         this.registerModelHandler();
     }
 
@@ -21,10 +11,14 @@ export class MessageController {
         this.model.setChangeListener(
             () => this.handleModelChange());
         this.handleModelChange();
-
+        this.model.getMessages(this.service.readReady, this.view);
         if (this.view.btnSendMessage !== undefined) {
             this.view.btnSendMessage.addEventListener('click',
                 this.sendMessage.bind(this), false);
+        }
+        if (this.view.btnSendMessage !== undefined) {
+            this.view.btnSendMessage.addEventListener('click',
+                console.log('send'), false);
         }
     }
 

@@ -16,20 +16,18 @@ export class MessageService {
     }
 
     readReady(callresult) { // сообщения получены - показывает
-        /*if ( callresult.error != undefined )
+        if ( callresult.error != undefined )
             alert(callresult.error);
-        else {*/
-
-            let messages = [];
+        else {
+            let messages = {};
             if ( callresult.result != "" ) { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений
                 messages = JSON.parse(callresult.result);
-                // вдруг кто-то сохранил мусор вместо LOKTEV_CHAT_MESSAGES?
-                if ( !Array.isArray(messages) )
-                    messages = [];
+                // вдруг кто-то сохранил мусор вместо CHAT_MESSAGES?
+                if (typeof messages !== 'object') messages = {};
             }
             return messages;
-        //}
+        }
     }
 
 
