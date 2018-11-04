@@ -71,7 +71,7 @@ new Router({
                 new MessageService(),
             );
             new NameController(
-                new NameModel(),
+                new NameModel(data),
                 new NameView(rootElement),
             );
         }
