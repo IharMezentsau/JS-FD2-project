@@ -3,6 +3,10 @@ import {MessageModel} from "./MessageModel";
 import {MessageView} from "./MessageView";
 import {MessageService} from "./MessageService";
 
+import {NameController} from "./NameController";
+import {NameModel} from "./NameModel";
+import {NameView} from "./NameView";
+
 import {AuthController} from "./AuthController";
 import {AuthModel} from "./AuthModel";
 import {AuthView} from "./AuthView";
@@ -72,6 +76,10 @@ new Router({
                 new MessageModel(),
                 new MessageView(rootElement),
                 new MessageService(),
+                'dialog');
+            new NameController(
+                new NameModel(),
+                new NameView(rootElement),
                 'dialog');
         }
     },

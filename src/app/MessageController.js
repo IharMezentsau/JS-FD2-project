@@ -16,6 +16,10 @@ export class MessageController {
             this.view.btnSendMessage.addEventListener('click',
                 this.sendMessage.bind(this), false);
         }
+        if (this.view.btnSendMessage !== undefined) {
+            this.view.btnSendMessage.addEventListener('click',
+                console.log('send'), false);
+        }
     }
 
     handleModelChange() {

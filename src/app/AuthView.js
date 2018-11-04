@@ -124,6 +124,9 @@ export class AuthView {
         // a.setAttribute('href', 'index.html');
         // let linkLog = document.getElementById("login-link");
         // this.divAuth.removeChild(linkLog);
+        // -- запись в локалсторедж именя
+        localStorage['authName'] = name;
+        // -- запись в локалсторедж именя
         location.hash = `dialog`;
     }
 
