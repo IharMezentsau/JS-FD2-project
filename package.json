@@ -7,8 +7,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "start": "webpack-dev-server --mode development --hot --open",
-    "startProd": "./node_modules/webpack/bin/webpack.js -p --progress && node server.js",
+    "start": "webpack-dev-server --mode development --hot --open"
   },
   "author": "",
   "license": "ISC",
