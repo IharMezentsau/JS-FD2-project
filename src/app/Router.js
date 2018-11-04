@@ -46,28 +46,12 @@ export class Router {
 }
 
 new Router({
-    '#newYork': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'newYork');
-        }
-    },
-    '#london': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'london');
-        }
-    },
     '#auth': {
         runController: rootElement => {
             new AuthController(
                 new AuthModel(),
                 new AuthView(rootElement),
-                'auth');
+            );
         }
     },
     '#dialog': {
@@ -76,113 +60,12 @@ new Router({
                 new MessageModel(),
                 new MessageView(rootElement),
                 new MessageService(),
-                'dialog');
+            );
             new NameController(
                 new NameModel(),
                 new NameView(rootElement),
-                'dialog');
-        }
-    },
-    '#tokyo': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'tokyo');
-        }
-    },
-    '#vladivostok': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'vladivostok');
+            );
         }
     },
 
-}, /*document.body*/document.getElementById('divMain')/*getElementById('qq')*/).navigateTo('#auth');
-
-/*constructor(map, rootElement) {
-    this.map = map;
-    this.rootElement = rootElement;
-    // Подписаться на событие hashchange
-    window.addEventListener('hashchange', this.onhashchange.bind(this));
-}
-
-onhashchange(e) {
-    const activeHash = document.location.hash;
-    // Отрисовать страницу для нового адреса
-    this._route(activeHash);
-}
-
-_route(route) {
-    const settings = this.map[route];
-    if (settings) {
-        this.rootElement.innerHTML = '';
-        // запустить контроллер страницы,
-        // которая соответствует адресу,
-        // на который нужно перейти
-        settings.runController(this.rootElement);
-    }
-}
-
-navigateTo(route) {
-    // Выполнить начальную навигацию на адрес по умолчанию
-    if (document.location.hash === route && this.loaded) return;
-    this._route(route);
-    document.location.hash = route;
-    this.loaded = true;
-}
-}
-
-new Router({
-/*'#sendMessage': {
-    runController: rootElement => {
-        new MessageController(
-            new MessageModel(),
-            new MessageView(rootElement, new MessageService()),
-        );
-    }
-},*/
- /*   '#showMessage': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'london');
-        }
-    },
-    /*'#berlin': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'berlin');
-        }
-    },
-    '#minsk': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'minsk');
-        }
-    },
-    '#tokyo': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'tokyo');
-        }
-    },
-    '#vladivostok': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'vladivostok');
-        }
-    },*/
-
-//}, document.body);//.navigateTo('#minsk');
+}, document.getElementById('divMain')).navigateTo('#auth');

@@ -1,10 +1,11 @@
-import {AuthView} from "./AuthView";
+import {PubSubService} from './PubSubService.js';
 
 export class AuthModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_SITE_STORAGE';
         this.messages = {};
+        this.changes = new PubSubService();
     }
 
 
