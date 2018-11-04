@@ -3,8 +3,16 @@ import {PubSubService} from './PubSubService.js';
 export class AuthModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-        this.stringName = 'CHUPILIN_SITE_STORAGE';
+        this.stringName = 'CHUPILIN_CHAT';/*CHUPILIN_SITE_STORAGE*/
         this.messages = {};
+
+        this.changes = new PubSubService();
+        this.getNameAuth();
+
+        this.userName = undefined; //-- при клике на вход сюда передастся имя юзера
+        this.channel = undefined; //-- после того как андрей сделает пока undefined
+
+        // setInterval(()=>{console.log(this.userName)}, 2000);
     }
 
 
@@ -42,6 +50,10 @@ export class AuthModel {
                 }
             }
         }
+    }
+
+    getNameAuth(name) {
+        this.userName = name;
     }
 
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------
