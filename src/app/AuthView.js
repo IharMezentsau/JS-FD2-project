@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class AuthView {
     constructor(root) {
         this.root = root;
@@ -126,9 +128,10 @@ export class AuthView {
         // let linkLog = document.getElementById("login-link");
         // this.divAuth.removeChild(linkLog);
         // -- запись в локалсторедж именя
-        localStorage['authName'] = name;
+        new PubSubService().pub('onAuthUser', name);
+        //localStorage['authName'] = name;
         // -- запись в локалсторедж именя
-        location.hash = `dialog`;
+        //location.hash = `dialog`;
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
@@ -213,9 +216,10 @@ export class AuthView {
         // a.setAttribute('href', 'index.html');
         // this.divAuth.removeChild(linkLog);
         // -- запись в локалсторедж именя
-        localStorage['authName'] = loginName;
+        new PubSubService().pub('onAuthUser', name);
+        //localStorage['authName'] = loginName;
         // -- запись в локалсторедж именя
-        location.hash = `dialog`;
+        //location.hash = `dialog`;
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки

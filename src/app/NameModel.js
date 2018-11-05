@@ -1,10 +1,11 @@
 import {PubSubService} from './PubSubService.js';
 
 export class NameModel {
-    constructor() {
+    constructor(user, chanel) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_CHAT';
-        this.changes = new PubSubService();
+        this.user = user;
+        this.chanel = chanel;
     }
 
 
@@ -30,6 +31,7 @@ export class NameModel {
                 this.names = JSON.parse(callresult.result);
                 console.log(this.names);
                 view.siteBarNameList(this.names);
+                view.render(this.user);
             }
         }
     }

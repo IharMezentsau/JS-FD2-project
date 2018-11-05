@@ -4,11 +4,10 @@ export class MessageModel {
     constructor(user, chanel) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
-        this.changes = new PubSubService();
 
         this.stringName = chanel ? chanel : 'MESENTSEV_CHAT_MESSAGES';
 
-        this.user = user ? user : /*localStorage['user']*/ /*'test'*/localStorage['authName'];
+        this.user = user;
 
         this.dialog = 'general';
 
