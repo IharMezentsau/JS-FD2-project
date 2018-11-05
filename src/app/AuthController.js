@@ -39,6 +39,9 @@ export class AuthController {
         document.getElementById("restore").addEventListener('click', function (evt) {
             view.checkinFormAscent(evt);
         });
+        document.getElementById("login-reg").addEventListener('click', function (evt) {
+            view.checkinFormAscent(evt);
+        });
     }
     checkinEventSubmitForm(model, view) {       //событие проверки формы до отправки на сервер, отправка данных на сервер
         document.getElementById("form-checkin").addEventListener("submit", function (evt) {
