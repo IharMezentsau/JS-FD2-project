@@ -9,13 +9,13 @@ export class AuthView {
 
     render() {
         if(!this.element){
-            this.root.innerHTML = `<header class="header <!--mdl-layout__header--> mdl-color--grey-100 mdl-color-text--grey-600" style="width: 100%;">
-			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Authorisation</span>
-				<div class="mdl-layout-spacer"></div>
-				<div id="authorisation">
-                        <a id="login-link" class="login-link" href="#">Вход</a>
-                                                                            
+            this.root.innerHTML = `
+				<div id="auth" class="auth">
+				<h2 class="authorisation">Authorisation</h2>
+				    <div id="auth_wrapper" class="auth_wrapper">
+                        <a id="login-link" class="login-link come" href="#">Вход</a>
+                        <a id="login-reg" class="login-link check" href="#">Регистрация</a>
+                    </div>                                     
                                         <section id="modal-login" class="modal modal-login">
                                         
                                             <h2>Введите логин и пароль для входа</h2>
@@ -66,27 +66,8 @@ export class AuthView {
                                             </form>
                                         
                                             <button id="modal-closecheckin" class="modal-closecheckin" type="button">Закрыть</button>
-                                        </section>
+                                        </section>                
 				</div>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-					<label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-						<i class="material-icons">search</i>
-					</label>
-					<div class="mdl-textfield__expandable-holder">
-						<input class="mdl-textfield__input" type="text" id="search">
-						<label class="mdl-textfield__label" for="search">Enter your query...</label>
-					</div>
-				</div>
-				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-					<i class="material-icons">more_vert</i>
-				</button>
-				<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-					<li class="mdl-menu__item">About</li>
-					<li class="mdl-menu__item">Contact</li>
-					<li class="mdl-menu__item">Legal information</li>
-				</ul>
-			</div>
-		</header>
         `;
         }
     }
@@ -94,8 +75,10 @@ export class AuthView {
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
     authFormAscent(evt) {        //всплыте окна авторизации
         let popupLogin = document.getElementById("modal-login"),
-            loginLog = document.getElementById("user-login");
+            loginLog = document.getElementById("user-login"),
+            authWrapper = document.getElementById("auth_wrapper");
         evt.preventDefault();
+        authWrapper.classList.add("none");
         popupLogin.classList.add("modal-show");
         loginLog.focus();
     }
@@ -145,23 +128,28 @@ export class AuthView {
     }
 
     authWindowCloseClick(evt) {      // закрытие окна авторизации по клику
-        let popupLogin = document.getElementById("modal-login");
+        let popupLogin = document.getElementById("modal-login"),
+            authWrapper = document.getElementById("auth_wrapper");
         evt.preventDefault();
         popupLogin.classList.add("modal-back");
-        this.authCloseRemoveClass(popupLogin);
+        this.authCloseRemoveClass(popupLogin, authWrapper);
     }
 
     authWindowCloseEscape(evt) {     //закрыте окна авторизации по нажатию клавишы esc
-        let popupLogin = document.getElementById("modal-login");
+        let popupLogin = document.getElementById("modal-login"),
+            authWrapper = document.getElementById("auth_wrapper");
         if (evt.keyCode === 27) {
             if (popupLogin.classList.contains("modal-show")) {
                 popupLogin.classList.add("modal-back");
-                this.authCloseRemoveClass(popupLogin);
+                this.authCloseRemoveClass(popupLogin, authWrapper);
             }
         }
     }
 
-    authCloseRemoveClass(popupLogin) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
+    authCloseRemoveClass(popupLogin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
+        setTimeout(function () {
+            authWrapper.classList.remove("none");
+        }, 100);
         setTimeout(function () {
             popupLogin.classList.remove("modal-back");
             popupLogin.classList.remove("modal-show");
@@ -173,10 +161,12 @@ export class AuthView {
     checkinFormAscent(evt) {        //всплыте окна регистрации
         let popupLogin = document.getElementById("modal-login"),
             popupCheckin = document.getElementById("checkin"),
-            loginCheckin = document.getElementById("user-logincheckin");
+            loginCheckin = document.getElementById("user-logincheckin"),
+            authWrapper = document.getElementById("auth_wrapper");
         popupLogin.classList.add("modal-back");
         this.authCloseRemoveClass(popupLogin);
         evt.preventDefault();
+        authWrapper.classList.add("none");
         popupCheckin.classList.add("modal-showcheckin");
         loginCheckin.focus();
     }
@@ -216,7 +206,7 @@ export class AuthView {
         // a.setAttribute('href', 'index.html');
         // this.divAuth.removeChild(linkLog);
         // -- запись в локалсторедж именя
-        new PubSubService().pub('onAuthUser', name);
+        new PubSubService().pub('onAuthUser', loginName);
         //localStorage['authName'] = loginName;
         // -- запись в локалсторедж именя
         //location.hash = `dialog`;
@@ -234,23 +224,28 @@ export class AuthView {
     }
 
     checkinWindowCloseClick(evt) {      // закрытие окна регистрации по клику
-        let popupCheckin = document.getElementById("checkin");
+        let popupCheckin = document.getElementById("checkin"),
+            authWrapper = document.getElementById("auth_wrapper");
         evt.preventDefault();
         popupCheckin.classList.add("modal-backcheckin");
-        this.checkinCloseRemoveClass(popupCheckin);
+        this.checkinCloseRemoveClass(popupCheckin, authWrapper);
     }
 
     checkinWindowCloseEscape(evt) {     //закрыте окна регистрации по нажатию клавишы esc
-        let popupCheckin = document.getElementById("checkin");
+        let popupCheckin = document.getElementById("checkin"),
+            authWrapper = document.getElementById("auth_wrapper");
         if (evt.keyCode === 27) {
             if (popupCheckin.classList.contains("modal-showcheckin")) {
                 popupCheckin.classList.add("modal-backcheckin");
-                this.checkinCloseRemoveClass(popupCheckin);
+                this.checkinCloseRemoveClass(popupCheckin, authWrapper);
             }
         }
     }
 
-    checkinCloseRemoveClass(popupCheckin) {     //удаление блока ненужных классов после закрытия модального окна РЕГИСТРАЦИИ
+    checkinCloseRemoveClass(popupCheckin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна РЕГИСТРАЦИИ
+        setTimeout(function () {
+            authWrapper.classList.remove("none");
+        }, 100);
         setTimeout(function () {
             popupCheckin.classList.remove("modal-backcheckin");
             popupCheckin.classList.remove("modal-showcheckin");
