@@ -4,10 +4,6 @@ export class AuthModel {
         this.stringName = 'CHUPILIN_CHAT';/*CHUPILIN_SITE_STORAGE*/
         this.messages = {};
 
-<<<<<<< HEAD
-=======
-        this.changes = new PubSubService();
->>>>>>> a588ea323a75d1f56a605d23b350c6eacf8c7d99
         this.getNameAuth();
 
         this.userName = undefined; //-- при клике на вход сюда передастся имя юзера
