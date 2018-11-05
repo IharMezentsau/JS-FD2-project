@@ -1,11 +1,10 @@
 export class NameModel {
-    constructor(name, chanel) {
+    constructor(user, chanel) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_CHAT';
-        this.name = name;
+        this.user = user;
         this.chanel = chanel;
     }
-
 
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------
     getAuthorizationStorage(view) {
@@ -29,6 +28,7 @@ export class NameModel {
                 this.names = JSON.parse(callresult.result);
                 console.log(this.names);
                 view.siteBarNameList(this.names);
+                view.render(this.user);
             }
         }
     }
