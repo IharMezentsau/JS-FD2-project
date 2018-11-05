@@ -1,5 +1,3 @@
-import {PubSubService} from './PubSubService.js';
-
 export class NameModel {
     constructor(user, chanel) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
@@ -7,7 +5,6 @@ export class NameModel {
         this.user = user;
         this.chanel = chanel;
     }
-
 
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------
     getAuthorizationStorage(view) {
