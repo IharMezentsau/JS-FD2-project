@@ -1,5 +1,3 @@
-import {PubSubService} from './PubSubService.js';
-
 export class MessageModel {
     constructor(user, chanel) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";

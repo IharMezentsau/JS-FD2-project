@@ -1,5 +1,3 @@
-import {PubSubService} from './PubSubService.js';
-
 export class NameView {
     constructor(root) {
         this.root = root;
