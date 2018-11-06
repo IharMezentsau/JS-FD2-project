@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class AuthView {
     constructor(root) {
         this.root = root;

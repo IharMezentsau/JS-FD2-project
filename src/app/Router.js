@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 import {MessageController} from "./MessageController";
 import {MessageModel} from "./MessageModel";
 import {MessageView} from "./MessageView";
@@ -10,8 +12,6 @@ import {NameView} from "./NameView";
 import {AuthController} from "./AuthController";
 import {AuthModel} from "./AuthModel";
 import {AuthView} from "./AuthView";
-
-import {PubSubService} from "./PubSubService";
 
 export class Router {
     constructor(map, rootElement) {
