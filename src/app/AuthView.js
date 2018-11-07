@@ -18,7 +18,7 @@ export class AuthView {
                     </div>                                     
                                         <section id="modal-login" class="modal modal-login">
                                         
-                                            <h2>Введите логин и пароль для входа</h2>
+                                            <h2 class="modal-textauth">Введите логин и пароль</h2>
                                         
                                             <p id="errorvalue">Введите пожалуйста свой логин и пароль.</p>
                                             <form id="formlog" class="login-form" method="post">
@@ -46,7 +46,7 @@ export class AuthView {
                                         
                                         <section id="checkin" class="modal checkin">
                                         
-                                            <h2>Регистрация</h2>
+                                            <h2 class="modal-textcheckin">Регистрация</h2>
                                         
                                             <p id="errorvaluecheckin">Пройдите регистрацию.</p>
                                             <form id="form-checkin" class="checkin-form" method="post">

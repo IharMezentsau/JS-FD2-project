@@ -77,4 +77,5 @@ new Router({
         }
     },
 
+
 }, document.getElementById('divMain')).navigateTo('#auth');
