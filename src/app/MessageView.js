@@ -143,6 +143,7 @@ export class MessageView {
             aAddColumn.appendChild(iAddColumn);
 
         }
+        componentHandler.upgradeDom();
     }
 
     stopPlayNewMessage() {
