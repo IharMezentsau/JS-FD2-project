@@ -4,16 +4,6 @@ export class MessageController {
         this.view = view;
         this.service = service;
 
-        this.view.setChangeHandler(
-            checked => {
-                if (checked) {
-                    this.registerModelHandler();
-                } else {
-                    this.model.setChangeListener(null);
-                }
-            }
-        );
-
         this.registerModelHandler();
     }
 
@@ -21,7 +11,7 @@ export class MessageController {
         this.model.setChangeListener(
             () => this.handleModelChange());
         this.handleModelChange();
-
+        this.model.getMessages(this.service.readReady, this.view);
         if (this.view.btnSendMessage !== undefined) {
             this.view.btnSendMessage.addEventListener('click',
                 this.sendMessage.bind(this), false);
@@ -36,50 +26,6 @@ export class MessageController {
 
     sendMessage() {
         let message = this.service.escapeHTML(this.view.formSendMessage.value);
-        this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this));
+        this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this), this.view);
     }
-
-    /*constructor(model, view, service, chanelName) {
-        this.model = model;
-        this.view = view;
-        this.service = service;
-        this.chanelName = chanelName;
-        // контроллер при снятии флажка в представлении
-        // перестает слушать изменения модели,
-        // а при установке - продолжает
-        this.view.setChangeHandler(
-            checked => {
-                if (checked) {
-                    this.registerModelHandler();
-                } else {
-                    this.model.setChangeListener(null);
-                }
-            }
-        );
-
-        this.registerModelHandler();
-
-    }
-
-    registerModelHandler() {
-        this.model.setChangeListener(
-            () => this.handleModelChange());
-        this.handleModelChange();
-    }
-
-    sendMessage() {
-        let newMessage = this.service.escapeHTML(this.view.inputField);
-        this.model.sendMessage(this.chanelName, newMessage, errorHandler);
-    }
-
-    handleModelChange() {
-        // при вызове функции обратного вызова
-        // контроллер перерисовывает представление
-        this.view.render(this.model);
-    }*/
 }
-
-
-
-
-
