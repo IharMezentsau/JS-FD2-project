@@ -18,3 +18,11 @@ import AuthView from './app/AuthView';
 
 import MessageService from './app/MessageService';
 import Router from './app/Router';
+
+//Media
+import newMessage from './audio/newMessage.mp3';
+import androidDesktop from './img/android-desktop.png';
+import user from './img/user.jpg';
+//Favicon
+import favicon from './img/favicon.png';
+import iosDesktop from './img/ios-desktop.png';
