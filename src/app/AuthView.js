@@ -148,12 +148,10 @@ export class AuthView {
 
     authCloseRemoveClass(popupLogin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
         setTimeout(function () {
-            authWrapper.classList.remove("none");
-        }, 100);
-        setTimeout(function () {
             popupLogin.classList.remove("modal-back");
             popupLogin.classList.remove("modal-show");
             popupLogin.classList.remove("modal-error");
+	    authWrapper.classList.remove("none");
         }, 900);
     }
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
@@ -244,12 +242,10 @@ export class AuthView {
 
     checkinCloseRemoveClass(popupCheckin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна РЕГИСТРАЦИИ
         setTimeout(function () {
-            authWrapper.classList.remove("none");
-        }, 100);
-        setTimeout(function () {
             popupCheckin.classList.remove("modal-backcheckin");
             popupCheckin.classList.remove("modal-showcheckin");
             popupCheckin.classList.remove("modal-errorcheckin");
+	    authWrapper.classList.remove("none");
         }, 900);
     }
 // РЕГИСТРАЦИЯ------------------------------------------------------------

@@ -143,6 +143,8 @@ export class MessageView {
             aAddColumn.appendChild(iAddColumn);
 
         }
+				componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+				componentHandler.upgradeDom();
     }
 
     stopPlayNewMessage() {
