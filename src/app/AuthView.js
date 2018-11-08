@@ -118,6 +118,7 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
+    	window.navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
         errorvalue.style.color = 'red';
         errorvalue.innerText = `Введите корректно логин и пароль`;
@@ -211,6 +212,7 @@ export class AuthView {
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
+    	window.navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
         errorvaluecheckin.style.color = 'red';
         errorvaluecheckin.innerText = `Заполните корректно данные`;
