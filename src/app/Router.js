@@ -23,7 +23,6 @@ export class Router {
         this.rootElement = rootElement;
         this.data = '';
         new PubSubService().sub('onAuthUser', data => {
-            console.log(data);
             this.data = data;
             location.hash = `dialog`;
         });

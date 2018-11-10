@@ -152,7 +152,7 @@ export class AuthView {
             popupLogin.classList.remove("modal-back");
             popupLogin.classList.remove("modal-show");
             popupLogin.classList.remove("modal-error");
-	    authWrapper.classList.remove("none");
+        authWrapper.classList.remove("none");
         }, 900);
     }
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------

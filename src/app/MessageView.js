@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class MessageView {
     constructor(root) {
         this.root = root;
@@ -81,6 +83,8 @@ export class MessageView {
                         </button>
                         <button id="btnSendMessage" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
                             <i class="material-icons">message</i>
+                            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"
+                                style="display: none"></div>
                         </button>
                     </div>
                 </div>
@@ -89,6 +93,17 @@ export class MessageView {
             this.formSendMessage = document.getElementById('formSendMessage');
             this.listMessages = document.getElementById('listMessages');
             this.listMessages.parentNode.addEventListener('scroll', (a) => this.scrollMessages(this.listMessages));
+            new PubSubService().sub('clickSendMessage', () => {
+                $('#btnSendMessage > i').toggle(false);
+                $('#btnSendMessage > div').toggle(true);
+                $('#btnSendMessage').attr("disabled", "disabled");
+            });
+            new PubSubService().sub('endSendMessage', (answer) => {
+                $('#btnSendMessage > i').toggle(true);
+                $('#btnSendMessage > div').toggle(false);
+                $('#btnSendMessage').removeAttr("disabled");
+                if (answer === 'OK') $('#formSendMessage').val("");
+            });
         }
 
         for (let m = 0; m < messages.length; m++) {
@@ -143,8 +158,8 @@ export class MessageView {
             aAddColumn.appendChild(iAddColumn);
 
         }
-				componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
-				componentHandler.upgradeDom();
+        componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+        componentHandler.upgradeDom();
     }
 
     stopPlayNewMessage() {
@@ -158,7 +173,10 @@ export class MessageView {
     }
 
     scrollMessages(a) {
-        console.log(a.getBoundingClientRect());
+        //console.log(a.getBoundingClientRect());
+        if (a.getBoundingClientRect().y < 10) {
+            //console.log(a.getBoundingClientRect());
+        }
     }
 
 }

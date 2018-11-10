@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class MessageController {
     constructor(model, view, service) {
         this.model = model;
