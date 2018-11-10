@@ -95,6 +95,7 @@ export class MessageModel {
             if (messages[this.dialog] === undefined) messages[this.dialog] = [];
 
             messages[this.dialog].push(this.message);
+            console.log(messages);
             $.ajax({
                     url: this.actionUrl,
                     type: 'POST', dataType: 'json',

@@ -15,23 +15,6 @@ export class MessageView {
                     <span class="mdl-layout-title">Dialog</span>
                     <div class="mdl-layout-spacer"></div>
                     <div id="wrapp"></div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" id="search">
-                            <label class="mdl-textfield__label" for="search">Enter your query...</label>
-                        </div>
-                    </div>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-                        <li class="mdl-menu__item">About</li>
-                        <li class="mdl-menu__item">Contact</li>
-                        <li class="mdl-menu__item">Legal information</li>
-                    </ul>
                 </div>
             </header>
             <div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -92,6 +75,8 @@ export class MessageView {
             this.btnSendMessage = document.getElementById('btnSendMessage');
             this.formSendMessage = document.getElementById('formSendMessage');
             this.listMessages = document.getElementById('listMessages');
+            this.nameList = $('#namelist');
+            this.nameChannel = $('#nameChannel');
             this.listMessages.parentNode.addEventListener('scroll', (a) => this.scrollMessages(this.listMessages));
             new PubSubService().sub('clickSendMessage', () => {
                 $('#btnSendMessage > i').toggle(false);
@@ -106,6 +91,8 @@ export class MessageView {
             });
         }
         this.renderMessages(messages, user);
+        componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+        componentHandler.upgradeDom();
     }
 
     renderMessages(messages, user) {
@@ -160,8 +147,6 @@ export class MessageView {
             iAddColumn.textContent = 'star';
             aAddColumn.appendChild(iAddColumn);
         }
-        componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
-        componentHandler.upgradeDom();
     }
 
     stopPlayNewMessage() {
