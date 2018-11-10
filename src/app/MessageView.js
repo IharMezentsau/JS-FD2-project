@@ -105,7 +105,10 @@ export class MessageView {
                 if (answer === 'OK') $('#formSendMessage').val("");
             });
         }
+        this.renderMessages(messages, user);
+    }
 
+    renderMessages(messages, user) {
         for (let m = 0; m < messages.length; m++) {
 
             let message = messages[m],
@@ -156,7 +159,6 @@ export class MessageView {
             iAddColumn.className = 'material-icons';
             iAddColumn.textContent = 'star';
             aAddColumn.appendChild(iAddColumn);
-
         }
         componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
         componentHandler.upgradeDom();

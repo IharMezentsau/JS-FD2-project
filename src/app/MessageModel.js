@@ -51,7 +51,7 @@ export class MessageModel {
                             messages[this.dialog].splice(0, this.messages.length);
                             if (messages[this.dialog].length !== 0) {
                                 this.messages.push(messages[this.dialog]);
-                                view.render(messages[this.dialog], this.user);
+                                view.renderMessages(messages[this.dialog], this.user);
                             }
                         }
                     }
