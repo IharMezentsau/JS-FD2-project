@@ -18,7 +18,7 @@ export class AuthView {
                     </div>                                     
                                         <section id="modal-login" class="modal modal-login">
                                         
-                                            <h2>Введите логин и пароль для входа</h2>
+                                            <h2 class="modal-textauth">Введите логин и пароль</h2>
                                         
                                             <p id="errorvalue">Введите пожалуйста свой логин и пароль.</p>
                                             <form id="formlog" class="login-form" method="post">
@@ -46,7 +46,7 @@ export class AuthView {
                                         
                                         <section id="checkin" class="modal checkin">
                                         
-                                            <h2>Регистрация</h2>
+                                            <h2 class="modal-textcheckin">Регистрация</h2>
                                         
                                             <p id="errorvaluecheckin">Пройдите регистрацию.</p>
                                             <form id="form-checkin" class="checkin-form" method="post">
@@ -118,6 +118,7 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
+    	window.navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
         errorvalue.style.color = 'red';
         errorvalue.innerText = `Введите корректно логин и пароль`;
@@ -148,12 +149,10 @@ export class AuthView {
 
     authCloseRemoveClass(popupLogin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
         setTimeout(function () {
-            authWrapper.classList.remove("none");
-        }, 100);
-        setTimeout(function () {
             popupLogin.classList.remove("modal-back");
             popupLogin.classList.remove("modal-show");
             popupLogin.classList.remove("modal-error");
+	    authWrapper.classList.remove("none");
         }, 900);
     }
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
@@ -213,6 +212,7 @@ export class AuthView {
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
+    	window.navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
         errorvaluecheckin.style.color = 'red';
         errorvaluecheckin.innerText = `Заполните корректно данные`;
@@ -244,12 +244,10 @@ export class AuthView {
 
     checkinCloseRemoveClass(popupCheckin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна РЕГИСТРАЦИИ
         setTimeout(function () {
-            authWrapper.classList.remove("none");
-        }, 100);
-        setTimeout(function () {
             popupCheckin.classList.remove("modal-backcheckin");
             popupCheckin.classList.remove("modal-showcheckin");
             popupCheckin.classList.remove("modal-errorcheckin");
+	    authWrapper.classList.remove("none");
         }, 900);
     }
 // РЕГИСТРАЦИЯ------------------------------------------------------------
