@@ -11,6 +11,7 @@ export class NameView {
         this.clearLocalStorage();
         this.divwrapp = document.getElementById("wrapp");
         this.span = document.createElement("span");
+        this.span.className = 'welcomeSpan';
         this.span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${user}</span>`;
         this.divwrapp.appendChild(this.span);
         this.button = document.createElement('a');
