@@ -77,7 +77,9 @@ export class MessageView {
             this.listMessages = document.getElementById('listMessages');
             this.nameList = $('#namelist');
             this.nameChannel = $('#nameChannel');
-            this.listMessages.parentNode.addEventListener('scroll', (a) => this.scrollMessages(this.listMessages));
+            this.listMessages.parentNode.addEventListener('scroll', (a) => this.loadOldMessages(this.listMessages));
+            $(this.listMessages).on('DOMNodeInserted', this.scrollListMessage.bind(this));
+
             new PubSubService().sub('clickSendMessage', () => {
                 $('#btnSendMessage > i').toggle(false);
                 $('#btnSendMessage > div').toggle(true);
@@ -103,23 +105,18 @@ export class MessageView {
                 spanMessage = document.createElement('span'),
                 iMessage = document.createElement('i'),
                 spanNameUser = document.createElement('span'),
-                spanTextMessage = document.createElement('span'),
-                spanAddColumn = document.createElement('span'),
-                aAddColumn = document.createElement('a'),
-                iAddColumn = document.createElement('i');
+                spanTextMessage = document.createElement('span');
 
             liMessage.className = 'mdl-list__item mdl-list__item--three-line';
             this.listMessages.appendChild(liMessage);
 
+            spanMessage.appendChild(iMessage);
+
             spanMessage.className = 'mdl-list__item-primary-content';
             liMessage.appendChild(spanMessage);
 
-            spanMessage.appendChild(iMessage);
-
             spanNameUser.textContent = message.name;
             spanMessage.appendChild(spanNameUser);
-
-            if (message.name !== user) this.stopPlayNewMessage();
 
             if (message.name === 'system') {
                 spanNameUser.style.color = 'red';
@@ -129,23 +126,21 @@ export class MessageView {
                 iMessage.textContent = 'announcement';
             } else {
                 iMessage.textContent = 'person';
-                iMessage.className = 'material-icons  mdl-list__item-avatar';
+                iMessage.className = 'material-icons mdl-list__item-avatar';
+            }
+
+            if (message.name === user) {
+                $(iMessage).addClass('avatarAuthor');
+                $(liMessage).addClass('liAuthor');
+            } else {
+                this.stopPlayNewMessage();
             }
 
             spanTextMessage.textContent = message.mess;
             spanTextMessage.className = 'mdl-list__item-text-body';
             spanMessage.appendChild(spanTextMessage);
 
-            spanAddColumn.className = 'mdl-list__item-secondary-content';
-            liMessage.appendChild(spanAddColumn);
-
-            aAddColumn.className = 'mdl-list__item-secondary-action';
-            aAddColumn.href = '#';
-            liMessage.appendChild(aAddColumn);
-
-            iAddColumn.className = 'material-icons';
-            iAddColumn.textContent = 'star';
-            aAddColumn.appendChild(iAddColumn);
+            $(liMessage).hide().show(500);
         }
     }
 
@@ -159,11 +154,23 @@ export class MessageView {
         a.play();
     }
 
-    scrollMessages(a) {
-        //console.log(a.getBoundingClientRect());
-        if (a.getBoundingClientRect().y < 10) {
-            //console.log(a.getBoundingClientRect());
+    scrollListMessage() {
+        let heightUl = $(this.listMessages).height(),
+            heightMessage = $(this.listMessages).find('li:first').height(),
+            positionUl = $(this.listMessages).position().top,
+            viewBox = $(this.listMessages).parent().height();
+        if (heightUl + positionUl - viewBox < heightMessage) {
+            this.listMessages.scrollIntoView(false);
         }
+    }
+
+    loadOldMessages(a) {
+        //console.log(a.getBoundingClientRect());
+
+        /*if (/*a.scrollHeight === a.clientHeight + a.scrollTop*///a.getBoundingClientRect().y < 90) {
+            //a.scrollIntoView(false);
+          //  console.log(a.getBoundingClientRect());
+        //}*/
     }
 
 }

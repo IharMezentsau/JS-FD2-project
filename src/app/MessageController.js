@@ -17,13 +17,10 @@ export class MessageController {
         if (this.view.btnSendMessage !== undefined) {
             this.view.btnSendMessage.addEventListener('click',
                 this.sendMessage.bind(this), false);
+            this.view.formSendMessage.addEventListener('keypress', this.sendMessageKeyPress.bind(this), false);
         }
-        if (this.view.nameList !== undefined) {
-            $(this.view.nameList).click(this.changeChannel.bind(this));
-        }
-        if (this.view.nameChannel !== undefined) {
-            $(this.view.nameChannel).click(this.changeChannel);
-        }
+        if (this.view.nameList !== undefined) $(this.view.nameList).click(this.changeChannel.bind(this));
+        if (this.view.nameChannel !== undefined) $(this.view.nameChannel).click(this.changeChannel);
     }
 
     handleModelChange() {
@@ -32,16 +29,25 @@ export class MessageController {
         this.model.getMessages(this.service.readReady, this.view);
     }
 
+    sendMessageKeyPress(e) {
+        if (e.keyCode === 13) this.sendMessage();
+    }
+
     sendMessage() {
         let message = this.service.escapeHTML(this.view.formSendMessage.value);
         this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this), this.view);
     }
 
     changeChannel(e) {
-        let stringArray = [$(e.target).text().replace(/^person/, ''), this.model.user];
+        $('.active').removeClass('active');
+        let chanelName = $(e.target).text().replace(/^person/, ''),
+            stringArray = [chanelName, this.model.user];
+        new PubSubService().pub('changeNameChannel', chanelName);
+        $(e.target).addClass('active');
         this.model.dialog = stringArray.sort().join('');
-        this.model.messages = [];
+        delete this.model.messages;
         this.view.listMessages.innerHTML = '';
+        this.handleModelChange();
     }
 
 }

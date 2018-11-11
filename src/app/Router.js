@@ -44,20 +44,7 @@ export class Router {
             // запустить контроллер страницы,
             // которая соответствует адресу,
             // на который нужно перейти
-
             settings.runController(this.rootElement, this.data);
-
-
-            /*
-
-            if (route = '#404'){
-                settings.runController(document.getElementsByTagName('body'), this.data);
-            } else {
-                settings.runController(this.rootElement, this.data);
-            }
-
-             */
-
         }
     }
 
@@ -79,22 +66,6 @@ new Router({
             );
         }
     },
-    '#404': {
-        runController: rootElement => {
-            new ErrorController(
-                new ErrorModel(),
-                new ErrorView(rootElement),
-            );
-        }
-    },
-    '#400': {
-        runController: rootElement => {
-            new ErrorController(
-                new ErrorModel(),
-                new ErrorView(rootElement),
-            );
-        }
-    },
     '#dialog': {
         runController: (rootElement, data) => {
             new MessageController(
@@ -108,6 +79,12 @@ new Router({
             );
         }
     },
-
-
+    '#error': {
+        runController: rootElement => {
+            new ErrorController(
+                new ErrorModel(data),
+                new ErrorView(rootElement),
+            );
+        }
+    },
 }, document.getElementById('divMain')).navigateTo('#auth');
