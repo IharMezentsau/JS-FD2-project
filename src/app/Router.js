@@ -13,6 +13,10 @@ import {AuthController} from "./AuthController";
 import {AuthModel} from "./AuthModel";
 import {AuthView} from "./AuthView";
 
+import {ChanelController} from "./ChanelController";
+import {ChanelModel} from "./ChanelModel";
+import {ChanelView} from "./ChanelView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
@@ -60,9 +64,17 @@ new Router({
             new AuthController(
                 new AuthModel(),
                 new AuthView(rootElement),
-            );
+						);
         }
-    },
+		},
+		'#chanel': {
+				runController: rootElement => {
+						new ChanelController(
+							new ChanelModel(),
+							new ChanelView(rootElement)
+						);
+				}
+	},
     '#dialog': {
         runController: (rootElement, data) => {
             new MessageController(
