@@ -25,9 +25,16 @@ export class Router {
     constructor(map, rootElement) {
         this.map = map;
         this.rootElement = rootElement;
-        this.data = '';
-        new PubSubService().sub('onAuthUser', data => {
-            this.data = data;
+        this.data = {};
+        new PubSubService().sub('onAuthUser', user => {
+            this.data.user = user;
+            // Для Андрея
+            //location.hash = `channel`;
+            location.hash = `dialog`;
+        });
+        // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
+        new PubSubService().sub('onEnterChannel', channel => {
+            this.data.channel = channel;
             location.hash = `dialog`;
         });
 
@@ -70,14 +77,14 @@ new Router({
             );
         }
     },
-    '#chanel': {
-        runController: rootElement => {
+    '#channel': {
+        runController: (rootElement, data) => {
             new ChanelController(
-                new ChanelModel(),
+                new ChanelModel(data.user),
                 new ChanelView(rootElement)
             );
         }
-		},
+    },
     '#dialog': {
         runController: (rootElement, data) => {
             new MessageController(
@@ -92,7 +99,7 @@ new Router({
         }
     },
     '#error': {
-        runController: rootElement => {
+        runController: (rootElement, data) => {
             new ErrorController(
                 new ErrorModel(data),
                 new ErrorView(rootElement),

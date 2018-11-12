@@ -1,11 +1,12 @@
 export class ChanelModel {
-	constructor() {
-			this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-			//this.stringName = 'CHUPILIN_CHAT';
-			this.stringPerson = 'CHUPILIN_DRINK_STORAGE';
-			this.stringChanel = 'CHANEL_STORAGE';
-			this.chanelTemp = undefined,
-      this.personTemp = undefined;
+	constructor(user) {
+		this.user = user;
+		this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
+		//this.stringName = 'CHUPILIN_CHAT';
+		this.stringPerson = 'CHUPILIN_DRINK_STORAGE';
+		this.stringChanel = 'CHANEL_STORAGE';
+		this.chanelTemp = undefined;
+		this.personTemp = undefined;
 	}
 
 	getStorage(storage) {

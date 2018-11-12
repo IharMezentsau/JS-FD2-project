@@ -1,13 +1,13 @@
 import {PubSubService} from './PubSubService.js';
 
 export class MessageModel {
-    constructor(user, chanel) {
+    constructor(data) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
-        this.stringName = chanel ? chanel : 'MESENTSEV_CHAT_MESSAGES';
+        this.stringName = data.channel ? data.channel : 'MESENTSEV_CHAT_MESSAGES';
 
-        this.user = user;
+        this.user = data.user;
 
         this.dialog = 'general';
 
