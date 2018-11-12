@@ -99,4 +99,4 @@ new Router({
             );
         }
     },
-}, document.getElementById('divMain')).navigateTo('#chanel');
+}, document.getElementById('divMain')).navigateTo('#auth');
