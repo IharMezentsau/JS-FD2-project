@@ -77,7 +77,7 @@ new Router({
                 new ChanelView(rootElement)
             );
         }
-	},
+		},
     '#dialog': {
         runController: (rootElement, data) => {
             new MessageController(
