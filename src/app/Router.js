@@ -71,11 +71,11 @@ new Router({
         }
     },
     '#chanel': {
-        runController: rootElement => {
+        runController: (rootElement, data) => {
             new ChanelController(
-                new ChanelModel(),
+                new ChanelModel(data),
                 new ChanelView(rootElement)
-            );
+						);
         }
 		},
     '#dialog': {
@@ -99,4 +99,4 @@ new Router({
             );
         }
     },
-}, document.getElementById('divMain')).navigateTo('#auth');
+}, document.getElementById('divMain')).navigateTo('#chanel');
