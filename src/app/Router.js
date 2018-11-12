@@ -17,6 +17,10 @@ import {ErrorController} from "./ErrorController";
 import {ErrorModel} from "./ErrorModel";
 import {ErrorView} from "./ErrorView";
 
+import {ChanelController} from "./ChanelController";
+import {ChanelModel} from "./ChanelModel";
+import {ChanelView} from "./ChanelView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
@@ -66,6 +70,14 @@ new Router({
             );
         }
     },
+    '#chanel': {
+        runController: rootElement => {
+            new ChanelController(
+                new ChanelModel(),
+                new ChanelView(rootElement)
+            );
+        }
+	},
     '#dialog': {
         runController: (rootElement, data) => {
             new MessageController(
