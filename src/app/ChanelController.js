@@ -17,15 +17,15 @@ export class ChanelController {
 				this.delEvent (this.service, this.view, this.model, "vika");
 			});
 	}
+	
+	// удаление канала
 	delEvent (service, view, model, user) {
-		let del = document.querySelectorAll(".delete");
-		if (del) {
-			for (let i = 0; i < del.length; i++) {
-				del[i].addEventListener("click", function () {
-					service.delChanel(this, model.chanelTemp, model.personlTemp, user);
-					//view.chanelList(model.personlTemp, user);
-				});
+		let list = document.getElementById('chanel-list');
+		list.addEventListener("click", function(evt) {
+			if (evt.target.parentElement.classList.value.indexOf('delete') != -1) {
+				service.delChanel(evt.target.parentElement, model.chanelTemp, model.personlTemp, user);
+				view.chanelList(model.personlTemp, user);
 			}
-		}
+		})
 	}
 }
