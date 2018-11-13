@@ -108,4 +108,4 @@ new Router({
             );
         }
     },
-}, document.getElementById('divMain')).navigateTo('#channel');
+}, document.getElementById('divMain')).navigateTo('#auth');
