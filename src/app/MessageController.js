@@ -1,21 +1,10 @@
+import {PubSubService} from "./PubSubService";
+
 export class MessageController {
-    constructor(model, view, service, locale) {
+    constructor(model, view, service) {
         this.model = model;
         this.view = view;
         this.service = service;
-        this.locale = locale;
-        // контроллер при снятии флажка в представлении
-        // перестает слушать изменения модели,
-        // а при установке - продолжает
-        this.view.setChangeHandler(
-            checked => {
-                if (checked) {
-                    this.registerModelHandler();
-                } else {
-                    this.model.setChangeListener(null);
-                }
-            }
-        );
 
         this.registerModelHandler();
     }
@@ -24,58 +13,41 @@ export class MessageController {
         this.model.setChangeListener(
             () => this.handleModelChange());
         this.handleModelChange();
+        this.model.getMessages(this.service.readReady, this.view);
+        if (this.view.btnSendMessage !== undefined) {
+            this.view.btnSendMessage.addEventListener('click',
+                this.sendMessage.bind(this), false);
+            this.view.formSendMessage.addEventListener('keypress', this.sendMessageKeyPress.bind(this), false);
+        }
+        if (this.view.nameList !== undefined) $(this.view.nameList).click(this.changeChannel.bind(this));
+        if (this.view.nameChannel !== undefined) $(this.view.nameChannel).click(this.changeChannel);
     }
 
     handleModelChange() {
         // при вызове функции обратного вызова
         // контроллер перерисовывает представление
-
-        this.model.getMessages(this.model.stringName, this.service.readReady, this.view);
-        //alert(messages);
-        //return(a);
-        //this.view.render(this.model, messages, this.locale);
-    }
-    /*constructor(model, view, service, chanelName) {
-        this.model = model;
-        this.view = view;
-        this.service = service;
-        this.chanelName = chanelName;
-        // контроллер при снятии флажка в представлении
-        // перестает слушать изменения модели,
-        // а при установке - продолжает
-        this.view.setChangeHandler(
-            checked => {
-                if (checked) {
-                    this.registerModelHandler();
-                } else {
-                    this.model.setChangeListener(null);
-                }
-            }
-        );
-
-        this.registerModelHandler();
-
+        this.model.getMessages(this.service.readReady, this.view);
     }
 
-    registerModelHandler() {
-        this.model.setChangeListener(
-            () => this.handleModelChange());
-        this.handleModelChange();
+    sendMessageKeyPress(e) {
+        if (e.keyCode === 13) this.sendMessage();
     }
 
     sendMessage() {
-        let newMessage = this.service.escapeHTML(this.view.inputField);
-        this.model.sendMessage(this.chanelName, newMessage, errorHandler);
+        let message = this.service.escapeHTML(this.view.formSendMessage.value);
+        this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this), this.view);
     }
 
-    handleModelChange() {
-        // при вызове функции обратного вызова
-        // контроллер перерисовывает представление
-        this.view.render(this.model);
-    }*/
+    changeChannel(e) {
+        $('.active').removeClass('active');
+        let chanelName = $(e.target).text().replace(/^person/, ''),
+            stringArray = [chanelName, this.model.user];
+        new PubSubService().pub('changeNameChannel', chanelName);
+        $(e.target).addClass('active');
+        this.model.dialog = stringArray.sort().join('');
+        delete this.model.messages;
+        this.view.listMessages.innerHTML = '';
+        this.handleModelChange();
+    }
+
 }
-
-
-
-
-

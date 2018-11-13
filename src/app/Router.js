@@ -1,12 +1,43 @@
+import {PubSubService} from "./PubSubService";
+
 import {MessageController} from "./MessageController";
 import {MessageModel} from "./MessageModel";
 import {MessageView} from "./MessageView";
 import {MessageService} from "./MessageService";
 
+import {NameController} from "./NameController";
+import {NameModel} from "./NameModel";
+import {NameView} from "./NameView";
+
+import {AuthController} from "./AuthController";
+import {AuthModel} from "./AuthModel";
+import {AuthView} from "./AuthView";
+
+import {ErrorController} from "./ErrorController";
+import {ErrorModel} from "./ErrorModel";
+import {ErrorView} from "./ErrorView";
+
+import {ChanelController} from "./ChanelController";
+import {ChanelModel} from "./ChanelModel";
+import {ChanelView} from "./ChanelView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
         this.rootElement = rootElement;
+        this.data = {};
+        new PubSubService().sub('onAuthUser', user => {
+            this.data.user = user;
+            // Для Андрея
+            //location.hash = `channel`;
+            location.hash = `dialog`;
+        });
+        // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
+        new PubSubService().sub('onEnterChannel', channel => {
+            this.data.channel = channel;
+            location.hash = `dialog`;
+        });
+
         // Подписаться на событие hashchange
         window.addEventListener('hashchange', this.onhashchange.bind(this));
     }
@@ -24,11 +55,11 @@ export class Router {
             // запустить контроллер страницы,
             // которая соответствует адресу,
             // на который нужно перейти
-            settings.runController(this.rootElement);
+            settings.runController(this.rootElement, this.data);
         }
     }
 
-    navigateTo(route) {
+    navigateTo(route, data) {
         // Выполнить начальную навигацию на адрес по умолчанию
         if (document.location.hash === route && this.loaded) return;
         this._route(route);
@@ -38,139 +69,41 @@ export class Router {
 }
 
 new Router({
-    '#newYork': {
+    '#auth': {
         runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'newYork');
+            new AuthController(
+                new AuthModel(),
+                new AuthView(rootElement),
+            );
         }
     },
-    '#london': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'london');
+    '#channel': {
+        runController: (rootElement, data) => {
+            new ChanelController(
+                new ChanelModel(data.user),
+                new ChanelView(rootElement)
+            );
         }
     },
-    '#berlin': {
-        runController: rootElement => {
+    '#dialog': {
+        runController: (rootElement, data) => {
             new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'berlin');
-        }
-    },
-    '#minsk': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
+                new MessageModel(data),
                 new MessageView(rootElement),
                 new MessageService(),
-                'minsk');
+            );
+            new NameController(
+                new NameModel(data),
+                new NameView(rootElement),
+            );
         }
     },
-    '#tokyo': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'tokyo');
+    '#error': {
+        runController: (rootElement, data) => {
+            new ErrorController(
+                new ErrorModel(data),
+                new ErrorView(rootElement),
+            );
         }
     },
-    '#vladivostok': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'vladivostok');
-        }
-    },
-
-}, /*document.body*/document.getElementsByClassName('test')[0]).navigateTo('#minsk');
-
-/*constructor(map, rootElement) {
-    this.map = map;
-    this.rootElement = rootElement;
-    // Подписаться на событие hashchange
-    window.addEventListener('hashchange', this.onhashchange.bind(this));
-}
-
-onhashchange(e) {
-    const activeHash = document.location.hash;
-    // Отрисовать страницу для нового адреса
-    this._route(activeHash);
-}
-
-_route(route) {
-    const settings = this.map[route];
-    if (settings) {
-        this.rootElement.innerHTML = '';
-        // запустить контроллер страницы,
-        // которая соответствует адресу,
-        // на который нужно перейти
-        settings.runController(this.rootElement);
-    }
-}
-
-navigateTo(route) {
-    // Выполнить начальную навигацию на адрес по умолчанию
-    if (document.location.hash === route && this.loaded) return;
-    this._route(route);
-    document.location.hash = route;
-    this.loaded = true;
-}
-}
-
-new Router({
-/*'#sendMessage': {
-    runController: rootElement => {
-        new MessageController(
-            new MessageModel(),
-            new MessageView(rootElement, new MessageService()),
-        );
-    }
-},*/
- /*   '#showMessage': {
-        runController: rootElement => {
-            new MessageController(
-                new MessageModel(),
-                new MessageView(rootElement),
-                'london');
-        }
-    },
-    /*'#berlin': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'berlin');
-        }
-    },
-    '#minsk': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'minsk');
-        }
-    },
-    '#tokyo': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'tokyo');
-        }
-    },
-    '#vladivostok': {
-        runController: rootElement => {
-            new TClockControllerButtons(
-                new TClock(),
-                new TClockViewSVG(rootElement),
-                'vladivostok');
-        }
-    },*/
-
-//}, document.body);//.navigateTo('#minsk');
+}, document.getElementById('divMain')).navigateTo('#auth');

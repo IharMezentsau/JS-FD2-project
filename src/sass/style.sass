@@ -1,5 +1,100 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
-@import "~material-design-lite/material.min.css"
+@import "~material-design-lite/dist/material.blue_grey-indigo.min.css"
+@import "./media.sass"
+@import "./autorizeition.sass"
+@import "./errorpage.sass"
 
-.test
-	color: #cccccc
+html, body
+	font-family: 'Roboto', 'Helvetica', sans-serif
+
+.avatar
+	width: 48px
+	height: 48px
+	border-radius: 24px
+
+.layout .mdl-layout__header .mdl-layout__drawer-button
+	color: rgba(0, 0, 0, 0.54)
+
+.mdl-layout__drawer .avatar
+	margin-bottom: 16px
+
+.drawer
+	border: none
+
+.drawer .mdl-menu__container
+	z-index: -1
+
+.drawer .navigation
+	z-index: -2
+
+main .list-three li
+	padding-top: 0px 
+	padding-bottom: 0px 
+
+.drawer .mdl-menu .mdl-menu__item
+	display: flex
+	align-items: center
+
+.drawer-header
+	box-sizing: border-box
+	display: flex
+	flex-direction: column
+	justify-content: flex-end
+	padding: 16px
+	height: 151px
+
+.avatar-dropdown
+	display: flex
+	position: relative
+	flex-direction: row
+	align-items: center
+	width: 100%
+
+.navigation
+	flex-grow: 1
+
+.layout .navigation .mdl-navigation__link
+	display: flex !important
+	flex-direction: row
+	align-items: center
+	color: rgba(255, 255, 255, 0.56)
+	padding: 5px 40px
+	font-weight: 500
+
+.layout .navigation .mdl-navigation__link:hover
+	background-color: #00BCD4
+	color: #37474F
+
+.navigation .mdl-navigation__link .material-icons 
+	font-size: 24px
+	color: rgba(255, 255, 255, 0.56)
+	margin-right: 32px
+
+.message-list
+	height: 700px
+	overflow: auto
+
+.navigation .active
+	background-color: #263238 !important
+	color: #fff !important
+#chanel>div
+	max-width: 600px
+	margin: auto
+	padding: 20px 30px
+	#chanel-list
+		margin: 0
+		padding: 0
+		li
+			list-style-type: none
+			a:hover
+				color: #fff !important
+			a.delete:hover
+				color: #ff4949 !important
+
+.avatarAuthor
+	float: right !important
+	margin-left: 16px !important
+	margin-right: 0 !important
+
+.liAuthor
+	text-align: right !important
