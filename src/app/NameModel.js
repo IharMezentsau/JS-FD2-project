@@ -1,11 +1,11 @@
 import {PubSubService} from './PubSubService.js';
 
 export class NameModel {
-    constructor(user, chanel) {
+    constructor(data) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.stringName = 'CHUPILIN_CHAT';
-        this.user = user;
-        this.chanel = chanel;
+        this.user = data.user;
+        this.chanel = data.channel;
     }
 
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------
@@ -33,10 +33,6 @@ export class NameModel {
                 view.render(this.user);
             }
         }
-    }
-
-    errorHandler(jqXHR, statusStr, errorStr) {
-        console.log(statusStr + ' ' + errorStr);
     }
 }
 // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------

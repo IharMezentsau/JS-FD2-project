@@ -17,13 +17,24 @@ import {ErrorController} from "./ErrorController";
 import {ErrorModel} from "./ErrorModel";
 import {ErrorView} from "./ErrorView";
 
+import {ChanelController} from "./ChanelController";
+import {ChanelModel} from "./ChanelModel";
+import {ChanelView} from "./ChanelView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
         this.rootElement = rootElement;
-        this.data = '';
-        new PubSubService().sub('onAuthUser', data => {
-            this.data = data;
+        this.data = {};
+        new PubSubService().sub('onAuthUser', user => {
+            this.data.user = user;
+            // Для Андрея
+            //location.hash = `channel`;
+            location.hash = `dialog`;
+        });
+        // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
+        new PubSubService().sub('onEnterChannel', channel => {
+            this.data.channel = channel;
             location.hash = `dialog`;
         });
 
@@ -44,20 +55,7 @@ export class Router {
             // запустить контроллер страницы,
             // которая соответствует адресу,
             // на который нужно перейти
-
             settings.runController(this.rootElement, this.data);
-
-
-            /*
-
-            if (route = '#404'){
-                settings.runController(document.getElementsByTagName('body'), this.data);
-            } else {
-                settings.runController(this.rootElement, this.data);
-            }
-
-             */
-
         }
     }
 
@@ -79,19 +77,11 @@ new Router({
             );
         }
     },
-    '#404': {
-        runController: rootElement => {
-            new ErrorController(
-                new ErrorModel(),
-                new ErrorView(rootElement),
-            );
-        }
-    },
-    '#400': {
-        runController: rootElement => {
-            new ErrorController(
-                new ErrorModel(),
-                new ErrorView(rootElement),
+    '#channel': {
+        runController: (rootElement, data) => {
+            new ChanelController(
+                new ChanelModel(data.user),
+                new ChanelView(rootElement)
             );
         }
     },
@@ -108,6 +98,12 @@ new Router({
             );
         }
     },
-
-
+    '#error': {
+        runController: (rootElement, data) => {
+            new ErrorController(
+                new ErrorModel(data),
+                new ErrorView(rootElement),
+            );
+        }
+    },
 }, document.getElementById('divMain')).navigateTo('#auth');

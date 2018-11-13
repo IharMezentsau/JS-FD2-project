@@ -118,7 +118,7 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
-    	window.navigator.vibrate(500);
+        window.navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
         errorvalue.style.color = 'yellow';
         errorvalue.innerText = `Введите корректно логин и пароль`;
@@ -148,14 +148,14 @@ export class AuthView {
     }
 
     authCloseRemoveClass(popupLogin, authWrapper) {     //удаление блока ненужных классов после закрытия модального окна АВТОРИЗАЦИИ
-            setTimeout(function () {
-                popupLogin.classList.remove("modal-back");
-                popupLogin.classList.remove("modal-show");
-                popupLogin.classList.remove("modal-error");
-                try {
-                    authWrapper.classList.remove("none");
-                } catch {}
-            }, 300);
+        setTimeout(function () {
+            popupLogin.classList.remove("modal-back");
+            popupLogin.classList.remove("modal-show");
+            popupLogin.classList.remove("modal-error");
+            try {
+                authWrapper.classList.remove("none");
+            } catch {}
+        }, 300);
 
     }
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
@@ -215,7 +215,7 @@ export class AuthView {
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
-    	window.navigator.vibrate(500);
+        window.navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
         errorvaluecheckin.style.color = 'yellow';
         errorvaluecheckin.innerText = `Заполните корректно данные`;
@@ -250,7 +250,7 @@ export class AuthView {
             popupCheckin.classList.remove("modal-backcheckin");
             popupCheckin.classList.remove("modal-showcheckin");
             popupCheckin.classList.remove("modal-errorcheckin");
-	    authWrapper.classList.remove("none");
+            authWrapper.classList.remove("none");
         }, 200);
     }
 // РЕГИСТРАЦИЯ------------------------------------------------------------
