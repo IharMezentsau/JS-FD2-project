@@ -34,5 +34,9 @@ export class NameModel {
             }
         }
     }
+
+    errorHandler(jqXHR, statusStr, errorStr) {
+        console.log(statusStr + ' ' + errorStr);
+    }
 }
 // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------

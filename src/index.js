@@ -19,6 +19,11 @@ import AuthView from './app/AuthView';
 import MessageService from './app/MessageService';
 import Router from './app/Router';
 
+//error page
+import ErrorController from "./app/ErrorController";
+import ErrorModel from "./app/ErrorModel";
+import ErrorView from "./app/ErrorView";
+
 //Media
 import newMessage from './audio/newMessage.mp3';
 import androidDesktop from './img/android-desktop.png';

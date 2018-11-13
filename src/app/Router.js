@@ -13,13 +13,16 @@ import {AuthController} from "./AuthController";
 import {AuthModel} from "./AuthModel";
 import {AuthView} from "./AuthView";
 
+import {ErrorController} from "./ErrorController";
+import {ErrorModel} from "./ErrorModel";
+import {ErrorView} from "./ErrorView";
+
 export class Router {
     constructor(map, rootElement) {
         this.map = map;
         this.rootElement = rootElement;
         this.data = '';
         new PubSubService().sub('onAuthUser', data => {
-            console.log(data);
             this.data = data;
             location.hash = `dialog`;
         });
@@ -41,7 +44,20 @@ export class Router {
             // запустить контроллер страницы,
             // которая соответствует адресу,
             // на который нужно перейти
+
             settings.runController(this.rootElement, this.data);
+
+
+            /*
+
+            if (route = '#404'){
+                settings.runController(document.getElementsByTagName('body'), this.data);
+            } else {
+                settings.runController(this.rootElement, this.data);
+            }
+
+             */
+
         }
     }
 
@@ -60,6 +76,22 @@ new Router({
             new AuthController(
                 new AuthModel(),
                 new AuthView(rootElement),
+            );
+        }
+    },
+    '#404': {
+        runController: rootElement => {
+            new ErrorController(
+                new ErrorModel(),
+                new ErrorView(rootElement),
+            );
+        }
+    },
+    '#400': {
+        runController: rootElement => {
+            new ErrorController(
+                new ErrorModel(),
+                new ErrorView(rootElement),
             );
         }
     },
