@@ -5,6 +5,5 @@ export class NameController {
         this.model.getAuthorizationStorage(view);
         this.view.siteBarChannel();
         this.view.channelName();
-        this.view.getSmile();
     }
 }
