@@ -72,6 +72,52 @@ export class AuthView {
         }
     }
 
+    btnAnimate () {
+        this.btn1 = $('#login-link');
+        this.btn2 = $('#login-reg');
+        this.btn1.mouseenter((evt)=>{
+            this.btn1 = $('#login-link');
+            this.btn1.animate( {
+                width: '80%',
+                left: '-10%',
+                paddingTop: '5%',
+                paddingBottom: '5%',
+                top: '-2.5%',
+            } ,500)
+        });
+        this.btn1.mouseleave((evt)=>{
+            this.btn1 = $('#login-link');
+            this.btn1.animate( {
+                width: '70%',
+                left: '-5%',
+                paddingTop: '2.5%',
+                paddingBottom: '2.5%',
+                top: '0',
+            } ,500)
+        });
+        this.btn2.mouseenter((evt)=>{
+            this.btn2 = $('#login-reg');
+            this.btn2.animate( {
+                width: '90%',
+                left: '-15%',
+                paddingTop: '5%',
+                paddingBottom: '5%',
+                top: '37.5%',
+            } ,500)
+        });
+        this.btn2.mouseleave((evt)=>{
+            this.btn2 = $('#login-reg');
+            this.btn2.animate( {
+                height: '10%',
+                width: '70%',
+                left: '-5%',
+                paddingTop: '2.5%',
+                paddingBottom: '2.5%',
+                top: '40%',
+            } ,500)
+        });
+    }
+
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
     authFormAscent(evt) {        //всплыте окна авторизации
         let popupLogin = document.getElementById("modal-login"),
