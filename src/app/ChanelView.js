@@ -27,9 +27,8 @@ export class ChanelView {
 		}
 	}
 
-	chanelList(loginlist,login) {
+	chanelList(chanellist,loginlist,login) {
 		let el = document.getElementById('chanel-list');
-		el.innerHTML = '';
 		if (el&&loginlist&&login) {
 			let title = document.getElementById("login");
 			if (title) {
@@ -64,6 +63,7 @@ export class ChanelView {
 					span.appendChild(i);
 					span.appendChild(text);
 					span.appendChild(deleteLink);
+					console.log(loginlist[login]['chanel'][index]);
 				}
 			}
 		}
