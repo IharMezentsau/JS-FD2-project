@@ -1,7 +1,8 @@
 export class ChanelController {
-	constructor(model, view) {
+	constructor(model, view, service) {
 		this.model = model;
 		this.view = view;
+		this.service = service;
 		this.view.render();
 		this.model.getStorage(this.model.stringChanel)
 			.then(response => {
@@ -26,7 +27,7 @@ export class ChanelController {
 			} else if (evt.target.classList.value.indexOf('channel-link') != -1) { // переход на канал
 				service.checkChannel(evt.target);
 			}
-		}
+		})
 	}
 
 	clickCreate (service, view, model, user) {
