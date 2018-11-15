@@ -13,11 +13,11 @@ export class ChanelView {
 						<ul id="chanel-list"></ul>
 						<form action="#">
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-								<input class="mdl-textfield__input" type="text" id="sample3">
-								<label class="mdl-textfield__label" for="sample3">Название нового канала...</label>
+								<input class="mdl-textfield__input" type="text" id="channel-input">
+								<label class="mdl-textfield__label" for="channel-input">Название нового канала...</label>
 							</div>
 							<br>
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							<button id="create-channel" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 								Создать
 							</button>
 						</form>
@@ -28,8 +28,10 @@ export class ChanelView {
 	}
 
 	chanelList(loginlist,login) {
-		let el = document.getElementById('chanel-list');
+		let el = document.getElementById('chanel-list'),
+			channelInput = document.getElementById('channel-input');
 		el.innerHTML = '';
+		channelInput.value = '';
 		if (el&&loginlist&&login) {
 			let title = document.getElementById("login");
 			if (title) {
@@ -53,6 +55,7 @@ export class ChanelView {
 					i.innerHTML = 'group';
 					text.classList.add('mdl-chip__text');
 					text.classList.add('mdl-color-text--blue-grey-400');
+					text.classList.add('channel-link');
 					text.href = '#';
 					text.innerHTML = loginlist[login]['chanel'][index];
 					deleteLink.classList.add('mdl-chip__action');

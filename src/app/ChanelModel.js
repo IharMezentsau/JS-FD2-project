@@ -1,9 +1,7 @@
-import {PubSubService} from './PubSubService.js';
-
 export class ChanelModel {
 	constructor(user) {
 		this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-		//this.stringName = 'CHUPILIN_CHAT';
+		//this.stringPerson = 'CHUPILIN_CHAT';
 		this.stringPerson = 'CHUPILIN_DRINK_STORAGE';
 		this.stringChanel = 'CHANEL_STORAGE';
 		this.chanelTemp = undefined,
@@ -12,16 +10,20 @@ export class ChanelModel {
 	}
 
 	getStorage(storage) {
-		return $.ajax(
-			{
-				url : this.ajaxHandlerScript,
-				type : 'POST',
-				cache : false,
-				dataType:'json',
-				data : { f : 'READ', n : storage },
-				error : this.errorHandler
-			}
-		)
+		return new Promise((resolve, reject) => {
+			$.ajax(
+				{
+					url : this.ajaxHandlerScript,
+					type : 'POST',
+					cache : false,
+					dataType:'json',
+					data : { f : 'READ', n : storage },
+					success : resolve,
+          error : reject
+					//error : this.errorHandler
+				}
+			)
+		})
 	}
 
 	storeInfo(storage, info) {
