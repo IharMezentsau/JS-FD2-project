@@ -20,7 +20,6 @@ import {ErrorView} from "./ErrorView";
 import {ChanelController} from "./ChanelController";
 import {ChanelModel} from "./ChanelModel";
 import {ChanelView} from "./ChanelView";
-import {ChanelService} from "./ChanelService";
 
 export class Router {
     constructor(map, rootElement) {
@@ -82,8 +81,7 @@ new Router({
         runController: (rootElement, data) => {
             new ChanelController(
                 new ChanelModel(data.user),
-								new ChanelView(rootElement),
-								new ChanelService()
+                new ChanelView(rootElement)
             );
         }
     },

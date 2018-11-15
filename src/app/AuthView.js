@@ -118,14 +118,14 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
-    	window.navigator.vibrate(500);
+        window.navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
-        errorvalue.style.color = 'red';
+        errorvalue.style.color = 'yellow';
         errorvalue.innerText = `Введите корректно логин и пароль`;
         popupLogin.classList.remove("modal-error");
         setTimeout(function () {
             popupLogin.classList.add("modal-error");
-        }, 0);
+        }, 5);
     }
 
     authWindowCloseClick(evt) {      // закрытие окна авторизации по клику
@@ -152,8 +152,11 @@ export class AuthView {
             popupLogin.classList.remove("modal-back");
             popupLogin.classList.remove("modal-show");
             popupLogin.classList.remove("modal-error");
-        authWrapper.classList.remove("none");
-        }, 900);
+            try {
+                authWrapper.classList.remove("none");
+            } catch {}
+        }, 300);
+
     }
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
 // РЕГИСТРАЦИЯ------------------------------------------------------------
@@ -212,15 +215,15 @@ export class AuthView {
     }
 
     checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
-    	window.navigator.vibrate(500);
+        window.navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
-        errorvaluecheckin.style.color = 'red';
+        errorvaluecheckin.style.color = 'yellow';
         errorvaluecheckin.innerText = `Заполните корректно данные`;
         evt.preventDefault();
         popupCheckin.classList.remove("modal-errorcheckin");
         setTimeout(function () {
             popupCheckin.classList.add("modal-errorcheckin");
-        }, 0);
+        }, 5);
     }
 
     checkinWindowCloseClick(evt) {      // закрытие окна регистрации по клику
@@ -247,8 +250,8 @@ export class AuthView {
             popupCheckin.classList.remove("modal-backcheckin");
             popupCheckin.classList.remove("modal-showcheckin");
             popupCheckin.classList.remove("modal-errorcheckin");
-	    authWrapper.classList.remove("none");
-        }, 900);
+            authWrapper.classList.remove("none");
+        }, 200);
     }
 // РЕГИСТРАЦИЯ------------------------------------------------------------
 }

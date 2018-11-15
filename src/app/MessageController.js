@@ -7,6 +7,7 @@ export class MessageController {
         this.service = service;
 
         this.registerModelHandler();
+        this.view.getSmile();
     }
 
     registerModelHandler() {
