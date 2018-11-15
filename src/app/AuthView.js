@@ -98,8 +98,8 @@ export class AuthView {
         this.btn2.mouseenter((evt)=>{
             this.btn2 = $('#login-reg');
             this.btn2.animate( {
-                width: '90%',
-                left: '-15%',
+                width: '80%',
+                left: '-10%',
                 paddingTop: '5%',
                 paddingBottom: '5%',
                 top: '37.5%',
