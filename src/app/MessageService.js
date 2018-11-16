@@ -22,7 +22,13 @@ export class MessageService {
             let messages = {};
             if ( callresult.result != "" ) { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений
-                messages = JSON.parse(callresult.result);
+
+                try {
+                    messages = JSON.parse(callresult.result);
+                }
+                catch {
+                    messages = [];
+                }
                 // вдруг кто-то сохранил мусор вместо CHAT_MESSAGES?
                 if (typeof messages !== 'object') messages = {};
             }

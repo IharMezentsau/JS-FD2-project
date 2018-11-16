@@ -1,13 +1,13 @@
 import {PubSubService} from './PubSubService.js';
 
 export class MessageModel {
-    constructor(user, chanel) {
+    constructor(data) {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
-        this.stringName = chanel ? chanel : 'MESENTSEV_CHAT_MESSAGES';
+        this.stringName = data.channel ? data.channel : 'MESENTSEV_CHAT_MESSAGES';
 
-        this.user = user;
+        this.user = data.user;
 
         this.dialog = 'general';
 
@@ -38,15 +38,20 @@ export class MessageModel {
                 cache : false,
                 success: (answer) => {
                     messages = readReady(answer, view);
-                    if (!this.messages) {
+                    if (!(this.dialog in messages)) messages[this.dialog] = []; // если канал активирован впервые
+                    if (!this.messages) { // Проверка на отрисовку первых сообщений
                         this.messages = messages[this.dialog];
-                        view.render(messages[this.dialog], this.user);
+                        if (messages[this.dialog].length > 5) { // вызов последних 5 элементов
+                            view.render(messages[this.dialog].slice(-5), this.user);
+                        } else {
+                            view.render(messages[this.dialog], this.user);
+                        }
                     } else {
                         if (messages[this.dialog].length > this.messages.length) {
                             messages[this.dialog].splice(0, this.messages.length);
                             if (messages[this.dialog].length !== 0) {
                                 this.messages.push(messages[this.dialog]);
-                                view.render(messages[this.dialog], this.user);
+                                view.renderMessages(messages[this.dialog], this.user);
                             }
                         }
                     }
@@ -57,19 +62,27 @@ export class MessageModel {
     }
 
     sendMessage(formMessage, readReady, handleModelChange, view) {
-        this.updatePassword = Math.random();
-        this.message = {name: this.user, mess: formMessage};
-        $.ajax(
-            {
-                url : this.actionUrl,
-                type : 'POST', dataType:'json',
-                data : { f : 'LOCKGET', n : this.projectName + this.stringName,
-                    p : this.updatePassword },
-                cache : false,
-                success : (a) => this.lockGetReady(a, readReady, handleModelChange, view),
-                error : () => view.render([{name: 'system', mess: 'Проблемма с отправкой сообщения'}]),
-            }
-        );
+        if (formMessage !== '') {
+            this.updatePassword = Math.random();
+            this.message = {name: this.user, mess: formMessage};
+            setTimeout(new PubSubService().pub('clickSendMessage'), 500);
+            $.ajax(
+                {
+                    url: this.actionUrl,
+                    type: 'POST', dataType: 'json',
+                    data: {
+                        f: 'LOCKGET', n: this.projectName + this.stringName,
+                        p: this.updatePassword
+                    },
+                    cache: false,
+                    success: (a) => this.lockGetReady(a, readReady, handleModelChange, view),
+                    error: () => {
+                        new PubSubService().pub('endSendMessage');
+                        view.render([{name: 'system', mess: 'Проблемма с отправкой сообщения'}])
+                    },
+                }
+            )
+        }
     }
 
     lockGetReady(callresult, readReady, handleModelChange, view) {
@@ -82,6 +95,7 @@ export class MessageModel {
             if (messages[this.dialog] === undefined) messages[this.dialog] = [];
 
             messages[this.dialog].push(this.message);
+
             $.ajax({
                     url: this.actionUrl,
                     type: 'POST', dataType: 'json',
@@ -90,11 +104,15 @@ export class MessageModel {
                         v: JSON.stringify(messages), p: this.updatePassword
                     },
                     cache: false,
-                    success: () => {
+                    success: (a) => {
+                        new PubSubService().pub('endSendMessage', a.result);
                         this.message = {};
                         handleModelChange();
                     },
-                    error: () => view.render([{name: 'system', mess: 'Проблемма с отправкой сообщения'}]),
+                    error: () => {
+                        new PubSubService().pub('endSendMessage');
+                        view.render([{name: 'system', mess: 'Проблемма с отправкой сообщения'}])
+                    },
                 }
             );
         }

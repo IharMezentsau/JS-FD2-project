@@ -16,6 +16,11 @@ import AuthController from './app/AuthController.js';
 import AuthModel from './app/AuthModel.js';
 import AuthView from './app/AuthView';
 
+import ChanelController from './app/ChanelController.js';
+import ChanelModel from './app/ChanelModel.js';
+import ChanelView from './app/ChanelView';
+import ChanelService from './app/ChanelService';
+
 import MessageService from './app/MessageService';
 import Router from './app/Router';
 
