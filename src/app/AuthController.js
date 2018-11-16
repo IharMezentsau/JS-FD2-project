@@ -46,7 +46,7 @@ export class AuthController {
     }
     checkinEventSubmitForm(model, view) {       //событие проверки формы до отправки на сервер, отправка данных на сервер
         document.getElementById("form-checkin").addEventListener("submit", function (evt) {
-            view.checkinFormSubmit(evt, model);
+            view.checkinFormSubmit(evt, model, view);
         });
     }
     checkinEventCloseByClickForm(view) {        // событие закрытия окна регистрации по клику
