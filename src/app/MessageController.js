@@ -22,6 +22,7 @@ export class MessageController {
         }
         if (this.view.nameList !== undefined) $(this.view.nameList).click(this.changeChannel.bind(this));
         if (this.view.nameChannel !== undefined) $(this.view.nameChannel).click(this.changeChannel);
+        if (this.view.smileDiv !== undefined) $(this.view.smileDiv).click(this.sendSmile.bind(this));
     }
 
     handleModelChange() {
@@ -36,6 +37,12 @@ export class MessageController {
 
     sendMessage() {
         let message = this.service.escapeHTML(this.view.formSendMessage.value);
+        this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this), this.view);
+    }
+
+    sendSmile(e) {
+        let EO = $(e.target).parents('svg')[0];
+        let message = this.service.escapeHTML($(EO).data('smileid'));
         this.model.sendMessage(message, this.service.readReady, this.handleModelChange.bind(this), this.view);
     }
 
