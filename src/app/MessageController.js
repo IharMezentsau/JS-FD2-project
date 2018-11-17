@@ -7,7 +7,6 @@ export class MessageController {
         this.service = service;
 
         this.registerModelHandler();
-        this.view.getSmile();
     }
 
     registerModelHandler() {
@@ -23,6 +22,8 @@ export class MessageController {
         if (this.view.nameList !== undefined) $(this.view.nameList).click(this.changeChannel.bind(this));
         if (this.view.nameChannel !== undefined) $(this.view.nameChannel).click(this.changeChannel);
         if (this.view.smileDiv !== undefined) $(this.view.smileDiv).click(this.sendSmile.bind(this));
+        if (this.view.btnGeneralChannel !== undefined) $(this.view.btnGeneralChannel)
+            .click(() => this.changeNameChannel('general'));
     }
 
     handleModelChange() {
@@ -47,12 +48,24 @@ export class MessageController {
     }
 
     changeChannel(e) {
+        let EO = $(e.target),
+            channelName = EO.text().replace(/^person/, '');
+        this.changeNameChannel(channelName);
+        EO.addClass('active');
+    }
+
+    changeNameChannel(nameChannel) {
+        let stringArray = [nameChannel, this.model.user],
+            channelName = '';
+        if (nameChannel !== 'general') {
+            channelName = stringArray.sort().join('');
+            new PubSubService().pub('changeChannelOnClick', nameChannel);
+        } else {
+            channelName = 'general';
+            new PubSubService().pub('changeChannelOnClick', channelName);
+        }
         $('.active').removeClass('active');
-        let chanelName = $(e.target).text().replace(/^person/, ''),
-            stringArray = [chanelName, this.model.user];
-        new PubSubService().pub('changeNameChannel', chanelName);
-        $(e.target).addClass('active');
-        this.model.dialog = stringArray.sort().join('');
+        this.model.dialog = channelName;
         delete this.model.messages;
         this.view.listMessages.innerHTML = '';
         this.handleModelChange();

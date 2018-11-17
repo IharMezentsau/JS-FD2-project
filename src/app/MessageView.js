@@ -115,17 +115,7 @@ export class MessageView {
                    <img src="img/user.jpg" class="avatar">
                    <div id="nameChannel"></div>
                    <div class="avatar-dropdown">
-                       <span>Change channel</span>
-                       <div class="mdl-layout-spacer"></div>
-                       <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                           <i class="material-icons" role="presentation">arrow_drop_down</i>
-                           <span class="visuallyhidden">Accounts</span>
-                       </button>
-                       <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                           <li class="mdl-menu__item">hello@example.com</li>
-                           <li class="mdl-menu__item">info@example.com</li>
-                           <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-                       </ul>
+                       <button class="close" id="returnGeneralChannel">general channel</button>
                    </div>
                 </header>
                 <div id="nameChannel"></div>
@@ -174,9 +164,18 @@ export class MessageView {
             this.btnSendMessage = document.getElementById('btnSendMessage');
             this.formSendMessage = document.getElementById('formSendMessage');
             this.listMessages = document.getElementById('listMessages');
+            this.btnGeneralChannel = $('#returnGeneralChannel');
             this.nameList = $('#namelist');
             this.nameChannel = $('#nameChannel');
             this.smileDiv = $('#get-smile');
+            // всплытия и закрытия окна
+            $('#btnsmile').click((evt)=>{
+                this.smileDiv.show("fast");
+            });
+            $(document).mousedown( (evt)=>{
+                this.smileDiv.fadeOut("slow");
+            });
+            // всплытия и закрытия окна
             this.listMessages.parentNode.addEventListener('scroll', (a) => this.loadOldMessages(this.listMessages));
             $(this.listMessages).on('DOMNodeInserted', this.scrollListMessage.bind(this));
 
@@ -195,19 +194,6 @@ export class MessageView {
         this.renderMessages(messages, user);
         componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
         componentHandler.upgradeDom();
-    }
-
-    getSmile() {
-        // всплытия и закрытия окна
-        $('#btnsmile').click((evt)=>{
-            this.smileDiv.show("fast");
-        });
-        $(document).mousedown( (evt)=>{
-            this.smileDiv.fadeOut("slow");
-        });
-        // всплытия и закрытия окна
-
-        // - при клике присваивается код свг нужного смайлика из хэша
     }
 
     renderMessages(messages, user) {
@@ -272,17 +258,19 @@ export class MessageView {
     }
 
     scrollListMessage() {
-        let heightUl = $(this.listMessages).height(),
-            heightMessage = $(this.listMessages).find('li:first').height(),
-            positionUl = $(this.listMessages).position().top,
+        let heightMessage = $(this.listMessages).find('li:first').height(),
             viewBox = $(this.listMessages).parent().height();
-        if (heightUl + positionUl - viewBox < heightMessage) {
+        this.heightUl = $(this.listMessages).height();
+        this.positionUl = $(this.listMessages).position().top;
+
+        if (this.heightUl + this.positionUl - viewBox < heightMessage) {
             this.listMessages.scrollIntoView(false);
         }
     }
 
     loadOldMessages(a) {
-        //console.log(a.getBoundingClientRect());
+        console.log('heightUl = ' + this.heightUl);
+        console.log('positionUl = ' + this.positionUl);
 
         /*if (/*a.scrollHeight === a.clientHeight + a.scrollTop*///a.getBoundingClientRect().y < 90) {
             //a.scrollIntoView(false);
