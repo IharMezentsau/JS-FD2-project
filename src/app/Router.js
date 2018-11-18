@@ -20,6 +20,7 @@ import {ErrorView} from "./ErrorView";
 import {ChanelController} from "./ChanelController";
 import {ChanelModel} from "./ChanelModel";
 import {ChanelView} from "./ChanelView";
+import {ChanelService} from "./ChanelService";
 
 export class Router {
     constructor(map, rootElement) {
@@ -32,8 +33,8 @@ export class Router {
         new PubSubService().sub('onAuthUser', user => {
             this.data.user = user;
             // Для Андрея
-            //location.hash = `channel`;
-            location.hash = `dialog`;
+            location.hash = `channel`;
+            //location.hash = `dialog`;
         });
         // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
         new PubSubService().sub('onEnterChannel', channel => {
@@ -92,7 +93,8 @@ new Router({
             } else {
                 new ChanelController(
                     new ChanelModel(data.user),
-                    new ChanelView(rootElement)
+                    new ChanelView(rootElement),
+										new ChanelService()
                 );
             }
         }

@@ -29,6 +29,7 @@ export class ChanelService {
 	}
 
 	cChanel(channel, person, user) {
+		console.log('кнопка нажата')
 		if (channel&&person&&user) {
 			let channelInput = document.getElementById('channel-input');
 			if (channelInput.value) {
@@ -69,6 +70,7 @@ export class ChanelService {
 			}
 		}
 	}
+
 	checkChannel(evt) {
 		let channel = evt.innerHTML;
 		new PubSubService().pub('onEnterChannel', channel);
