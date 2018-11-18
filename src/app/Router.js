@@ -98,9 +98,9 @@ new Router({
             // Проверка авторизации
             if (data.user === undefined)  {
                 new PubSubService().pub('onError', 401);
-            } else if (data.channel === undefined) {
+            } /*else if (data.channel === undefined) {
                 location.hash = `channel`;
-            }else {
+            }*/ else {
                 new MessageController(
                     new MessageModel(data),
                     new MessageView(rootElement),
