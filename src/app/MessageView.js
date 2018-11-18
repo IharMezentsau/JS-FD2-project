@@ -169,14 +169,9 @@ export class MessageView {
             this.nameChannel = $('#nameChannel');
             this.smileDiv = $('#get-smile');
             // всплытия и закрытия окна
-            $('#btnsmile').click((evt)=>{
-                this.smileDiv.show("fast");
-            });
-            $(document).mousedown( (evt)=>{
-                this.smileDiv.fadeOut("slow");
-            });
+            $('#btnsmile').click((evt) => this.smileDiv.show("fast"));
+            $(document).mousedown((evt) => this.smileDiv.fadeOut("slow"));
             // всплытия и закрытия окна
-            this.listMessages.parentNode.addEventListener('scroll', (a) => this.loadOldMessages(this.listMessages));
             $(this.listMessages).on('DOMNodeInserted', this.scrollListMessage.bind(this));
 
             new PubSubService().sub('clickSendMessage', () => {
@@ -247,6 +242,31 @@ export class MessageView {
         }
     }
 
+    renderOldMessages(messages, user) {
+        for (let m = messages.length - 1; m >= 0; m--) {
+            let a = '';
+            if (messages[m].name === user) {
+                a = `<li class="mdl-list__item mdl-list__item--three-line liAuthor">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar avatarAuthor">person</i>
+                            <span>${messages[m].name}</span>
+                            <span class="mdl-list__item-text-body">${messages[m].mess}</span>
+                        </span>
+                      </li>`;
+            } else {
+                a = `<li class="mdl-list__item mdl-list__item--three-line">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar">person</i>
+                            <span>${messages[m].name}</span>
+                            <span class="mdl-list__item-text-body">${messages[m].mess}</span>
+                        </span>
+                      </li>`;
+            }
+            $(this.listMessages).prepend(a).children('li:first').hide().show(500);
+        }
+    }
+
+
     stopPlayNewMessage() {
         window.navigator.vibrate(500);
         let a =  new Audio('./audio/newMessage.mp3');
@@ -258,24 +278,14 @@ export class MessageView {
     }
 
     scrollListMessage() {
-        let heightMessage = $(this.listMessages).find('li:first').height(),
-            viewBox = $(this.listMessages).parent().height();
+        let viewBox = $(this.listMessages).parent().height();
+        this.heightMessage = $(this.listMessages).find('li:first').height();
         this.heightUl = $(this.listMessages).height();
         this.positionUl = $(this.listMessages).position().top;
 
-        if (this.heightUl + this.positionUl - viewBox < heightMessage) {
+        if (this.heightUl + this.positionUl - viewBox < this.heightMessage * 1.5) {
             this.listMessages.scrollIntoView(false);
         }
-    }
-
-    loadOldMessages(a) {
-        console.log('heightUl = ' + this.heightUl);
-        console.log('positionUl = ' + this.positionUl);
-
-        /*if (/*a.scrollHeight === a.clientHeight + a.scrollTop*///a.getBoundingClientRect().y < 90) {
-            //a.scrollIntoView(false);
-          //  console.log(a.getBoundingClientRect());
-        //}*/
     }
 
 }

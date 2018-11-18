@@ -23,6 +23,9 @@ import {ChanelView} from "./ChanelView";
 
 export class Router {
     constructor(map, rootElement) {
+        $(window).on("beforeunload", function() {
+            return "Вы уверены, что хотите покинуть страницу?";
+        });
         this.map = map;
         this.rootElement = rootElement;
         this.data = {};

@@ -24,6 +24,9 @@ export class MessageController {
         if (this.view.smileDiv !== undefined) $(this.view.smileDiv).click(this.sendSmile.bind(this));
         if (this.view.btnGeneralChannel !== undefined) $(this.view.btnGeneralChannel)
             .click(() => this.changeNameChannel('general'));
+        if (this.view.listMessages) this.view.listMessages.parentNode
+            .addEventListener('scroll', this.loadOldMessages.bind(this));
+
     }
 
     handleModelChange() {
@@ -71,4 +74,10 @@ export class MessageController {
         this.handleModelChange();
     }
 
+    loadOldMessages(e) {
+        if ($(e.target).children('ul').offset().top === $(this.view.listMessages).parent().offset().top) {
+            this.model.loadOldMessage($(this.view.listMessages).children('li').length,
+                this.view.renderOldMessages.bind(this.view));
+        }
+    }
 }
