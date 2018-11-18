@@ -40,6 +40,11 @@ export class Router {
             this.data.channel = channel;
             location.hash = `dialog`;
         });
+        // Для ВСЕХ, Вставить в свой код new PubSubService().pub('onError', error) и передать код нужной ошибки
+        new PubSubService().sub('onError', error => {
+            this.data.error = error;
+            location.hash = `error`;
+        });
 
         // Подписаться на событие hashchange
         window.addEventListener('hashchange', this.onhashchange.bind(this));
@@ -90,21 +95,26 @@ new Router({
     },
     '#dialog': {
         runController: (rootElement, data) => {
-            new MessageController(
-                new MessageModel(data),
-                new MessageView(rootElement),
-                new MessageService(),
-            );
-            new NameController(
-                new NameModel(data),
-                new NameView(rootElement),
-            );
+            // Проверка авторизации
+            if (data.user === undefined)  {
+                new PubSubService().pub('onError', 401);
+            } else {
+                new MessageController(
+                    new MessageModel(data),
+                    new MessageView(rootElement),
+                    new MessageService(),
+                );
+                new NameController(
+                    new NameModel(data),
+                    new NameView(rootElement),
+                );
+            }
         }
     },
     '#error': {
         runController: (rootElement, data) => {
             new ErrorController(
-                new ErrorModel(data),
+                new ErrorModel(data.error),
                 new ErrorView(rootElement),
             );
         }

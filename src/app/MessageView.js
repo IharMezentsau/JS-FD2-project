@@ -110,7 +110,7 @@ export class MessageView {
                     <div id="wrapp"></div>
                 </div>
             </header>
-            <div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+            <div id="leftMenu" class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
                 <header class="drawer-header">
                    <img src="img/user.jpg" class="avatar">
                    <div id="nameChannel"></div>
@@ -168,11 +168,27 @@ export class MessageView {
             this.nameList = $('#namelist');
             this.nameChannel = $('#nameChannel');
             this.smileDiv = $('#get-smile');
+            this.leftMenu = $('#leftMenu');
+
             // всплытия и закрытия окна
             $('#btnsmile').click((evt) => this.smileDiv.show("fast"));
             $(document).mousedown((evt) => this.smileDiv.fadeOut("slow"));
             // всплытия и закрытия окна
             $(this.listMessages).on('DOMNodeInserted', this.scrollListMessage.bind(this));
+
+            // Тач события для отображения бокового меню
+            $(this.listMessages).on('touchmove', (e) => this.positionEndTouch = e.touches[0].clientX);
+            $(this.listMessages).on('touchstart', (e) => this.positionStartTouch = e.touches[0].clientX);
+            $(this.listMessages).on('touchend', (e) => {
+                if (this.positionStartTouch < this.positionEndTouch) {
+                    if (this.leftMenu.attr('aria-hidden') && !this.leftMenu.hasClass('is-visible')) {
+                        $('main').next().addClass('is-visible');
+                        this.leftMenu.attr('aria-hidden', false).addClass('is-visible');
+                    }
+                }
+                this.positionStartTouch = null;
+                this.positionEndTouch = null;
+            });
 
             new PubSubService().sub('clickSendMessage', () => {
                 $('#btnSendMessage > i').toggle(false);

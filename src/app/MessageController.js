@@ -24,8 +24,10 @@ export class MessageController {
         if (this.view.smileDiv !== undefined) $(this.view.smileDiv).click(this.sendSmile.bind(this));
         if (this.view.btnGeneralChannel !== undefined) $(this.view.btnGeneralChannel)
             .click(() => this.changeNameChannel('general'));
-        if (this.view.listMessages) this.view.listMessages.parentNode
-            .addEventListener('scroll', this.loadOldMessages.bind(this));
+        if (this.view.listMessages) {
+            this.view.listMessages.parentNode
+                .addEventListener('scroll', this.loadOldMessages.bind(this));
+        }
 
     }
 
