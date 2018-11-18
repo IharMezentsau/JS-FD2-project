@@ -87,10 +87,14 @@ new Router({
     },
     '#channel': {
         runController: (rootElement, data) => {
-            new ChanelController(
-                new ChanelModel(data.user),
-                new ChanelView(rootElement)
-            );
+            if (data.user === undefined)  {
+                new PubSubService().pub('onError', 401);
+            } else {
+                new ChanelController(
+                    new ChanelModel(data.user),
+                    new ChanelView(rootElement)
+                );
+            }
         }
     },
     '#dialog': {
