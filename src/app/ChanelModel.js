@@ -32,7 +32,7 @@ export class ChanelModel {
 
 	storeInfo(storage, info) {
 		this.updatePassword=Math.random();
-		$.ajax({
+		return $.ajax({
 			url : this.ajaxHandlerScript, 
 			type : 'POST', 
 			cache : false, 

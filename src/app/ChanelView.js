@@ -68,7 +68,6 @@ export class ChanelView {
 						span.appendChild(i);
 						span.appendChild(text);
 						span.appendChild(deleteLink);
-						console.log(loginlist[login]['chanel'][index]);
 					}
 				}
 				else {
