@@ -10,8 +10,9 @@ export class AuthView {
         if (!this.element) {
             this.root.innerHTML = `
 				<div id="auth" class="auth">
-				<h2 class="authorisation">Authorisation</h2>
-				    <div id="auth_wrapper" class="auth_wrapper">
+				
+						<div id="auth_wrapper" class="auth_wrapper">
+												<h2 class="authorisation">Authorisation</h2>
                         <a id="login-link" class="login-link come" href="#">Вход</a>
                         <a id="login-reg" class="login-link check" href="#">Регистрация</a>
                     </div>                                     
