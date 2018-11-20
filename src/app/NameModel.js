@@ -3,7 +3,7 @@ import {PubSubService} from './PubSubService.js';
 export class NameModel {
     constructor(data) {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-        this.stringName = 'CHUPILIN_CHAT';
+        this.stringName = 'CHANEL_STORAGE';
         this.user = data.user;
         this.chanel = data.channel;
     }
@@ -28,11 +28,15 @@ export class NameModel {
             if (callresult.result !== "") { // либо строка пустая - сообщений нет
                 // либо в строке - JSON-представление массива сообщений
                 this.names = JSON.parse(callresult.result);
-                console.log(this.names);
-                view.siteBarNameList(this.names);
+                view.siteBarNameList(this.names[this.chanel]);
+                view.channelName(this.chanel);
                 view.render(this.user);
             }
         }
+    }
+
+    errorHandler(jqXHR, statusStr, errorStr) {
+        console.error(statusStr + ' ' + errorStr);
     }
 }
 // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------
