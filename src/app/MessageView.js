@@ -115,7 +115,7 @@ export class MessageView {
                    <img src="img/user.jpg" class="avatar">
                    <div id="nameChannel"></div>
                    <div class="avatar-dropdown">
-                       <button class="close" id="returnGeneralChannel">general channel</button>
+                       <button class="close" id="returnGeneralChannel">general</button>
                    </div>
                 </header>
                 <div id="nameChannel"></div>
