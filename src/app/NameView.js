@@ -5,6 +5,9 @@ export class NameView {
         this.root = root;
         this.namelist = null;
         this.divwrapp = null;
+
+        new PubSubService().sub('changeChannelOnClick',
+            (inChannel) => this.textChannel.innerText = `Channel: ${inChannel}`);
     }
 
     render(user) {
@@ -77,11 +80,11 @@ export class NameView {
         this.changeChannel.appendChild(this.buttonchangeChannel);
     }
 
-    channelName() {
-        let channel = 'General';
+    channelName(channel) {
+        let inChannel = channel ? channel : 'general';
         this.changeChannel = document.getElementById("nameChannel");
         this.textChannel = document.createElement("span");
-        this.textChannel.innerText = `Channel: ${channel}`;
+        this.textChannel.innerText = `Channel: ${inChannel}`;
         this.changeChannel.appendChild(this.textChannel);
     }
 

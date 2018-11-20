@@ -1,20 +1,18 @@
-export class ErrorController {
+class ErrorController {
     constructor(model, view) {
         this.view = view;
         this.model = model;
 
-        //this.model.setCanvas();
-
-        this.model.getElementInView(view);
-
-
-        this.view.render();
-        this.model.setDimensions();
+        this.view.initStars();
+        this.view.initCanvas();
+        this.view.add_HTML_Data();
+        this.view.setDimensions();
 
         window.addEventListener('resize', this.view.setDimensions);
-        window.addEventListener('hashchange', this.view.updatePage);
+        //window.addEventListener('hashchange', this.view.updatePage);
 
-        setInterval(() => this.model.drawMain(), this.model.DRAW_INTERVAL);
+        setInterval(() => this.view.renderStars(), this.view.DRAW_INTERVAL);
 
+        this.view.setErrorPage(this.model.getErrorCode());
     }
 }

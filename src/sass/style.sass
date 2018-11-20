@@ -77,6 +77,8 @@ main .list-three li
 .navigation .active
 	background-color: #263238 !important
 	color: #fff !important
+.mdl-textfield__label::after
+	bottom: 13px
 #chanel>div
 	max-width: 600px
 	margin: auto
@@ -88,8 +90,10 @@ main .list-three li
 			list-style-type: none
 			a:hover
 				color: #fff !important
-			a.delete:hover
+			button.delete:hover
 				color: #ff4949 !important
+			button.delete[disabled]
+				opacity: 0.1
 
 .avatarAuthor
 	float: right !important
@@ -98,3 +102,7 @@ main .list-three li
 
 .liAuthor
 	text-align: right !important
+
+#get-smile > svg
+	border: 2px solid white
+	cursor: pointer
