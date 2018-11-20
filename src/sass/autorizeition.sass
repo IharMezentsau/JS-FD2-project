@@ -18,7 +18,6 @@
 
 .auth_wrapper
 	position: relative
-	margin: 0 auto
 	width: 200px
 	padding: 5px
 
@@ -445,6 +444,27 @@ a
 		.modal-textcheckin
 			margin-top: 5%
 			margin-bottom: 5%
+
+@media only screen and (max-height: 400px)
+	.auth
+		display: block
+		.auth_wrapper
+			margin: auto
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%, -50%)
+		.modal-login
+			width: 100%
+			height: 100vh
+			overflow: auto
+		.checkin
+			width: 100%
+			height: 100vh
+			overflow: auto
+		.modal-textcheckin, .modal-textauth
+			margin-top: 1%
+			margin-bottom: 1%
 
 .get-smile
 	position: absolute
