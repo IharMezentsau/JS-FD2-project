@@ -21,13 +21,16 @@ export class ChanelController {
 		let list = document.getElementById('chanel-list');
 		list.addEventListener("click", function(evt) {
 			evt.preventDefault();
-			if (evt.target.parentElement.classList.value.indexOf('delete') != -1) { // удаление канала
-				service.delChanel(evt.target.parentElement, model.chanelTemp, model.personTemp, user);
-				model.storeInfo(model.stringChanel, model.chanelTemp)
+			if (evt.target.classList.value.indexOf('delete') != -1) { // удаление канала
+				service.delChanel(evt.target, model.chanelTemp, model.personTemp, user);
+				view.disableButton();
+				model.storeInfo(model.stringChanel)
 				.then(response => {
-					return model.storeInfo(model.stringPerson, model.personTemp);
+					model.lockGetReady(response, model.stringChanel, model.chanelTemp)
+					return model.storeInfo(model.stringPerson);
 				})
 				.then(response => {
+					model.lockGetReady(response, model.stringPerson, model.personTemp)
 					return model.getStorage(model.stringChanel);
 				})
 				.then(response => {
@@ -36,6 +39,7 @@ export class ChanelController {
 				})
 				.then(response => {
 					model.personTemp = service.readReady(response, model.personTemp);
+					view.disableButton();
 					view.chanelList(model.personTemp, user);
 				});
 			} else if (evt.target.classList.value.indexOf('channel-link') != -1) { // переход на канал
@@ -49,11 +53,14 @@ export class ChanelController {
 		button.addEventListener("click", function(evt) {
 			evt.preventDefault();
 			service.cChanel(model.chanelTemp, model.personTemp, user);
-			model.storeInfo(model.stringChanel, model.chanelTemp)
+			view.disableButton();
+			model.storeInfo(model.stringChanel)
 				.then(response => {
-					return model.storeInfo(model.stringPerson, model.personTemp);
+					model.lockGetReady(response, model.stringChanel, model.chanelTemp)
+					return model.storeInfo(model.stringPerson);
 				})
 				.then(response => {
+					model.lockGetReady(response, model.stringPerson, model.personTemp)
 					return model.getStorage(model.stringChanel);
 				})
 				.then(response => {
@@ -62,6 +69,7 @@ export class ChanelController {
 				})
 				.then(response => {
 					model.personTemp = service.readReady(response, model.personTemp);
+					view.disableButton();
 					view.chanelList(model.personTemp, user);
 				});
 		})
