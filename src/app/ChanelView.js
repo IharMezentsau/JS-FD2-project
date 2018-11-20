@@ -24,6 +24,7 @@ export class ChanelView {
 					</div>
 				</section>
 			`;
+      componentHandler.upgradeDom();
 		}
 	}
 
@@ -44,7 +45,7 @@ export class ChanelView {
 							span = document.createElement("span"),
 							i = document.createElement("i"),
 							text = document.createElement("a"),
-							deleteLink = document.createElement("a");
+							deleteLink = document.createElement("button");
 						span.classList.add('mdl-chip');
 						span.classList.add('mdl-chip--contact');
 						span.classList.add('mdl-color--blue-grey-800');
@@ -68,7 +69,6 @@ export class ChanelView {
 						span.appendChild(i);
 						span.appendChild(text);
 						span.appendChild(deleteLink);
-						console.log(loginlist[login]['chanel'][index]);
 					}
 				}
 				else {
@@ -80,6 +80,28 @@ export class ChanelView {
 				let li = document.createElement("li");
 				li.innerHTML = 'У пользователя '+login+' пока нет каналов';
 				el.appendChild(li);
+			}
+		}
+	}
+
+	disableButton() {
+		let createChannel = document.getElementById('create-channel'),
+			delChannel = document.getElementsByClassName('delete');
+		
+		if (createChannel) {
+			if (!createChannel.hasAttribute("disabled")) {
+				createChannel.setAttribute("disabled","");
+			} else {
+				createChannel.removeAttribute("disabled")
+			}
+		}
+		if (delChannel) {
+			for (let i = 0; i < delChannel.length; i++) {
+				if (!delChannel[i].hasAttribute("disabled")) {
+					delChannel[i].setAttribute("disabled","");
+				} else {
+					delChannel[i].removeAttribute("disabled")
+				}
 			}
 		}
 	}
