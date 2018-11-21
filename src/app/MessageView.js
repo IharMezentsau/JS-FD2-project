@@ -114,12 +114,12 @@ export class MessageView {
                 <header class="drawer-header">
                    <img src="img/user.jpg" class="avatar">
                    <div id="nameChannel"></div>
-                   <div class="avatar-dropdown">
-                       <button class="close" id="returnGeneralChannel">general</button>
-                   </div>
                 </header>
                 <div id="nameChannel"></div>
                 <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+                   <div class="avatar-dropdown">
+                       <button class="close" id="returnGeneralChannel">general</button>
+                   </div>
                    <div id="namelist"></div>
                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Add</a>
                    <div id="changeChannel"></div>
