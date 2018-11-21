@@ -1,4 +1,4 @@
-class ErrorView {
+export class ErrorView {
     constructor(model) {
         console.log('View constructor');
 
