@@ -1,4 +1,4 @@
-class ErrorModel {
+export class ErrorModel {
     constructor(errorCode) {
         this.errorCode = errorCode;
         console.log('Model constructor');
