@@ -5,6 +5,9 @@ export class NameView {
         this.root = root;
         this.namelist = null;
         this.divwrapp = null;
+
+        new PubSubService().sub('changeChannelOnClick',
+            (inChannel) => this.textChannel.innerText = `Channel: ${inChannel}`);
     }
 
     render(user) {
@@ -44,7 +47,7 @@ export class NameView {
         };
         this.namelist = document.getElementById("namelist");
         let counter = 0;
-        for(let key in arrName) {
+        for(let key of arrName) {
             // this.namelist.innerHTML += `<a class="mdl-navigation__link" id="${counter+1}" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${key}</a>`;
             this.list = document.createElement('a');
             this.list.setAttribute('class', 'mdl-navigation__link');
@@ -67,21 +70,21 @@ export class NameView {
         }
     }
 
-    siteBarChannel() {
-        this.changeChannel = document.getElementById("changeChannel");
-        this.changeChannel.style.marginTop = '50px';
-        this.buttonchangeChannel = document.createElement('a');
-        this.buttonchangeChannel.innerHTML += `Change channel`;
-        this.buttonchangeChannel.setAttribute('class', 'close');
-        this.buttonchangeChannel.setAttribute('href', '#');
-        this.changeChannel.appendChild(this.buttonchangeChannel);
-    }
+    // siteBarChannel() {
+    //     this.changeChannel = document.getElementById("changeChannel");
+    //     this.changeChannel.style.marginTop = '50px';
+    //     this.buttonchangeChannel = document.createElement('a');
+    //     this.buttonchangeChannel.innerHTML += `Change channel`;
+    //     this.buttonchangeChannel.setAttribute('class', 'close');
+    //     this.buttonchangeChannel.setAttribute('href', '#');
+    //     this.changeChannel.appendChild(this.buttonchangeChannel);
+    // }
 
-    channelName() {
-        let channel = 'General';
+    channelName(channel) {
+        let inChannel = channel ? channel : 'general';
         this.changeChannel = document.getElementById("nameChannel");
         this.textChannel = document.createElement("span");
-        this.textChannel.innerText = `Channel: ${channel}`;
+        this.textChannel.innerText = `Channel: ${inChannel}`;
         this.changeChannel.appendChild(this.textChannel);
     }
 
