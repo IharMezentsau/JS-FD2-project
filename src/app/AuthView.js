@@ -10,8 +10,9 @@ export class AuthView {
         if (!this.element) {
             this.root.innerHTML = `
 				<div id="auth" class="auth">
-				<h2 class="authorisation">Authorisation</h2>
-				    <div id="auth_wrapper" class="auth_wrapper">
+				
+						<div id="auth_wrapper" class="auth_wrapper">
+												<h2 class="authorisation">Authorisation</h2>
                         <a id="login-link" class="login-link come" href="#">Вход</a>
                         <a id="login-reg" class="login-link check" href="#">Регистрация</a>
                     </div>                                     
@@ -151,7 +152,7 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
-        window.navigator.vibrate(500);
+        navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
         errorvalue.style.color = 'yellow';
         errorvalue.innerText = `Введите корректно логин и пароль`;
@@ -234,7 +235,7 @@ export class AuthView {
     }
 
     checkinError(popupCheckin) {       //при не успешной проверке формы выброс ошибки
-        window.navigator.vibrate(500);
+        navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
         errorvaluecheckin.style.color = 'yellow';
         errorvaluecheckin.innerText = `Заполните корректно данные`;

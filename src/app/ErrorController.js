@@ -1,4 +1,4 @@
-class ErrorController {
+export class ErrorController {
     constructor(model, view) {
         this.view = view;
         this.model = model;
