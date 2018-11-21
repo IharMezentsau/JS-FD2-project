@@ -29,7 +29,7 @@ export class NameModel {
                 // либо в строке - JSON-представление массива сообщений
                 this.names = JSON.parse(callresult.result);
                 view.siteBarNameList(this.names[this.chanel]);
-                view.channelName(this.chanel);
+                view.groupName(this.chanel);
                 view.render(this.user);
             }
         }

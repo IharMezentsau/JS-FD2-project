@@ -70,18 +70,19 @@ export class NameView {
         }
     }
 
-    // siteBarChannel() {
-    //     this.changeChannel = document.getElementById("changeChannel");
-    //     this.changeChannel.style.marginTop = '50px';
-    //     this.buttonchangeChannel = document.createElement('a');
-    //     this.buttonchangeChannel.innerHTML += `Change channel`;
-    //     this.buttonchangeChannel.setAttribute('class', 'close');
-    //     this.buttonchangeChannel.setAttribute('href', '#');
-    //     this.changeChannel.appendChild(this.buttonchangeChannel);
-    // }
+    groupName(channel) {
+        this.changeChannel = document.getElementById("nameChannel");
+        this.textChan = document.createElement("div");
+        this.textChan.style.position = 'absolute';
+        this.textChan.style.left = '70px';
+        this.textChan.style.top = '60px';
+        this.textChan.style.fontSize = '30px';
+        this.textChan.innerText = `${channel}`;
+        this.changeChannel.appendChild(this.textChan);
+    }
 
-    channelName(channel) {
-        let inChannel = channel ? channel : 'general';
+    channelName() {
+        let inChannel = 'general';
         this.changeChannel = document.getElementById("nameChannel");
         this.textChannel = document.createElement("span");
         this.textChannel.innerText = `Channel: ${inChannel}`;
