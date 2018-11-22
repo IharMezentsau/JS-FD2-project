@@ -1,8 +1,6 @@
 export class ErrorView {
-    constructor(model) {
+    constructor() {
         console.log('View constructor');
-
-        this.model = model;
         this.WIDTH = window.innerWidth;
         this.HEIGHT = window.innerHeight;
         this.MAX_PARTICLES = 60;
