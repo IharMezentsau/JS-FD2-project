@@ -5,22 +5,22 @@ export class MessageModel {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
-        this.stringName = data.channel ? data.channel : 'MESENTSEV_CHAT_MESSAGES';
+        this.stringName = data.channel;
 
         this.user = data.user;
 
         this.dialog = 'general';
 
         // модель предоставляет поле date для чтения извне
-        this.date = new Date();
-        // модель обновляет себя
-        setInterval(() => {
-            this.date = new Date();
+        this.intervalMessages = setInterval(() => {
             // нотифицирует слушателя путем вызова
             // его функции обратного вызова
             this.changeListenerCallback();
 
         }, 3000);
+        new PubSubService().sub('clearIntervalMessages', () => {
+            clearInterval(this.intervalMessages);
+        });
     }
 
     setChangeListener(changeListener) {
@@ -121,7 +121,7 @@ export class MessageModel {
 
     loadOldMessage(length, renderOldMessages) {
         let endOldMessages = this.messages.length - length,
-            startOldMessages = endOldMessages - 4,
+            startOldMessages = endOldMessages >= 4 ? endOldMessages - 4: endOldMessages,
             oldMessages = this.messages.slice(startOldMessages, endOldMessages);
         if (oldMessages.length !== 0) renderOldMessages(oldMessages, this.user);
     }

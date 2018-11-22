@@ -34,7 +34,6 @@ export class Router {
             this.data.user = user;
             // Для Андрея
             location.hash = `channel`;
-            //location.hash = `dialog`;
         });
         // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
         new PubSubService().sub('onEnterChannel', channel => {
@@ -46,14 +45,25 @@ export class Router {
             this.data.error = error;
             location.hash = `error`;
         });
+        //Для выхода
+        new PubSubService().sub('onSingOut', () => {
+            this.data = {};
+            location.hash = `auth`;
+        });
 
         // Подписаться на событие hashchange
         window.addEventListener('hashchange', this.onhashchange.bind(this));
     }
 
     onhashchange(e) {
-        const activeHash = document.location.hash;
+        let activeHash = document.location.hash;
         // Отрисовать страницу для нового адреса
+        new PubSubService().pub('clearIntervalMessages');
+        new PubSubService().pub('clearIntervalError');
+        if (!(activeHash in this.map)) {
+            activeHash = '#error';
+            this.data.error = 404;
+        }
         this._route(activeHash);
     }
 
@@ -94,7 +104,7 @@ new Router({
                 new ChanelController(
                     new ChanelModel(data.user),
                     new ChanelView(rootElement),
-										new ChanelService()
+                    new ChanelService()
                 );
             }
         }
@@ -104,9 +114,9 @@ new Router({
             // Проверка авторизации
             if (data.user === undefined)  {
                 new PubSubService().pub('onError', 401);
-            } /*else if (data.channel === undefined) {
+            } else if (data.channel === undefined) {
                 location.hash = `channel`;
-            }*/ else {
+            } else {
                 new MessageController(
                     new MessageModel(data),
                     new MessageView(rootElement),
