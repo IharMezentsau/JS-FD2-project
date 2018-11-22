@@ -143,6 +143,6 @@ export class AuthModel {
     // ЗАПИСЬ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------------
 
     errorHandler(jqXHR, statusStr, errorStr) {
-        console.log(statusStr + ' ' + errorStr);
+        new PubSubService().pub('onError', 404);
     }
 }
