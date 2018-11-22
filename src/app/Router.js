@@ -34,7 +34,6 @@ export class Router {
             this.data.user = user;
             // Для Андрея
             location.hash = `channel`;
-            //location.hash = `dialog`;
         });
         // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
         new PubSubService().sub('onEnterChannel', channel => {
@@ -54,6 +53,12 @@ export class Router {
     onhashchange(e) {
         const activeHash = document.location.hash;
         // Отрисовать страницу для нового адреса
+        new PubSubService().pub('clearIntervalMessages');
+        new PubSubService().pub('clearIntervalError');
+        if (!(activeHash in this.map)) {
+            activeHash = '#error';
+            this.data.error = 404;
+        }
         this._route(activeHash);
     }
 

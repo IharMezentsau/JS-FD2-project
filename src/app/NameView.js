@@ -48,11 +48,9 @@ export class NameView {
         this.namelist = document.getElementById("namelist");
         let counter = 0;
         for(let key of arrName) {
-            // this.namelist.innerHTML += `<a class="mdl-navigation__link" id="${counter+1}" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>${key}</a>`;
             this.list = document.createElement('a');
             this.list.setAttribute('class', 'mdl-navigation__link');
             this.list.setAttribute('id', `${counter+1}`);
-            this.list.setAttribute('href', '#');
             this.list.setAttribute('draggable', true);
             this.list.ondragstart = onDragStart;
             this.list.ondrag = onDrag;
