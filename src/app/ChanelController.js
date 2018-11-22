@@ -82,7 +82,7 @@ export class ChanelController {
 			view.disableButton();
 			model.storeInfo(model.stringChanel)
 				.then(
-						response => {
+					response => {
 						model.lockGetReady(response, model.stringChanel, model.chanelTemp)
 						return model.storeInfo(model.stringPerson);
 					},
