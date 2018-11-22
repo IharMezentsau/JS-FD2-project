@@ -33,7 +33,6 @@ export class ChanelController {
 			evt.preventDefault();
 			console.log(evt.target);
 			if ((evt.target.classList.value.indexOf('delete') != -1)||(evt.target.parentElement.classList.value.indexOf('delete') != -1)) { // удаление канала
-				console.log(1);
 				service.delChanel((evt.target.classList.value.indexOf('delete') != -1)?evt.target:evt.target.parentElement, model.chanelTemp, model.personTemp, user);
 				view.disableButton();
 				model.storeInfo(model.stringChanel)
