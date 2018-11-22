@@ -170,8 +170,6 @@ export class MessageView {
             this.smileDiv = $('#get-smile');
             this.leftMenu = $('#leftMenu');
 
-            this.listMessages.style.height = 0;
-
             // всплытия и закрытия окна
             $('#btnsmile').click((evt) => this.smileDiv.show("fast"));
             $(document).mousedown((evt) => this.smileDiv.fadeOut("slow"));
@@ -308,7 +306,6 @@ export class MessageView {
         this.heightMessage = $(this.listMessages).find('li:first').height();
         this.heightUl = $(this.listMessages).height();
         this.positionUl = $(this.listMessages).position().top;
-
         if (this.heightUl + this.positionUl - viewBox < this.heightMessage * 1.5) {
             this.listMessages.scrollIntoView(false);
         }
