@@ -5,13 +5,13 @@ export class MessageModel {
         this.actionUrl = "http://fe.it-academy.by/AjaxStringStorage2.php";
         this.projectName = 'JS_FD2_project_';
 
-        if (!!data.channel) location.hash = `channel`;
+        this.stringName = data.channel;
 
         this.user = data.user;
 
         this.dialog = 'general';
 
-        // модель обновляет себя
+        // модель предоставляет поле date для чтения извне
         this.intervalMessages = setInterval(() => {
             // нотифицирует слушателя путем вызова
             // его функции обратного вызова
@@ -121,7 +121,7 @@ export class MessageModel {
 
     loadOldMessage(length, renderOldMessages) {
         let endOldMessages = this.messages.length - length,
-            startOldMessages = endOldMessages - 4,
+            startOldMessages = endOldMessages >= 4 ? endOldMessages - 4: endOldMessages,
             oldMessages = this.messages.slice(startOldMessages, endOldMessages);
         if (oldMessages.length !== 0) renderOldMessages(oldMessages, this.user);
     }

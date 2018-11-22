@@ -170,6 +170,8 @@ export class MessageView {
             this.smileDiv = $('#get-smile');
             this.leftMenu = $('#leftMenu');
 
+            this.listMessages.style.height = 0;
+
             // всплытия и закрытия окна
             $('#btnsmile').click((evt) => this.smileDiv.show("fast"));
             $(document).mousedown((evt) => this.smileDiv.fadeOut("slow"));
@@ -260,13 +262,19 @@ export class MessageView {
 
     renderOldMessages(messages, user) {
         for (let m = messages.length - 1; m >= 0; m--) {
-            let a = '';
+            let a = '',
+                mess;
+            if (messages[m].mess in this.smile) {
+                mess = this.smile[messages[m].mess];
+            } else {
+                mess = messages[m].mess;
+            }
             if (messages[m].name === user) {
                 a = `<li class="mdl-list__item mdl-list__item--three-line liAuthor">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-avatar avatarAuthor">person</i>
                             <span>${messages[m].name}</span>
-                            <span class="mdl-list__item-text-body">${messages[m].mess}</span>
+                            <span class="mdl-list__item-text-body">${mess}</span>
                         </span>
                       </li>`;
             } else {
@@ -274,10 +282,12 @@ export class MessageView {
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-avatar">person</i>
                             <span>${messages[m].name}</span>
-                            <span class="mdl-list__item-text-body">${messages[m].mess}</span>
+                            <span class="mdl-list__item-text-body">${mess}</span>
                         </span>
                       </li>`;
+
             }
+
             $(this.listMessages).prepend(a).children('li:first').hide().show(500);
         }
     }

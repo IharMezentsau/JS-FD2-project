@@ -20,7 +20,7 @@ export class NameView {
         this.button = document.createElement('a');
         this.button.innerHTML += `Exit`;
         this.button.setAttribute('class', 'close');
-        this.button.setAttribute('href', 'index.html');
+        this.button.addEventListener('click', () => new PubSubService().pub('onSingOut'));
         this.divwrapp.appendChild(this.button);
     }
 

@@ -20,7 +20,7 @@ export class ErrorView {
     }
 
     add_HTML_Data() {
-        $(this.root).wrapAll("<header> </header>");
+        $(this.root).wrapAll("<header id='stasHeader'> </header>");
 
         this.root.innerHTML = `
         <div id="hero" class="hero">
@@ -29,7 +29,7 @@ export class ErrorView {
                 <div class="col-sm-8">
                     <h1 id="nameError"> </h1>
                     <h2 id="errorText"> </h2>
-                    <a href="#" class="btn-back">Вернутся на землю</a>
+                    <a href="#auth" class="btn-back">Вернутся на землю</a>
                 </div>
                 <div class="col-sm-4">
                     <div class="image">

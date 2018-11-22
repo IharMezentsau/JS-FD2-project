@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class ErrorController {
     constructor(model, view) {
         this.view = view;
