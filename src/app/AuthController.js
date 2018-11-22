@@ -11,7 +11,6 @@ export class AuthController {
         this.checkinEventSubmitForm(model, view);
         this.checkinEventCloseByClickForm(view);
         this.checkinEventCloseByEscForm(view);
-        //this.view.btnAnimate();
     }
 // События АВТОРТЗАЦИИ(вход зарегестрированных пользователей)------------------------------------------------------------
     authEventFormAscent(view) {      //событие всплытя окна регистрации
@@ -46,7 +45,7 @@ export class AuthController {
     }
     checkinEventSubmitForm(model, view) {       //событие проверки формы до отправки на сервер, отправка данных на сервер
         document.getElementById("form-checkin").addEventListener("submit", function (evt) {
-            view.checkinFormSubmit(evt, model, view);
+            view.checkinFormSubmit(evt, model);
         });
     }
     checkinEventCloseByClickForm(view) {        // событие закрытия окна регистрации по клику

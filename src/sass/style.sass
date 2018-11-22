@@ -2,7 +2,6 @@
 @import "~material-design-lite/dist/material.blue_grey-indigo.min.css"
 @import "./media.sass"
 @import "./autorizeition.sass"
-//@import "./autorizeition_old.sass"
 @import "./errorpage.sass"
 
 html, body
@@ -89,10 +88,8 @@ main .list-three li
 			list-style-type: none
 			a:hover
 				color: #fff !important
-			button.delete:hover
+			a.delete:hover
 				color: #ff4949 !important
-			button.delete[disabled]
-				opacity: 0.1
 
 .avatarAuthor
 	float: right !important
@@ -101,7 +98,3 @@ main .list-three li
 
 .liAuthor
 	text-align: right !important
-
-#get-smile > svg
-	border: 2px solid white
-	cursor: pointer

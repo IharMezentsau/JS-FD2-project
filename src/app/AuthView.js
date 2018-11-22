@@ -4,15 +4,15 @@ export class AuthView {
     constructor(root) {
         this.root = root;
         this.element = null;
+        this.divAuth = null;
     }
 
     render() {
-        if (!this.element) {
+        if(!this.element){
             this.root.innerHTML = `
 				<div id="auth" class="auth">
-				
-						<div id="auth_wrapper" class="auth_wrapper">
-												<h2 class="authorisation">Authorisation</h2>
+				<h2 class="authorisation">Authorisation</h2>
+				    <div id="auth_wrapper" class="auth_wrapper">
                         <a id="login-link" class="login-link come" href="#">Вход</a>
                         <a id="login-reg" class="login-link check" href="#">Регистрация</a>
                     </div>                                     
@@ -72,52 +72,6 @@ export class AuthView {
         }
     }
 
-    btnAnimate() {
-        this.btn1 = $('#login-link');
-        this.btn2 = $('#login-reg');
-        this.btn1.mouseenter((evt) => {
-            this.btn1 = $('#login-link');
-            this.btn1.animate({
-                width: '80%',
-                left: '-10%',
-                paddingTop: '5%',
-                paddingBottom: '5%',
-                top: '-2.5%',
-            }, 500)
-        });
-        this.btn1.mouseleave((evt) => {
-            this.btn1 = $('#login-link');
-            this.btn1.animate({
-                width: '70%',
-                left: '-5%',
-                paddingTop: '2.5%',
-                paddingBottom: '2.5%',
-                top: '0',
-            }, 500)
-        });
-        this.btn2.mouseenter((evt) => {
-            this.btn2 = $('#login-reg');
-            this.btn2.animate({
-                width: '80%',
-                left: '-10%',
-                paddingTop: '5%',
-                paddingBottom: '5%',
-                top: '37.5%',
-            }, 500)
-        });
-        this.btn2.mouseleave((evt) => {
-            this.btn2 = $('#login-reg');
-            this.btn2.animate({
-                height: '10%',
-                width: '70%',
-                left: '-5%',
-                paddingTop: '2.5%',
-                paddingBottom: '2.5%',
-                top: '40%',
-            }, 500)
-        });
-    }
-
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
     authFormAscent(evt) {        //всплыте окна авторизации
         let popupLogin = document.getElementById("modal-login"),
@@ -145,6 +99,18 @@ export class AuthView {
         popupLogin.classList.remove("modal-back");
         popupLogin.classList.remove("modal-show");
         popupLogin.classList.remove("modal-error");
+        // let span = document.createElement("span");
+        // span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${name}</span>`;
+        // this.divAuth = document.getElementById('authorisation');
+        // this.divAuth.appendChild(span);
+        // let a = document.createElement('a');
+        // this.divAuth.appendChild(a);
+        // a.innerHTML += `Выйти`;
+        // a.setAttribute('class', 'close');
+        // a.setAttribute('href', 'index.html');
+        // let linkLog = document.getElementById("login-link");
+        // this.divAuth.removeChild(linkLog);
+        // -- запись в локалсторедж именя
         new PubSubService().pub('onAuthUser', name);
         //localStorage['authName'] = name;
         // -- запись в локалсторедж именя
@@ -152,7 +118,7 @@ export class AuthView {
     }
 
     authError(popupLogin) {     //при не успешной проверке формы выброс ошибки
-        navigator.vibrate(500);
+        window.navigator.vibrate(500);
         let errorvalue = document.getElementById('errorvalue');
         errorvalue.style.color = 'yellow';
         errorvalue.innerText = `Введите корректно логин и пароль`;
@@ -188,12 +154,10 @@ export class AuthView {
             popupLogin.classList.remove("modal-error");
             try {
                 authWrapper.classList.remove("none");
-            } catch {
-            }
+            } catch {}
         }, 300);
 
     }
-
 // АВТОРТЗАЦИЯ(вход зарегестрированных пользователей)------------------------------------------------------------
 // РЕГИСТРАЦИЯ------------------------------------------------------------
     checkinFormAscent(evt) {        //всплыте окна регистрации
@@ -209,47 +173,53 @@ export class AuthView {
         loginCheckin.focus();
     }
 
-    checkinFormSubmit(evt, model, view) {     //Проверка формы до отправки на сервер, отправка данных на сервер
+    checkinFormSubmit(evt, model) {     //Проверка формы до отправки на сервер, отправка данных на сервер
         let popupCheckin = document.getElementById("checkin"),
             linkLog = document.getElementById("login-link"),
             loginCheckin = document.getElementById("user-logincheckin"),
             passwordCheckin = document.getElementById("user-passwordcheckin"),
             passwordCheckinCheck = document.getElementById("user-passwordcheckinget");
-        evt.preventDefault();
-        let loginName = loginCheckin.value;
-        let LoginPassword = passwordCheckin.value;
-        let LoginPasswordCheckin = passwordCheckinCheck.value;
         model.getNameAuth(loginCheckin.value);
-        model.checkAuthorizationStorage(loginName, LoginPassword, LoginPasswordCheckin, popupCheckin, view);
-
+        if (!loginCheckin.value || !passwordCheckin.value || !passwordCheckinCheck.value || passwordCheckin.value !== passwordCheckinCheck.value) {
+            this.checkinError(evt, popupCheckin);
+        } else {
+            let loginName = loginCheckin.value;
+            let LoginPassword = passwordCheckin.value;
+            // запись на сервер-------------------------------
+            model.sendAuthorization(loginName, LoginPassword);
+            // конец записи на сервер-------------------------------------------------------------------
+            this.checkinSuccess(evt, popupCheckin, loginName, linkLog);
+        }
     }
 
-    checkinSuccess(loginName, popupCheckin) {     //при успешной проверке формы дальнейшие действия
+    checkinSuccess(evt, popupCheckin, loginName, linkLog) {     //при успешной проверке формы дальнейшие действия
+        evt.preventDefault();
         popupCheckin.classList.remove("modal-backcheckin");
         popupCheckin.classList.remove("modal-showcheckin");
         popupCheckin.classList.remove("modal-errorcheckin");
+        // let span = document.createElement("span");
+        // span.innerHTML += `Добро пожаловать <span style="font-size: 20px; font-weight: bold; color: #00BCD4">${loginName}</span>`;
+        // this.divAuth = document.getElementById('authorisation');
+        // this.divAuth.appendChild(span);
+        // let a = document.createElement('a');
+        // this.divAuth.appendChild(a);
+        // a.innerHTML += `Выйти`;
+        // a.setAttribute('class', 'close');
+        // a.setAttribute('href', 'index.html');
+        // this.divAuth.removeChild(linkLog);
+        // -- запись в локалсторедж именя
         new PubSubService().pub('onAuthUser', loginName);
         //localStorage['authName'] = loginName;
         // -- запись в локалсторедж именя
-        // location.hash = `dialog`;
+        //location.hash = `dialog`;
     }
 
-    checkinError(popupCheckin) {       //при не успешной проверке формы выброс ошибки
-        navigator.vibrate(500);
-        let errorvaluecheckin = document.getElementById('errorvaluecheckin');
-        errorvaluecheckin.style.color = 'yellow';
-        errorvaluecheckin.innerText = `Заполните корректно данные`;
-        popupCheckin.classList.remove("modal-errorcheckin");
-        setTimeout(function () {
-            popupCheckin.classList.add("modal-errorcheckin");
-        }, 5);
-    }
-
-    checkinNameError(popupCheckin) {       //при не успешной проверке формы выброс ошибки
+    checkinError(evt, popupCheckin) {       //при не успешной проверке формы выброс ошибки
         window.navigator.vibrate(500);
         let errorvaluecheckin = document.getElementById('errorvaluecheckin');
         errorvaluecheckin.style.color = 'yellow';
-        errorvaluecheckin.innerText = `Такое имя уже занято введите другое`;
+        errorvaluecheckin.innerText = `Заполните корректно данные`;
+        evt.preventDefault();
         popupCheckin.classList.remove("modal-errorcheckin");
         setTimeout(function () {
             popupCheckin.classList.add("modal-errorcheckin");
@@ -283,7 +253,5 @@ export class AuthView {
             authWrapper.classList.remove("none");
         }, 200);
     }
-
 // РЕГИСТРАЦИЯ------------------------------------------------------------
 }
-

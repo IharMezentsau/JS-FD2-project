@@ -20,31 +20,22 @@ import {ErrorView} from "./ErrorView";
 import {ChanelController} from "./ChanelController";
 import {ChanelModel} from "./ChanelModel";
 import {ChanelView} from "./ChanelView";
-import {ChanelService} from "./ChanelService";
 
 export class Router {
     constructor(map, rootElement) {
-        $(window).on("beforeunload", function() {
-            return "Вы уверены, что хотите покинуть страницу?";
-        });
         this.map = map;
         this.rootElement = rootElement;
         this.data = {};
         new PubSubService().sub('onAuthUser', user => {
             this.data.user = user;
             // Для Андрея
-            location.hash = `channel`;
-            //location.hash = `dialog`;
+            //location.hash = `channel`;
+            location.hash = `dialog`;
         });
         // Для Андрея, когда активируешь канал вставишь в метод new PubSubService().pub('onEnterChannel', channel)
         new PubSubService().sub('onEnterChannel', channel => {
             this.data.channel = channel;
             location.hash = `dialog`;
-        });
-        // Для ВСЕХ, Вставить в свой код new PubSubService().pub('onError', error) и передать код нужной ошибки
-        new PubSubService().sub('onError', error => {
-            this.data.error = error;
-            location.hash = `error`;
         });
 
         // Подписаться на событие hashchange
@@ -88,41 +79,29 @@ new Router({
     },
     '#channel': {
         runController: (rootElement, data) => {
-            if (data.user === undefined)  {
-                new PubSubService().pub('onError', 401);
-            } else {
-                new ChanelController(
-                    new ChanelModel(data.user),
-                    new ChanelView(rootElement),
-										new ChanelService()
-                );
-            }
+            new ChanelController(
+                new ChanelModel(data.user),
+                new ChanelView(rootElement)
+            );
         }
     },
     '#dialog': {
         runController: (rootElement, data) => {
-            // Проверка авторизации
-            if (data.user === undefined)  {
-                new PubSubService().pub('onError', 401);
-            } /*else if (data.channel === undefined) {
-                location.hash = `channel`;
-            }*/ else {
-                new MessageController(
-                    new MessageModel(data),
-                    new MessageView(rootElement),
-                    new MessageService(),
-                );
-                new NameController(
-                    new NameModel(data),
-                    new NameView(rootElement),
-                );
-            }
+            new MessageController(
+                new MessageModel(data),
+                new MessageView(rootElement),
+                new MessageService(),
+            );
+            new NameController(
+                new NameModel(data),
+                new NameView(rootElement),
+            );
         }
     },
     '#error': {
         runController: (rootElement, data) => {
             new ErrorController(
-                new ErrorModel(data.error),
+                new ErrorModel(data),
                 new ErrorView(rootElement),
             );
         }

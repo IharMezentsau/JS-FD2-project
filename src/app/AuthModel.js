@@ -1,8 +1,7 @@
 export class AuthModel {
     constructor() {
         this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-        this.stringName = 'CHUPILIN_CHAT';
-        /*CHUPILIN_SITE_STORAGE*/
+        this.stringName = 'CHUPILIN_CHAT';/*CHUPILIN_SITE_STORAGE*/
         this.messages = {};
 
         this.getNameAuth();
@@ -55,42 +54,6 @@ export class AuthModel {
     }
 
     // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕР----------------------------------------------------------------------
-    // ПРОВЕРКА ЗАНЯТО ЛИ ТАКОЕ ИМЯ НА СЕРВЕРЕ----------------------------------------------------------
-
-    checkAuthorizationStorage(name, pass, passCheck, popupCheckin, view) {
-        $.ajax({
-                url: this.ajaxHandlerScript,
-                type: 'POST', dataType: 'json',
-                data: {f: 'READ', n: this.stringName},
-                cache: false,
-                success: callresult => this.checkReadReady(callresult, name, pass, passCheck, popupCheckin, view),
-                error: this.errorHandler
-            }
-        );
-    }
-
-    checkReadReady(callresult, name, pass, passCheck, popupCheckin, view) { // сообщения получены - показывает
-        if (callresult.error !== undefined)
-            console.log(callresult.error);
-        else {
-            if (callresult.result !== "") { // либо строка пустая - сообщений нет
-                // либо в строке - JSON-представление массива сообщений
-                this.messages = JSON.parse(callresult.result);
-            }
-            if (this.messages[name] !== undefined) {
-                view.checkinNameError(popupCheckin);
-            }
-            else if (!name || !pass || pass !== passCheck) {
-                view.checkinError(popupCheckin);
-            }
-            else {
-                this.sendAuthorization(name, pass);
-                view.checkinSuccess(name, popupCheckin);
-            }
-        }
-    }
-
-    // ПРОВЕРКА ЗАНЯТО ЛИ ТАКОЕ ИМЯ НА СЕРВЕРЕ----------------------------------------------------------
     // ЗАПИСЬ ДАННЫХ НА СЕРВЕР-----------------------------------------------------
 
     sendAuthorization(name, pass) {
