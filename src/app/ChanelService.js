@@ -5,12 +5,10 @@ export class ChanelService {
 
 	readReady(callresult, storage) { // сообщения получены - показывает
 		if (callresult.error !== undefined) {
-			console.error(callresult.error);
+			console.log(callresult.error);
 			return;
 		} else {
-			console.log(JSON.parse(callresult.result));
 			return storage = JSON.parse(callresult.result);
-			//console.log(storage);
 		}
 	}
 

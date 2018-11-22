@@ -1,8 +1,8 @@
+import {PubSubService} from "./PubSubService";
+
 export class ChanelModel {
 	constructor(user) {
 		this.ajaxHandlerScript = "http://fe.it-academy.by/AjaxStringStorage2.php";
-		//this.stringPerson = 'CHUPILIN_CHAT';
-		//this.stringPerson = 'CHUPILIN_DRINK_STORAGE';
 		this.stringPerson = 'CHUPILIN_CHAT';
 		this.stringChanel = 'CHANEL_STORAGE';
 		this.chanelTemp = undefined,
@@ -23,7 +23,6 @@ export class ChanelModel {
 				},
 				success : resolve,
 				error : reject
-				//error : this.errorHandler
 			})
 		})
 	}
@@ -43,15 +42,13 @@ export class ChanelModel {
 				},
 				success : resolve,
 				error : reject
-				//success : (a) => this.lockGetReady(a, storage, info),
-				//error : this.errorHandler
 			});
 		});
 	}
 
 	lockGetReady(callresult, storage, info) {
 		if ( callresult.error!=undefined )
-			console.error(callresult.error);
+			console.log(callresult.error);
 		else {
 			$.ajax( {
 				url : this.ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
@@ -64,11 +61,12 @@ export class ChanelModel {
 
 	updateReady(callresult) {
 		if (callresult.error !== undefined) {
-			console.error(callresult.error);
+			console.log(callresult.error);
 		}
 	}
 
-	errorHandler(jqXHR, statusStr, errorStr) {
-		console.error(statusStr + ' ' + errorStr);
+	errorHandler(error, textStatus, errorStr) {
+		new PubSubService().pub('onError', error.status);
+		console.log(textStatus + ' ' + errorStr);
 	}
 }
