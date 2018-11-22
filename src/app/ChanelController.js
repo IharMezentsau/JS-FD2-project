@@ -11,7 +11,7 @@ export class ChanelController {
 					return this.model.getStorage(this.model.stringPerson)
 				},
 				error => {
-					
+					new PubSubService().pub('onError', error.status);
 				}
 			)
 			.then(
@@ -22,7 +22,7 @@ export class ChanelController {
 					this.clickCreate (this.service, this.view, this.model, this.model.user);
 				},
 				error => {
-					
+					new PubSubService().pub('onError', error.status);
 				}
 			);
 	}
@@ -40,16 +40,16 @@ export class ChanelController {
 						model.lockGetReady(response, model.stringChanel, model.chanelTemp)
 						return model.storeInfo(model.stringPerson);
 					},
-				error => {
-					console.error(error);
-				})
+					error => {
+						new PubSubService().pub('onError', error.status);
+					})
 				.then(
 					response => {
 						model.lockGetReady(response, model.stringPerson, model.personTemp)
 						return model.getStorage(model.stringChanel);
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 				.then(
 					response => {
@@ -57,7 +57,7 @@ export class ChanelController {
 						return model.getStorage(model.stringPerson)
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 				.then(
 					response => {
@@ -66,7 +66,7 @@ export class ChanelController {
 						view.chanelList(model.personTemp, user);
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 			} else if (evt.target.classList.value.indexOf('channel-link') != -1) { // переход на канал
 				service.checkChannel(evt.target);
@@ -87,7 +87,7 @@ export class ChanelController {
 						return model.storeInfo(model.stringPerson);
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 				.then(
 					response => {
@@ -95,7 +95,7 @@ export class ChanelController {
 						return model.getStorage(model.stringChanel);
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 				.then(
 					response => {
@@ -103,7 +103,7 @@ export class ChanelController {
 						return model.getStorage(model.stringPerson)
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					})
 				.then(
 					response => {
@@ -112,7 +112,7 @@ export class ChanelController {
 						view.chanelList(model.personTemp, user);
 					},
 					error => {
-						console.error(error);
+						new PubSubService().pub('onError', error.status);
 					});
 		})
 	}
