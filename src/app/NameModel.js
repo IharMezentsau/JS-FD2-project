@@ -36,7 +36,7 @@ export class NameModel {
     }
 
     errorHandler(jqXHR, statusStr, errorStr) {
-        console.error(statusStr + ' ' + errorStr);
+        new PubSubService().pub('onError', 500);
     }
 }
 // ПОЛУЧЕНИЕ ДАННЫХ НА СЕРВЕРЕ----------------------------------------------------------------------
