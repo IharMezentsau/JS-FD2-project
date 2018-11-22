@@ -41,8 +41,9 @@ export class MessageModel {
                     if (!(this.dialog in messages)) messages[this.dialog] = []; // если канал активирован впервые
                     if (!this.messages) { // Проверка на отрисовку первых сообщений
                         this.messages = messages[this.dialog];
-                        if (messages[this.dialog].length > 5) { // вызов последних 5 элементов
-                            view.render(messages[this.dialog].slice(-5), this.user);
+                        let sizeMessages = 4;
+                        if (messages[this.dialog].length > sizeMessages) { // вызов последних 4 элементов
+                            view.render(messages[this.dialog].slice(-sizeMessages), this.user);
                         } else {
                             view.render(messages[this.dialog], this.user);
                         }
@@ -95,7 +96,7 @@ export class MessageModel {
             if (messages[this.dialog] === undefined) messages[this.dialog] = [];
 
             messages[this.dialog].push(this.message);
-            console.log(messages);
+
             $.ajax({
                     url: this.actionUrl,
                     type: 'POST', dataType: 'json',
@@ -116,6 +117,13 @@ export class MessageModel {
                 }
             );
         }
+    }
+
+    loadOldMessage(length, renderOldMessages) {
+        let endOldMessages = this.messages.length - length,
+            startOldMessages = endOldMessages - 4,
+            oldMessages = this.messages.slice(startOldMessages, endOldMessages);
+        if (oldMessages.length !== 0) renderOldMessages(oldMessages, this.user);
     }
 
 }

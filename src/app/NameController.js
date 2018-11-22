@@ -3,8 +3,6 @@ export class NameController {
         this.model = model;
         this.view = view;
         this.model.getAuthorizationStorage(view);
-        this.view.siteBarChannel();
-        this.view.channelName();
-        this.view.getSmile();
+        view.channelName();
     }
 }

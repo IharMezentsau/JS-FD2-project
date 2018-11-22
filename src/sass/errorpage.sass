@@ -1,4 +1,4 @@
-/*@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css")*/
+//@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css")
 
 @import url("https://fonts.googleapis.com/css?family=Anton")
 
@@ -10,10 +10,13 @@ body, html
 .main
   height: 100% !important
   Header
-    background: url("/img/orion.jpg") center center no-repeat
+    background: url('../img/orion.jpg') center center no-repeat
     background-size: cover
     min-height: 100%
     z-index: -9999
+    position: absolute
+    top: 0%
+    left: 0%
     &:before
       content: ''
       position: absolute
@@ -46,6 +49,9 @@ body, html
         font-size: 22px !important
         margin-top: -3px
     .hero
+      left: 20%
+      top: -30%
+      position: absolute
       font-family: 'Lato', sans-serif
       padding: 80px 0px
       h1
@@ -78,11 +84,12 @@ body, html
           transform: scale(1.03)
           color: rgba(255, 255, 255, 0.8)
           text-decoration: none
-      .astro img
+      .image img
         position: fixed
         top: 40%
+        left: 70%
         transform: translatey(0px)
-        animation: float 6s ease-in-out infinite
+        animation: float 5s ease-in-out infinite
 
 @media (max-width: 676px)
   .main header
@@ -99,7 +106,7 @@ body, html
         font-size: 12px
     .nav-link
       padding: 0.5rem 0.5rem
-    .astro
+    .image
       display: none
       img
         width: 120px
@@ -116,7 +123,6 @@ body, html
   100%
     transform: translatey(0px)
 
-
 @-webkit-keyframes float
   0%
     transform: translatey(0px)
@@ -127,7 +133,6 @@ body, html
   100%
     transform: translatey(0px)
 
-
 @-o-keyframes float
   0%
     transform: translatey(0px)
@@ -137,7 +142,6 @@ body, html
 
   100%
     transform: translatey(0px)
-
 
 @keyframes float
   0%
