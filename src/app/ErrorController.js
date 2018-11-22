@@ -4,15 +4,18 @@ export class ErrorController {
         this.model = model;
 
         this.view.initStars();
-        this.view.initCanvas();
+        //this.view.initCanvas();
         this.view.add_HTML_Data();
         this.view.setDimensions();
+        this.view.setErrorPage(this.model.getErrorCode());
 
         window.addEventListener('resize', this.view.setDimensions);
         //window.addEventListener('hashchange', this.view.updatePage);
 
-        setInterval(() => this.view.renderStars(), this.view.DRAW_INTERVAL);
+        this.errorInterval = setInterval(() => this.view.renderStars(), this.view.DRAW_INTERVAL);
 
-        this.view.setErrorPage(this.model.getErrorCode());
+        new PubSubService().sub('clearIntervalError', () => {
+            clearInterval(this.errorInterval);
+        });
     }
 }

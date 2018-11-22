@@ -1,15 +1,17 @@
 export class ErrorView {
-    constructor() {
+    constructor(root) {
         console.log('View constructor');
+        this.root = root;
+
         this.WIDTH = window.innerWidth;
         this.HEIGHT = window.innerHeight;
         this.MAX_PARTICLES = 60;
         this.DRAW_INTERVAL = 60;
         this.gradient = null;
         this.pixies = [];
-        this.container = document.querySelector('header');
-        this.canvas = document.querySelector('#star');
-        this.context = this.canvas.getContext('2d');
+        this.container = '';
+        this.canvas = '';
+        this.context = '';
     }
 
     addAudioStream() {
@@ -18,14 +20,15 @@ export class ErrorView {
     }
 
     add_HTML_Data() {
-        this.addAudioStream(); //добавление радио на страницу
-        document.getElementById('divMain').innerHTML = `
-        <div class="hero">
+        $(this.root).wrapAll("<header> </header>");
+
+        this.root.innerHTML = `
+        <div id="hero" class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
-                    <h1 id="nameError"></h1>
-                    <h2 id="errorText"></h2>
+                    <h1 id="nameError"> </h1>
+                    <h2 id="errorText"> </h2>
                     <a href="#" class="btn-back">Вернутся на землю</a>
                 </div>
                 <div class="col-sm-4">
@@ -36,6 +39,12 @@ export class ErrorView {
             </div>
         </div>
         </div>`;
+
+        $(this.root).prepend("<canvas id='star'> </canvas>");
+
+        this.container = document.querySelector('header');
+        this.canvas = document.querySelector('#star');
+        this.context = this.canvas.getContext('2d');
     }
 
     initStars() {
