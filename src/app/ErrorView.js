@@ -1,3 +1,5 @@
+import {PubSubService} from "./PubSubService";
+
 export class ErrorView {
     constructor(root) {
         console.log('View constructor');
@@ -12,11 +14,13 @@ export class ErrorView {
         this.container = '';
         this.canvas = '';
         this.context = '';
+
+        new PubSubService().sub('stopErrorAudio', () => this.audio.pause());
     }
 
     addAudioStream() {
-        var audio = new Audio('http://stream.hoster.by:8081/pilotfm/pilot/icecast.audio');
-        audio.play();
+        this.audio = new Audio('http://stream.hoster.by:8081/pilotfm/pilot/icecast.audio');
+        this.audio.play();
     }
 
     add_HTML_Data() {
@@ -30,7 +34,7 @@ export class ErrorView {
                 <div>
                     <h1 id="nameError"> </h1>
                     <h2 id="errorText"> </h2>
-                    <a href="#auth" onclick="hrefAction()" class="btn-back">Вернутся на землю</a>
+                    <a id="hrefAction" href="#auth" onclick="this.hrefAction(e)" class="btn-back">Вернутся на землю</a>
                 </div>
                 <div>
                     <div class="image">
@@ -47,9 +51,10 @@ export class ErrorView {
         this.context = this.canvas.getContext('2d');
     }
 
-    hrefAction(){
+    hrefAction(e){
         console.log('location change');
-        window.location='#auth';
+        e.preventDefault();
+        document.location.hash = 'auth';
     }
 
     initStars() {
