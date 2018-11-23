@@ -141,10 +141,9 @@ export class ErrorView {
             }
             case "#ieError": {
                 console.log("browser = ie");
-                nameError.innerText = "WARNING";
+                nameError.innerText = "IE(";
                 errorText.innerText = "Боже мой, у вас IE! Выкиньте свое устройство или используйте нормальный браузер! Приложение работает в IE))";
-                imageError.src = "./img/500ie.png";
-
+                imageError.src = "./img/500ei.png";
                 break;
             }
             default : {
