@@ -20,6 +20,9 @@ export class ErrorView {
     }
 
     add_HTML_Data() {
+
+        this.addAudioStream();
+
         this.root.innerHTML = `<header class="headerStas"><canvas id='star'> </canvas>
         <div id="hero" class="hero">
         <div class="container">
@@ -27,7 +30,7 @@ export class ErrorView {
                 <div>
                     <h1 id="nameError"> </h1>
                     <h2 id="errorText"> </h2>
-                    <a href="#auth" class="btn-back">Вернутся на землю</a>
+                    <a href="#auth" onclick="hrefAction()" class="btn-back">Вернутся на землю</a>
                 </div>
                 <div>
                     <div class="image">
@@ -42,6 +45,11 @@ export class ErrorView {
         this.container = document.querySelector('header');
         this.canvas = document.querySelector('#star');
         this.context = this.canvas.getContext('2d');
+    }
+
+    hrefAction(){
+        console.log('location change');
+        window.location='#auth';
     }
 
     initStars() {
@@ -122,12 +130,20 @@ export class ErrorView {
 
                 break;
             }
+            case "#error": {
+                console.log("error");
+                nameError.innerText = "???";
+                errorText.innerText = "Спросить у сына маминой подруги что не так, он разбирается!";
+
+                imageError.src = "./img/errorUn.png";
+
+                break;
+            }
             case "#ieError": {
                 console.log("browser = ie");
                 nameError.innerText = "WARNING";
                 errorText.innerText = "Боже мой, у вас IE! Выкиньте свое устройство или используйте нормальный браузер! Приложение работает в IE))";
-
-                imageError.src = "./img/500.png";
+                imageError.src = "./img/500ie.png";
 
                 break;
             }
@@ -135,6 +151,7 @@ export class ErrorView {
                 console.log("200");
                 nameError.innerText = "200";
                 errorText.innerText = "Похоже, у вас все хорошо! Желаем получить сертификаты ;)";
+                imageError.src = "./img/200.png";
                 break;
             }
         }
