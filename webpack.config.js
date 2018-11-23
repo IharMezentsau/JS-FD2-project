@@ -3,7 +3,8 @@ const path = require('path'),
     webpack = require("webpack"),
     autoprefixer = require("autoprefixer"),
     ImageminPlugin = require('imagemin-webpack-plugin').default,
-    HtmlWebpackPlugin = require('html-webpack-plugin');
+		HtmlWebpackPlugin = require('html-webpack-plugin'),
+		MinifyPlugin = require("babel-minify-webpack-plugin");
 
 let isProduction = (process.env.NODE_ENV === 'production');
 
@@ -116,7 +117,10 @@ let conf = {
             new webpack.LoaderOptionsPlugin({
                 minimize: true
             })
-            : false
+						: false,
+				isProduction ?
+            new MinifyPlugin()
+						: false,
     ].filter(Boolean)
 };
 
