@@ -70,6 +70,7 @@ export class Router {
     _route(route) {
         const settings = this.map[route];
         if (settings) {
+            new PubSubService().pub('stopErrorAudio');
             this.rootElement.innerHTML = '';
             // запустить контроллер страницы,
             // которая соответствует адресу,
@@ -96,7 +97,8 @@ export class Router {
 
 new Router({
     '#auth': {
-        runController: rootElement => {
+        runController: (rootElement, data) => {
+            if (data.user) document.location.hash = '#channel';
             new AuthController(
                 new AuthModel(),
                 new AuthView(rootElement),

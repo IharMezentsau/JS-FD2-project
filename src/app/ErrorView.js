@@ -14,8 +14,6 @@ export class ErrorView {
         this.container = '';
         this.canvas = '';
         this.context = '';
-
-        new PubSubService().sub('stopErrorAudio', () => this.audio.pause());
     }
 
     addAudioStream() {
@@ -26,7 +24,7 @@ export class ErrorView {
     add_HTML_Data() {
 
         this.addAudioStream();
-
+        new PubSubService().sub('stopErrorAudio', () => this.audio.pause());
         this.root.innerHTML = `<header class="headerStas"><canvas id='star'> </canvas>
         <div id="hero" class="hero">
         <div class="container">
@@ -34,7 +32,6 @@ export class ErrorView {
                 <div>
                     <h1 id="nameError"> </h1>
                     <h2 id="errorText"> </h2>
-                    <a id="hrefAction" href="#auth" onclick="this.hrefAction(e)" class="btn-back">Вернутся на землю</a>
                 </div>
                 <div>
                     <div class="image">
@@ -49,12 +46,6 @@ export class ErrorView {
         this.container = document.querySelector('header');
         this.canvas = document.querySelector('#star');
         this.context = this.canvas.getContext('2d');
-    }
-
-    hrefAction(e){
-        console.log('location change');
-        e.preventDefault();
-        document.location.hash = 'auth';
     }
 
     initStars() {
