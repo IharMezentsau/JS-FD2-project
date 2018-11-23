@@ -20,27 +20,24 @@ export class ErrorView {
     }
 
     add_HTML_Data() {
-        $(this.root).wrapAll("<header id='stasHeader'> </header>");
-
-        this.root.innerHTML = `
+        this.root.innerHTML = `<header class="headerStas"><canvas id='star'> </canvas>
         <div id="hero" class="hero">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8">
+                <div>
                     <h1 id="nameError"> </h1>
                     <h2 id="errorText"> </h2>
                     <a href="#auth" class="btn-back">Вернутся на землю</a>
                 </div>
-                <div class="col-sm-4">
+                <div>
                     <div class="image">
                         <img id="imageError" src="#" alt="ImageError">
                     </div>
                 </div>
             </div>
         </div>
-        </div>`;
-
-        $(this.root).prepend("<canvas id='star'> </canvas>");
+        </div>
+        </header>`;
 
         this.container = document.querySelector('header');
         this.canvas = document.querySelector('#star');

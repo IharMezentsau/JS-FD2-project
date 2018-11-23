@@ -1,22 +1,14 @@
-//@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css")
-
 @import url("https://fonts.googleapis.com/css?family=Anton")
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
 
-body
-  height: 100% !important
-
 .main
   height: 100% !important
-  header #stasHeader
+  .headerStas
     background: url('../img/orion.jpg') center center no-repeat
     background-size: cover
     min-height: 100%
     z-index: -9999
-    position: absolute
-    top: 0%
-    left: 0%
     &:before
       content: ''
       position: absolute
@@ -88,7 +80,7 @@ body
         top: 40%
         left: 70%
         transform: translatey(0px)
-        animation: float 5s ease-in-out infinite
+        animation: float 6s ease-in-out infinite
 
 @media (max-width: 676px)
   .main header
@@ -105,7 +97,7 @@ body
         font-size: 12px
     .nav-link
       padding: 0.5rem 0.5rem
-    .image
+    .astro
       display: none
       img
         width: 120px
@@ -122,6 +114,7 @@ body
   100%
     transform: translatey(0px)
 
+
 @-webkit-keyframes float
   0%
     transform: translatey(0px)
@@ -132,6 +125,7 @@ body
   100%
     transform: translatey(0px)
 
+
 @-o-keyframes float
   0%
     transform: translatey(0px)
@@ -141,6 +135,7 @@ body
 
   100%
     transform: translatey(0px)
+
 
 @keyframes float
   0%
