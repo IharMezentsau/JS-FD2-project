@@ -66,7 +66,12 @@ export class ChanelModel {
 	}
 
 	errorHandler(error, textStatus, errorStr) {
-		new PubSubService().pub('onError', error.status);
+		if (error.status == 0) {
+			new PubSubService().pub('onError', 400);
+		} else {
+			new PubSubService().pub('onError', 500);
+		}
+		
 		console.log(textStatus + ' ' + errorStr);
 	}
 }
