@@ -1,1 +1,1 @@
-web: npm run startProduction
+web: node server.js
