@@ -2,7 +2,7 @@ export class ErrorView {
     constructor(root) {
         console.log('View constructor');
         this.root = root;
-
+				this.element = null;
         this.WIDTH = window.innerWidth;
         this.HEIGHT = window.innerHeight;
         this.MAX_PARTICLES = 60;
@@ -20,31 +20,32 @@ export class ErrorView {
     }
 
     add_HTML_Data() {
-        $(this.root).wrapAll("<header id='stasHeader'> </header>");
-
-        this.root.innerHTML = `
-        <div id="hero" class="hero">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <h1 id="nameError"> </h1>
-                    <h2 id="errorText"> </h2>
-                    <a href="#auth" class="btn-back">Вернутся на землю</a>
-                </div>
-                <div class="col-sm-4">
-                    <div class="image">
-                        <img id="imageError" src="#" alt="ImageError">
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>`;
-
-        $(this.root).prepend("<canvas id='star'> </canvas>");
+			if (!this.element) {
+				this.root.innerHTML = `
+				<header id='stasHeader'>
+					<div id="hero" class="hero">
+						<div class="container">
+								<div class="row">
+										<div class="col-sm-8">
+												<h1 id="nameError"> </h1>
+												<h2 id="errorText"> </h2>
+												<a href="#auth" class="btn-back">Вернутся на землю</a>
+										</div>
+										<div class="col-sm-4">
+												<div class="image">
+														<img id="imageError" src="#" alt="ImageError">
+												</div>
+										</div>
+								</div>
+						</div>
+					</div>
+				</header>`;
+				$("#stasHeader").prepend("<canvas id='star'> </canvas>");
 
         this.container = document.querySelector('header');
         this.canvas = document.querySelector('#star');
         this.context = this.canvas.getContext('2d');
+			}  
     }
 
     initStars() {
