@@ -137,4 +137,4 @@ new Router({
             );
         }
     },
-}, document.getElementById('divMain')).navigateTo('#error');
+}, document.getElementById('divMain')).navigateTo('#auth');
