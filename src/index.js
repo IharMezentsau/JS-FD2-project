@@ -33,6 +33,12 @@ import ErrorView from "./app/ErrorView";
 import newMessage from './audio/newMessage.mp3';
 import androidDesktop from './img/android-desktop.png';
 import user from './img/user.jpg';
+import e200 from './img/200.png';
+import e401 from './img/401.png';
+import e403 from './img/403.png';
+import e404 from './img/404.png';
+import e500 from './img/500.png';
+import e500ie from './img/500ei.png';
 //Favicon
 import favicon from './img/favicon.png';
 import iosDesktop from './img/ios-desktop.png';
