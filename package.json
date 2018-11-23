@@ -8,7 +8,7 @@
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode development",
     "start": "webpack-dev-server --mode development --hot --open",
-    "startProduction": "node server.js"
+    "startProduction": "npm i node server.js"
   },
   "author": "",
   "license": "ISC",
