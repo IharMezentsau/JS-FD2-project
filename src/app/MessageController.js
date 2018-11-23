@@ -77,8 +77,9 @@ export class MessageController {
     }
 
     loadOldMessages(e) {
-        if ($(e.target).children('ul').offset().top === $(this.view.listMessages).parent().offset().top) {
-            this.model.loadOldMessage($(this.view.listMessages).children('li').length,
+        if ($(e.target).children('ul').children('li').length < 5) return;
+        if ($(e.target).children('ul').offset().top >= $(this.view.listMessages).parent().offset().top) {
+          this.model.loadOldMessage($(this.view.listMessages).children('li').length,
                 this.view.renderOldMessages.bind(this.view));
         }
     }
