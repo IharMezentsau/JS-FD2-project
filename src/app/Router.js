@@ -79,6 +79,13 @@ export class Router {
     }
 
     navigateTo(route, data) {
+        if (navigator.appName === 'Microsoft Internet Explorer' ||
+            !!(navigator.userAgent.match(/Trident/) ||
+                navigator.userAgent.match(/rv:11/)) ||
+            (typeof $.browser !== "undefined" && $.browser.msie === 1)) {
+            route = '#error';
+            this.data.error = 'ieError';
+        };
         // Выполнить начальную навигацию на адрес по умолчанию
         if (document.location.hash === route && this.loaded) return;
         this._route(route);
