@@ -1,3 +1,4 @@
+import Promise from "promise-polyfill";
 import {PubSubService} from "./PubSubService";
 
 export class ChanelModel {
