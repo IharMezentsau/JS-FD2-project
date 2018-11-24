@@ -31,9 +31,9 @@ export class ChanelController {
 		let list = document.getElementById('chanel-list');
 		list.addEventListener("click", function(evt) {
 			evt.preventDefault();
-			console.log(evt.target);
-			if ((evt.target.classList.value.indexOf('delete') != -1)||(evt.target.parentElement.classList.value.indexOf('delete') != -1)) { // удаление канала
-				service.delChanel((evt.target.classList.value.indexOf('delete') != -1)?evt.target:evt.target.parentElement, model.chanelTemp, model.personTemp, user);
+			console.log(evt.target.getAttribute('class'));
+			if ((evt.target.getAttribute('class').indexOf('delete') != -1)||(evt.target.parentElement.getAttribute('class').indexOf('delete') != -1)) { // удаление канала
+				service.delChanel((evt.target.getAttribute('class').indexOf('delete') != -1)?evt.target:evt.target.parentElement, model.chanelTemp, model.personTemp, user);
 				view.disableButton();
 				model.storeInfo(model.stringChanel)
 				.then(
@@ -69,7 +69,7 @@ export class ChanelController {
 					(error, textStatus, errorStr) => {
 						model.errorHandler(error, textStatus, errorStr);
 					})
-			} else if (evt.target.classList.value.indexOf('channel-link') != -1) { // переход на канал
+			} else if (evt.target.getAttribute('class').indexOf('channel-link') != -1) { // переход на канал
 				service.checkChannel(evt.target);
 			}
 		})

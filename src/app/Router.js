@@ -56,7 +56,7 @@ export class Router {
     }
 
     onhashchange(e) {
-        let activeHash = document.location.hash;
+        let activeHash = window.location.hash;
         // Отрисовать страницу для нового адреса
         new PubSubService().pub('clearIntervalMessages');
         new PubSubService().pub('clearIntervalError');
@@ -80,17 +80,17 @@ export class Router {
     }
 
     navigateTo(route, data) {
-        if (navigator.appName === 'Microsoft Internet Explorer' ||
+        /*if (navigator.appName === 'Microsoft Internet Explorer' ||
             !!(navigator.userAgent.match(/Trident/) ||
                 navigator.userAgent.match(/rv:11/)) ||
             (typeof $.browser !== "undefined" && $.browser.msie === 1)) {
             route = '#error';
             this.data.error = 'ieError';
-        };
+        };*/
         // Выполнить начальную навигацию на адрес по умолчанию
-        if (document.location.hash === route && this.loaded) return;
+        if (window.location.hash === route && this.loaded) return;
         this._route(route);
-        document.location.hash = route;
+        window.location.hash = route;
         this.loaded = true;
     }
 }
@@ -98,7 +98,7 @@ export class Router {
 new Router({
     '#auth': {
         runController: (rootElement, data) => {
-            if (data.user) document.location.hash = '#channel';
+            if (data.user) window.location.hash = '#channel';
             new AuthController(
                 new AuthModel(),
                 new AuthView(rootElement),
