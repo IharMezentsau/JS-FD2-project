@@ -292,7 +292,7 @@ export class MessageView {
 
 
     stopPlayNewMessage() {
-        window.navigator.vibrate(500);
+        if ('vibrate' in window.navigator) window.navigator.vibrate(500);
         let a =  new Audio('./audio/newMessage.mp3');
         a.onended = () => {
             a.pause();

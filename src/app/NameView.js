@@ -88,9 +88,9 @@ export class NameView {
     }
 
     clearLocalStorage() {
-        this.name = localStorage['authName'];
-        if(this.name === localStorage['authName']) {
+        //this.name = localStorage['authName'];
+        /*if(this.name === localStorage['authName']) {
             localStorage.clear();
-        }
+        }*/
     }
 }
